@@ -14,6 +14,15 @@ config/name="Gladiator"
 run/main_scene="uid://cx8imt3qlaay8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+boot_splash/stretch/aspect="keep"
+boot_splash/stretch/mode="disabled"
+boot_splash/size/viewport_height=648
+boot_splash/size/viewport_width=1152
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [dotnet]
 

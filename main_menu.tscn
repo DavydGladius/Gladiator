@@ -2,39 +2,46 @@
 
 [ext_resource type="Script" uid="uid://l2cvnr2pxmkl" path="res://main_menu.gd" id="1_06t4h"]
 
-[node name="MainMenu" type="Node2D" unique_id=1367223021]
+[node name="MainMenu" type="Control" unique_id=1198453827]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_06t4h")
 
-[node name="Button_manager" type="Control" parent="." unique_id=623323876]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Button_manager" type="VBoxContainer" parent="." unique_id=2106817055]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Start" type="Button" parent="Button_manager" unique_id=553682856]
-layout_mode = 0
-offset_left = 519.0
-offset_top = 237.0
-offset_right = 571.0
-offset_bottom = 268.0
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
 text = "Start
 "
 
 [node name="Settings" type="Button" parent="Button_manager" unique_id=1129542298]
-layout_mode = 0
-offset_left = 511.0
-offset_top = 275.0
-offset_right = 581.0
-offset_bottom = 306.0
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
 text = "Settings
 "
 
 [node name="Exit" type="Button" parent="Button_manager" unique_id=1253212534]
-layout_mode = 0
-offset_left = 518.0
-offset_top = 315.0
-offset_right = 575.0
-offset_bottom = 348.0
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
 text = "Exit
 "
 
