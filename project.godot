@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Gladiator"
-run/main_scene="uid://q5wkhw64jxms"
+run/main_scene="uid://cx8imt3qlaay8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
