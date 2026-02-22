@@ -3,10 +3,6 @@
 [ext_resource type="Script" uid="uid://41kcurmr2854" path="res://Player/Player.gd" id="1_l8h54"]
 [ext_resource type="Texture2D" uid="uid://d1ukout7sfdk4" path="res://assets/sprites/mc/mc_sprite_.png" id="2_4ntmi"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ntmi"]
-radius = 7.0
-height = 20.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_btcbx"]
 atlas = ExtResource("2_4ntmi")
 region = Rect2(0, 72, 16, 24)
@@ -112,7 +108,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"hurt_hit",
-"speed": 7.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -129,7 +125,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 6.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -153,11 +149,9 @@ animations = [{
 motion_mode = 1
 script = ExtResource("1_l8h54")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293680804]
-position = Vector2(0, 3)
-shape = SubResource("CapsuleShape2D_4ntmi")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1796889657]
 sprite_frames = SubResource("SpriteFrames_n471f")
-animation = &"walk"
-frame_progress = 0.10813325
+animation = &"die"
+frame_progress = 0.10603397
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293680804]
