@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://q5wkhw64jxms"]
 
-[ext_resource type="PackedScene" uid="uid://b58nylm61ilk6" path="res://Player/player.tscn" id="1_62w18"]
-[ext_resource type="Texture2D" uid="uid://csqkd7bq2a4ia" path="res://assets/sprites/Tile_set.png" id="2_8a836"]
-[ext_resource type="AudioStream" uid="uid://sq4474mfi0rs" path="res://Music/Main_Game_music.mp3" id="3_j8job"]
+[ext_resource type="PackedScene" uid="uid://b58nylm61ilk6" path="res://Player/player.tscn" id="1_5a7ea"]
+[ext_resource type="Texture2D" uid="uid://csqkd7bq2a4ia" path="res://assets/sprites/Tile_set.png" id="2_8j60k"]
+[ext_resource type="AudioStream" uid="uid://sq4474mfi0rs" path="res://assets/music/Main_Game_music.mp3" id="3_fo5ed"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j8job"]
-texture = ExtResource("2_8a836")
+texture = ExtResource("2_8j60k")
 0:4/0 = 0
 1:4/0 = 0
 2:4/0 = 0
@@ -885,7 +885,7 @@ sources/0 = SubResource("TileSetAtlasSource_j8job")
 
 [node name="World" type="Node2D" unique_id=1100636974]
 
-[node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_62w18")]
+[node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_5a7ea")]
 z_index = 3
 position = Vector2(547, 311)
 
@@ -900,7 +900,7 @@ tile_map_data = PackedByteArray("AAAqABkAAAAAAAQAAAAqABoAAAAAAAUAAAAqABsAAAAAAAc
 tile_set = SubResource("TileSet_3f78f")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=296983276]
-stream = ExtResource("3_j8job")
+stream = ExtResource("3_fo5ed")
 volume_db = -10.0
 autoplay = true
 parameters/looping = true
