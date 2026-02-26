@@ -28,6 +28,10 @@ window/size/viewport_height=720
 
 project/assembly_name="Gladiator"
 
+[global_group]
+
+player=""
+
 [input]
 
 up={

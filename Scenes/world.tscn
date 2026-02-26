@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://q5wkhw64jxms"]
 
 [ext_resource type="PackedScene" uid="uid://b58nylm61ilk6" path="res://Player/player.tscn" id="1_5a7ea"]
+[ext_resource type="PackedScene" uid="uid://8s0wms60fk2" path="res://Enemy/enemy.tscn" id="1_8j60k"]
 [ext_resource type="Texture2D" uid="uid://csqkd7bq2a4ia" path="res://assets/sprites/Tile_set.png" id="2_8j60k"]
 [ext_resource type="AudioStream" uid="uid://sq4474mfi0rs" path="res://assets/music/Main_Game_music.mp3" id="3_fo5ed"]
 
@@ -884,6 +885,10 @@ texture = ExtResource("2_8j60k")
 sources/0 = SubResource("TileSetAtlasSource_j8job")
 
 [node name="World" type="Node2D" unique_id=1100636974]
+
+[node name="Enemy" parent="." unique_id=559718794 instance=ExtResource("1_8j60k")]
+z_index = 3
+position = Vector2(673, 127)
 
 [node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_5a7ea")]
 z_index = 3
