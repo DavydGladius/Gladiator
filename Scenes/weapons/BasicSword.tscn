@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ceqtca5e8gumv"]
+
+[ext_resource type="Script" uid="uid://dhd0n0ojo18of" path="res://scripts/weapons/basic_sword.gd" id="1_5n2e2"]
+[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="2_wrvdq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7moh5"]
+radius = 14.0
+
+[node name="BasicSword" type="Node2D" unique_id=1921500197]
+script = ExtResource("1_5n2e2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1896137862]
+position = Vector2(4, -4)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_wrvdq")
+region_enabled = true
+region_rect = Rect2(64, 0, 16, 16)
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=1408294184]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1758655881]
+position = Vector2(10, -12)
+shape = SubResource("CircleShape2D_7moh5")

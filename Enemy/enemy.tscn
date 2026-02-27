@@ -64,7 +64,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ht3ht")
 }],
-"loop": true,
+"loop": false,
 "name": &"die",
 "speed": 5.0
 }, {
@@ -75,7 +75,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1w3kn")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt_hit",
 "speed": 5.0
 }, {
@@ -107,9 +107,14 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_am0pq"]
 radius = 6.0
-height = 20.0
+height = 22.0
 
-[node name="Enemy" type="CharacterBody2D" unique_id=559718794]
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqilm"]
+radius = 13.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=559718794 groups=["enemy"]]
+collision_layer = 2
+collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_px1sc")
 movement_speed = 25.0
@@ -117,9 +122,15 @@ movement_speed = 25.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=359093714]
 sprite_frames = SubResource("SpriteFrames_nmr1a")
 animation = &"hurt_hit"
-frame = 1
-frame_progress = 0.9852339
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1305456521]
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_am0pq")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=384651584]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=2001673770]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_eqilm")

@@ -888,7 +888,7 @@ sources/0 = SubResource("TileSetAtlasSource_j8job")
 
 [node name="Enemy" parent="." unique_id=559718794 instance=ExtResource("1_8j60k")]
 z_index = 3
-position = Vector2(673, 127)
+position = Vector2(623, 277)
 
 [node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_5a7ea")]
 z_index = 3
