@@ -18,14 +18,14 @@
 -->
 
 ## 📌 Table of Contents
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Tech Stack](#-tech-stack)
-- [How to Play](#-how-to-play)
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [How to Play](#how-to-play)
 
 ---
 
-## 🌟 Overview
+## <a id="overview"></a>🌟 Overview
 
 **GladiatorGame** merges dungeon-crawling elements with survival mechanics. The core gameplay loop focuses on mechanical simplicity and strategic movement within a constrained environment.
 
@@ -35,7 +35,7 @@
 
 ---
 
-## ✨ Key Features
+## <a id="key-features"></a>✨ Key Features
 
 Gladiator is designed with a focus on user efficiency and professional output. By utilizing its core processing engine, users can expect the following benefits:
 
@@ -45,7 +45,7 @@ Gladiator is designed with a focus on user efficiency and professional output. B
 
 ---
 
-## 🛠️ Tech Stack
+## <a id="tech-stack"></a>🛠️ Tech Stack
 
 Gladiator utilizes a robust, game-engine-inspired stack to handle the complex task of repository parsing and README synthesis.
 
@@ -56,7 +56,7 @@ Gladiator utilizes a robust, game-engine-inspired stack to handle the complex ta
 
 ---
 
-## 🎮 How to Play
+## <a id="how-to-play"></a>🎮 How to Play
 
 ### Installation & Running
 1.  Navigate to the [Releases](https://github.com/DavydGladius/Gladiator/releases) page.
