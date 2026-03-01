@@ -28,6 +28,10 @@ window/size/viewport_height=720
 
 project/assembly_name="Gladiator"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [global_group]
 
 player=""
