@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://8s0wms60fk2" path="res://Enemy/enemy.tscn" id="1_8j60k"]
 [ext_resource type="Texture2D" uid="uid://csqkd7bq2a4ia" path="res://assets/sprites/Tile_set.png" id="2_8j60k"]
 [ext_resource type="AudioStream" uid="uid://sq4474mfi0rs" path="res://assets/music/Main_Game_music.mp3" id="3_fo5ed"]
+[ext_resource type="PackedScene" uid="uid://dwcdhfo5l11ky" path="res://pause_menu.tscn" id="5_fo5ed"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8j60k"]
 texture = ExtResource("2_8j60k")
@@ -121,3 +122,7 @@ stream = ExtResource("3_fo5ed")
 volume_db = -10.0
 autoplay = true
 parameters/looping = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=368249502]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1387866459 instance=ExtResource("5_fo5ed")]

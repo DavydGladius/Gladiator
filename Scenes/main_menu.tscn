@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://l2cvnr2pxmkl" path="res://scripts/ui/main_menu.gd" id="1_06t4h"]
 
-
 [node name="MainMenu" type="Control" unique_id=1198453827]
 layout_mode = 3
 anchors_preset = 15
