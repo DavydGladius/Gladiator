@@ -1,7 +1,7 @@
 extends Entity
 
 @onready var attack_area: Area2D = $AttackArea
-@export var contact_damage: int = 10
+@export var contact_damage: float = 10.0
 @export var attack_cooldown_time: float = 1.0
 
 var can_attack: bool = true

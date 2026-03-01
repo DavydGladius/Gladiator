@@ -3,7 +3,7 @@ extends Node2D
 @onready var player_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var attack_area: Area2D = $AttackArea
 
-@export var damage: int = 25
+@export var damage: float = 25.0
 @export var base_x: float = 6.0   
 @export var base_y: float = 7.0      
 @export var idle_offset: float = 1.5 

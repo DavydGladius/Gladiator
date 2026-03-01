@@ -2,14 +2,18 @@ extends CharacterBody2D
 class_name Entity
 
 @export var movement_speed: float = 100.0
-@export var max_health: int = 100
+@export var max_health: float = 100.0
 @onready var animations: AnimatedSprite2D = $AnimatedSprite2D
+@onready var healthBar = get_node("%HealthBar")
 
-var current_health: int
+var current_health: float
 var is_dead: bool = false
 
 func _ready():
 	current_health = max_health
+	
+	healthBar.max_value = max_health
+
 
 func handle_movement(direction: Vector2):
 	if is_dead: return # Jei miręs, nebejuda
@@ -29,9 +33,10 @@ func update_animations(direction: Vector2):
 	else:
 		animations.play("idle")
 
-func take_damage(amount: int):
+func take_damage(amount: float):
 	if is_dead: return
 	current_health -= amount
+	healthBar.value = current_health
 	print("Enemy hit! Health left: ", current_health) # PO TO PASALINTI
 	
 	if current_health <= 0:

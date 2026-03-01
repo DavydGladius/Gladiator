@@ -3,13 +3,13 @@
 
 <p align="center">
   <a href="https://godotengine.org">
-    <img src="https://img.shields.io/badge/Godot-4.x-%23478cbf?logo=godot-engine&logoColor=white" alt="Godot Engine">
+	<img src="https://img.shields.io/badge/Godot-4.x-%23478cbf?logo=godot-engine&logoColor=white" alt="Godot Engine">
   </a>
   <a href="https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html">
-    <img src="https://img.shields.io/badge/Language-GDScript-%23355570" alt="Language">
+	<img src="https://img.shields.io/badge/Language-GDScript-%23355570" alt="Language">
   </a>
   <a href="https://github.com/DavydGladius/Gladiator/releases">
-    <img src="https://img.shields.io/badge/Platform-Windows-blue?logo=windows" alt="Platform">
+	<img src="https://img.shields.io/badge/Platform-Windows-blue?logo=windows" alt="Platform">
   </a>
 </p>
   <!-- 
