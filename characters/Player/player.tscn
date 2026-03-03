@@ -1,76 +1,76 @@
 [gd_scene format=3 uid="uid://b58nylm61ilk6"]
 
-[ext_resource type="Script" uid="uid://41kcurmr2854" path="res://scripts/player/Player.gd" id="1_l8h54"]
-[ext_resource type="Texture2D" uid="uid://d1ukout7sfdk4" path="res://assets/sprites/mc/mc_sprite_.png" id="2_4ntmi"]
-[ext_resource type="PackedScene" uid="uid://ceqtca5e8gumv" path="res://Scenes/weapons/BasicSword.tscn" id="3_btcbx"]
-[ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="4_gwnis"]
+[ext_resource type="Script" uid="uid://41kcurmr2854" path="res://scripts/player/Player.gd" id="1_yrol7"]
+[ext_resource type="Texture2D" uid="uid://d1ukout7sfdk4" path="res://assets/sprites/mc/mc_sprite_.png" id="2_b405y"]
+[ext_resource type="PackedScene" uid="uid://ceqtca5e8gumv" path="res://characters/weapons/BasicSword.tscn" id="3_pdv5a"]
+[ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="4_kidiw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btcbx"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(0, 72, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gwnis"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(16, 72, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k53q1"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(32, 72, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fhl08"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(48, 72, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vtle1"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(0, 504, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_od3ui"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(16, 504, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00tjw"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(32, 504, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x3vf3"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(48, 504, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_apopc"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(64, 504, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5htga"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(0, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5o4e"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(16, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gu6f8"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(32, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dkpta"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(48, 0, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lfmf2"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(0, 24, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pisgm"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(16, 24, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1ygp"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(32, 24, 16, 24)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o28un"]
-atlas = ExtResource("2_4ntmi")
+atlas = ExtResource("2_b405y")
 region = Rect2(48, 24, 16, 24)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n471f"]
@@ -155,7 +155,7 @@ height = 16.0
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
-script = ExtResource("1_l8h54")
+script = ExtResource("1_yrol7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1796889657]
 sprite_frames = SubResource("SpriteFrames_n471f")
@@ -165,7 +165,7 @@ animation = &"die"
 position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_4ntmi")
 
-[node name="BasicSword" parent="." unique_id=1921500197 instance=ExtResource("3_btcbx")]
+[node name="BasicSword" parent="." unique_id=1921500197 instance=ExtResource("3_pdv5a")]
 position = Vector2(6.0000005, 9.000001)
 rotation = -0.43633235
 scale = Vector2(0.99999994, 0.99999994)
@@ -190,4 +190,4 @@ offset_right = 102.0
 offset_bottom = 15.0
 scale = Vector2(0.3, 0.3)
 value = 100.0
-texture_progress = ExtResource("4_gwnis")
+texture_progress = ExtResource("4_kidiw")

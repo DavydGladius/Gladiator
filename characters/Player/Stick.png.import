@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxbvelrl526s7"
-path="res://.godot/imported/Stick.png-2f8ccfa9f2b7c7ae1ed9099a53926946.ctex"
+path="res://.godot/imported/Stick.png-dd73a9127ad0626e5c0ba0a67bcbc0e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Stick.png"
-dest_files=["res://.godot/imported/Stick.png-2f8ccfa9f2b7c7ae1ed9099a53926946.ctex"]
+source_file="res://characters/Player/Stick.png"
+dest_files=["res://.godot/imported/Stick.png-dd73a9127ad0626e5c0ba0a67bcbc0e2.ctex"]
 
 [params]
 

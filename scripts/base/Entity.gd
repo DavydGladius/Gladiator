@@ -1,28 +1,31 @@
 extends CharacterBody2D
 class_name Entity
 
+signal died
+
 @export var movement_speed: float = 100.0
 @export var max_health: float = 100.0
-@onready var animations: AnimatedSprite2D = $AnimatedSprite2D
-@onready var healthBar = get_node("%HealthBar")
+
+@onready var animations = get_node_or_null("AnimatedSprite2D")
+@onready var health_bar = get_node_or_null("%HealthBar")
 
 var current_health: float
 var is_dead: bool = false
 
 func _ready():
 	current_health = max_health
-	
-	healthBar.max_value = max_health
-
+	if health_bar:
+		health_bar.max_value = max_health
+		health_bar.value = current_health
 
 func handle_movement(direction: Vector2):
-	if is_dead: return # Jei miręs, nebejuda
+	if is_dead: return
 	velocity = direction * movement_speed
 	move_and_slide()
 	update_animations(direction)
 
 func update_animations(direction: Vector2):
-	if is_dead: return
+	if not animations: return
 	
 	if animations.animation == "hurt_hit" and animations.is_playing():
 		return
@@ -36,26 +39,16 @@ func update_animations(direction: Vector2):
 func take_damage(amount: float):
 	if is_dead: return
 	current_health -= amount
-	healthBar.value = current_health
-	print("Enemy hit! Health left: ", current_health) # PO TO PASALINTI
+	if health_bar: health_bar.value = current_health
 	
 	if current_health <= 0:
 		die()
-	else:
-		if animations.sprite_frames.has_animation("hurt_hit"):
-			animations.play("hurt_hit")
-			await animations.animation_finished
-			if not is_dead:
-				animations.play("idle")
+	elif animations and animations.sprite_frames.has_animation("hurt_hit"):
+		animations.play("hurt_hit")
 
 func die():
 	is_dead = true
 	velocity = Vector2.ZERO
-	animations.play("die")
-	
-	await animations.animation_finished 
-	
-	if is_in_group("player"):
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
-	else:
-		queue_free()
+	if animations: animations.play("die")
+	# Emit signal; whoever is listening (e.g., Player script) handles the aftermath
+	died.emit()
