@@ -32,5 +32,5 @@ func _on_main_menu_pressed() -> void:
 func _on_exit_pressed() -> void:
 	get_tree().quit()
 
-func _process(delta):
+func _process(_delta):
 	testEsc()
