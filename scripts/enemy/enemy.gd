@@ -21,7 +21,7 @@ func _physics_process(_delta):
 	var dist = global_position.distance_to(player_ref.global_position)
 	
 	# If the enemy is right next to the player, stop moving to prevent "vibrating"
-	if dist < 20: 
+	if dist < 15: 
 		velocity = Vector2.ZERO
 		update_animations(Vector2.ZERO)
 	else:
