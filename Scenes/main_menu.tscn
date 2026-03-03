@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cx8imt3qlaay8"]
 
 [ext_resource type="Script" uid="uid://l2cvnr2pxmkl" path="res://scripts/ui/main_menu.gd" id="1_06t4h"]
+[ext_resource type="AudioStream" uid="uid://brko6qo68wyl" path="res://assets/music/Main_menu_music.mp3" id="2_48xlc"]
 
 [node name="MainMenu" type="Control" unique_id=1198453827]
 layout_mode = 3
@@ -45,6 +46,10 @@ custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 text = "Exit
 "
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2123454406]
+stream = ExtResource("2_48xlc")
+autoplay = true
 
 [connection signal="pressed" from="Button_manager/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Button_manager/Settings" to="." method="_on_settings_pressed"]

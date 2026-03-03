@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwcdhfo5l11ky"]
 
 [ext_resource type="Script" uid="uid://dok70flmri7c1" path="res://scripts/ui/pause_menu.gd" id="1_hdmo1"]
+[ext_resource type="AudioStream" uid="uid://cdafqidqipuu7" path="res://assets/music/Pause_menu_music.mp3" id="2_k0w1u"]
 
 [node name="PauseMenu" type="Control" unique_id=1387866459]
 process_mode = 3
@@ -56,6 +57,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Exit
 "
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=921761919]
+stream = ExtResource("2_k0w1u")
+volume_db = -7.0
+parameters/looping = true
 
 [connection signal="pressed" from="Panel/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]

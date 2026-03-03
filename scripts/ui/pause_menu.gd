@@ -6,10 +6,12 @@ func _ready():
 func Continue():
 	get_tree().paused = false;
 	visible = false;
+	$AudioStreamPlayer.stop()
 
 func Pause():
 	get_tree().paused = true;
 	visible = true;
+	$AudioStreamPlayer.play()
 
 
 func testEsc():
