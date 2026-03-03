@@ -2,6 +2,7 @@ extends Entity
 
 func _ready():
 	super._ready()
+	# Entity handled the animation, now we just change scenes
 	died.connect(_on_player_died)
 
 func _physics_process(_delta):

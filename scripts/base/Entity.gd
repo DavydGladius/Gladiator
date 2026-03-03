@@ -17,15 +17,21 @@ func _ready():
 	if health_bar:
 		health_bar.max_value = max_health
 		health_bar.value = current_health
+		
 
 func handle_movement(direction: Vector2):
 	if is_dead: return
+	
+	if direction.length() > 0:
+		direction = direction.normalized()
+		
 	velocity = direction * movement_speed
+	
 	move_and_slide()
 	update_animations(direction)
 
 func update_animations(direction: Vector2):
-	if not animations: return
+	if not animations or is_dead: return 
 	
 	if animations.animation == "hurt_hit" and animations.is_playing():
 		return
@@ -47,8 +53,18 @@ func take_damage(amount: float):
 		animations.play("hurt_hit")
 
 func die():
+	if is_dead: return
 	is_dead = true
+	
 	velocity = Vector2.ZERO
-	if animations: animations.play("die")
-	# Emit signal; whoever is listening (e.g., Player script) handles the aftermath
+	set_physics_process(false)
+	
+	var collision = get_node_or_null("CollisionShape2D")
+	if collision:
+		collision.set_deferred("disabled", true)
+	
+	if animations:
+		animations.play("die")
+		await animations.animation_finished
+	
 	died.emit()

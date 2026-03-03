@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://8s0wms60fk2"]
 
-[ext_resource type="Script" uid="uid://c5x1ncc57cjwg" path="res://scripts/enemy/Enemy.gd" id="1_px1sc"]
+[ext_resource type="Script" uid="uid://c5x1ncc57cjwg" path="res://scripts/enemy/enemy.gd" id="1_px1sc"]
 [ext_resource type="Texture2D" uid="uid://55kp3k0uw77e" path="res://assets/sprites/enemy/enemy_idle.png" id="2_am0pq"]
 [ext_resource type="Texture2D" uid="uid://bhh4ams2wjaj1" path="res://assets/sprites/enemy/enemy_die.png" id="2_eqilm"]
 [ext_resource type="Texture2D" uid="uid://d4ic4q6y450cl" path="res://assets/sprites/enemy/enemy_walk.png" id="3_eqilm"]
 [ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="5_ncf7h"]
-
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmr1a"]
 atlas = ExtResource("2_eqilm")
@@ -123,7 +122,7 @@ movement_speed = 25.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=359093714]
 sprite_frames = SubResource("SpriteFrames_nmr1a")
-animation = &"hurt_hit"
+animation = &"die"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1305456521]
 position = Vector2(0, 2)
