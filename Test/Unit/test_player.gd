@@ -1,7 +1,7 @@
 extends GutTest # No "class_name" here!
 
 # We use the Scene so all nodes (%HealthBar, AnimatedSprite2D) exist
-var PlayerScene = preload("res://Player/player.tscn") 
+var PlayerScene = preload("res://characters/Player/player.tscn") 
 var player  # This will now correctly reference your Player.gd class
 
 func before_each() -> void:
