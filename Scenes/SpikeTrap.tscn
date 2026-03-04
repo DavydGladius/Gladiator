@@ -55,6 +55,7 @@ script = ExtResource("1_yq4pv")
 [node name="spikes" type="AnimatedSprite2D" parent="." unique_id=1622250625]
 sprite_frames = SubResource("SpriteFrames_fvt1w")
 frame = 4
+frame_progress = 1.0
 centered = false
 
 [node name="Area2D" type="Area2D" parent="." unique_id=234964104]

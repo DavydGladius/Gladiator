@@ -154,10 +154,8 @@ autoplay = true
 parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=368249502]
-visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=1387866459 instance=ExtResource("5_fo5ed")]
-visible = false
 
 [node name="SpikeNode" type="Node2D" parent="." unique_id=1912794135]
 
