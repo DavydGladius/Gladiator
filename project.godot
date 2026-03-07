@@ -36,6 +36,7 @@ enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 player=""
 enemy=""
+coin=""
 
 [input]
 

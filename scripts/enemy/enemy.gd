@@ -4,14 +4,22 @@ extends Entity
 @export var contact_damage: float = 10.0
 @export var attack_cooldown_time: float = 1.0
 
+var coin = preload("res://Scenes/coin.tscn")
+
 var can_attack: bool = true
 var player_ref: Node2D
+
+func coindrop():
+	var coindroped = coin.instantiate()
+	coindroped.global_position = global_position
+	get_tree().get_root().add_child(coindroped)
 
 func _ready():
 	super._ready()
 	player_ref = get_tree().get_first_node_in_group("player")
 	# Entity handled the animation, so we just delete the node now
 	died.connect(queue_free)
+	died.connect(coindrop)
 
 func _physics_process(_delta):
 	if is_dead or not player_ref or player_ref.is_dead:
