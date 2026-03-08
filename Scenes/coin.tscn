@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://g78nec7ipmen" path="res://assets/sprites/Coin.png" id="1_2qo34"]
 [ext_resource type="Script" uid="uid://b6eijp7q8j167" path="res://scripts/enemy/coin.gd" id="1_jgi06"]
+[ext_resource type="AudioStream" uid="uid://v6ujwl0sgap6" path="res://assets/sound_effects/coin_pickup.wav" id="3_g537i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jgi06"]
 radius = 5.0
@@ -16,3 +17,8 @@ texture = ExtResource("1_2qo34")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1182222370]
 shape = SubResource("CircleShape2D_jgi06")
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="." unique_id=627973934]
+stream = ExtResource("3_g537i")
+volume_db = -8.0
+max_distance = 1000.0

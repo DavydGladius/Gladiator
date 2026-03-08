@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bhh4ams2wjaj1" path="res://assets/sprites/enemy/enemy_die.png" id="2_eqilm"]
 [ext_resource type="Texture2D" uid="uid://d4ic4q6y450cl" path="res://assets/sprites/enemy/enemy_walk.png" id="3_eqilm"]
 [ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="5_ncf7h"]
+[ext_resource type="AudioStream" uid="uid://d388giy3aj5s1" path="res://assets/sound_effects/walking_sound_stone.ogg" id="6_a7vb5"]
+[ext_resource type="AudioStream" uid="uid://cfcd5ac1l5uae" path="res://assets/sound_effects/enemy_attack_ogre.wav" id="7_3mt56"]
+[ext_resource type="AudioStream" uid="uid://cbvgiqi3nqexr" path="res://assets/sound_effects/enemy_die_ogre.wav" id="8_ig1xv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmr1a"]
 atlas = ExtResource("2_eqilm")
@@ -156,3 +159,17 @@ offset_bottom = 15.0
 scale = Vector2(0.3, 0.3)
 value = 100.0
 texture_progress = ExtResource("5_ncf7h")
+
+[node name="FootstepsEnemy" type="AudioStreamPlayer2D" parent="." unique_id=1527259336]
+stream = ExtResource("6_a7vb5")
+volume_db = -15.0
+
+[node name="AttackSound" type="AudioStreamPlayer2D" parent="." unique_id=1105917209]
+stream = ExtResource("7_3mt56")
+volume_db = -3.0
+max_distance = 500.0
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="." unique_id=2063545293]
+stream = ExtResource("8_ig1xv")
+volume_db = -5.0
+max_distance = 500.0

@@ -17,25 +17,19 @@ func _ready():
 	if health_bar:
 		health_bar.max_value = max_health
 		health_bar.value = current_health
-		
 
 func handle_movement(direction: Vector2):
 	if is_dead: return
-	
 	if direction.length() > 0:
 		direction = direction.normalized()
-		
 	velocity = direction * movement_speed
-	
 	move_and_slide()
 	update_animations(direction)
 
 func update_animations(direction: Vector2):
 	if not animations or is_dead: return 
-	
 	if animations.animation == "hurt_hit" and animations.is_playing():
 		return
-	
 	if direction != Vector2.ZERO:
 		animations.play("walk")
 		animations.flip_h = direction.x < 0
@@ -63,7 +57,7 @@ func die():
 	if collision:
 		collision.set_deferred("disabled", true)
 	
-	if animations:
+	if animations and animations.sprite_frames.has_animation("die"):
 		animations.play("die")
 		await animations.animation_finished
 	

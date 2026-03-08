@@ -2,13 +2,14 @@ extends Node2D
 
 @onready var player_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var attack_area: Area2D = $AttackArea
+@onready var swing_sound: AudioStreamPlayer2D = $SwingSound
 
 @export var damage: float = 25.0
 @export var base_x: float = 6.0   
 @export var base_y: float = 7.0      
 @export var idle_offset: float = 1.5 
 @export var angle_right: float = -25.0 
-@export var angle_left: float = 25.0   
+@export var angle_left: float = 25.0    
 
 var is_attacking: bool = false
 
@@ -20,6 +21,7 @@ func _process(_delta: float) -> void:
 		perform_attack()
 
 func handle_visuals():
+
 	if player_sprite.flip_h:
 		position.x = -base_x
 		scale.x = -1
@@ -45,6 +47,10 @@ func handle_visuals():
 func perform_attack():
 	is_attacking = true
 	
+	if swing_sound:
+		swing_sound.pitch_scale = randf_range(0.9, 1.1)
+		swing_sound.play()
+	
 	scale.x = 1
 	
 	var attack_direction = get_global_mouse_position()
@@ -55,7 +61,6 @@ func perform_attack():
 		if target.has_method("take_damage") and target != get_parent():
 			target.take_damage(damage)
 	
-	# ANIMACIJA
 	var start_rot = rotation_degrees
 	var tween = create_tween()
 	

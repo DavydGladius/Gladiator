@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1ukout7sfdk4" path="res://assets/sprites/mc/mc_sprite_.png" id="2_b405y"]
 [ext_resource type="PackedScene" uid="uid://ceqtca5e8gumv" path="res://characters/weapons/BasicSword.tscn" id="3_pdv5a"]
 [ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="4_kidiw"]
+[ext_resource type="AudioStream" uid="uid://d388giy3aj5s1" path="res://assets/sound_effects/walking_sound_stone.ogg" id="5_b405y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btcbx"]
 atlas = ExtResource("2_b405y")
@@ -202,5 +203,9 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollectArea" unique_id=464618290]
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_yrol7")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="." unique_id=3845973]
+stream = ExtResource("5_b405y")
+volume_db = -15.0
 
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]

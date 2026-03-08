@@ -19,6 +19,10 @@ boot_splash/stretch/mode="disabled"
 boot_splash/size/viewport_height=648
 boot_splash/size/viewport_width=1152
 
+[autoload]
+
+AudioManager="*uid://dkhos7tue5yqq"
+
 [display]
 
 window/size/viewport_width=1280

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhd0n0ojo18of" path="res://scripts/weapons/basic_sword.gd" id="1_5n2e2"]
 [ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="2_wrvdq"]
+[ext_resource type="AudioStream" uid="uid://bi8vdw1sb720" path="res://assets/sound_effects/sword_swing.wav" id="3_g0gpi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7moh5"]
 radius = 14.0
@@ -23,3 +24,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=1758655881]
 position = Vector2(10, -12)
 shape = SubResource("CircleShape2D_7moh5")
+
+[node name="SwingSound" type="AudioStreamPlayer2D" parent="." unique_id=1645999021]
+stream = ExtResource("3_g0gpi")
+volume_db = -5.0
+max_distance = 1000.0
