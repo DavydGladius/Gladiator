@@ -90,4 +90,4 @@ func _on_enemy_died():
 func coindrop():
 	var coindroped = coin.instantiate()
 	coindroped.global_position = global_position
-	get_tree().get_root().add_child(coindroped)
+	get_tree().current_scene.add_child(coindroped)

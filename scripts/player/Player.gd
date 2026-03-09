@@ -5,6 +5,8 @@ var coincount = 0
 # 1. Ensure this points to an AudioStreamPlayer2D node
 @onready var footstep_audio = $FootstepPlayer
 
+@onready var total_coins = $CanvasLayer/TextureRect/Label
+
 func _ready():
 	super._ready()
 	died.connect(_on_player_died)
@@ -32,3 +34,4 @@ func _on_player_died():
 func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("coin"):
 		coincount += area.collect()
+		total_coins.text = str(coincount)

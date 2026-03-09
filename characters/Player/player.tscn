@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d1ukout7sfdk4" path="res://assets/sprites/mc/mc_sprite_.png" id="2_b405y"]
 [ext_resource type="PackedScene" uid="uid://ceqtca5e8gumv" path="res://characters/weapons/BasicSword.tscn" id="3_pdv5a"]
 [ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="4_kidiw"]
+[ext_resource type="Texture2D" uid="uid://g78nec7ipmen" path="res://assets/sprites/Coin.png" id="4_pdv5a"]
 [ext_resource type="AudioStream" uid="uid://d388giy3aj5s1" path="res://assets/sound_effects/walking_sound_stone.ogg" id="5_b405y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btcbx"]
@@ -175,6 +176,22 @@ rotation = -0.43633235
 scale = Vector2(0.99999994, 0.99999994)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1129702142]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=638954148]
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("4_pdv5a")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect" unique_id=2074564870]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 15.0
+offset_right = 95.0
+offset_bottom = 38.0
+text = "0"
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1101582476]
 position = Vector2(-15, -12)
