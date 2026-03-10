@@ -43,7 +43,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 2.0
+"speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yq4pv"]
