@@ -19,9 +19,14 @@ boot_splash/stretch/mode="disabled"
 boot_splash/size/viewport_height=648
 boot_splash/size/viewport_width=1152
 
+[audio]
+
+buses/default_bus_layout="uid://do627njtjhda5"
+
 [autoload]
 
 AudioManager="*uid://dkhos7tue5yqq"
+SettingsData="*uid://dtpxklf538xgy"
 
 [display]
 

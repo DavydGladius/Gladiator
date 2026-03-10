@@ -29,3 +29,4 @@ shape = SubResource("CircleShape2D_7moh5")
 stream = ExtResource("3_g0gpi")
 volume_db = -5.0
 max_distance = 1000.0
+bus = &"SFX"

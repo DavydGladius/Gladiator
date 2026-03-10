@@ -50,10 +50,10 @@ text = "Exit
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2123454406]
 stream = ExtResource("2_48xlc")
 autoplay = true
-bus = &"Music"
 
 [node name="Settings" parent="." unique_id=1258985486 instance=ExtResource("3_1ehe0")]
-layout_mode = 1
+layout_mode = 0
+anchors_preset = 0
 
 [connection signal="pressed" from="MainButtons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MainButtons/Settings" to="." method="_on_settings_pressed"]

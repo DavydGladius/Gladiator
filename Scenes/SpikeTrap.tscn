@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://8o77tfy45one"]
 
-[ext_resource type="Script" uid="uid://cyqcei1dfldi8" path="res://Scenes/spike_trap.gd" id="1_yq4pv"]
+[ext_resource type="Script" uid="uid://cyqcei1dfldi8" path="res://scripts/object/spike_trap.gd" id="1_yq4pv"]
 [ext_resource type="Texture2D" uid="uid://g6k4xdu6t54n" path="res://assets/sprites/Screenshot_2026-03-03_192443-removebg-preview.png" id="2_ag1bl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8pyee"]

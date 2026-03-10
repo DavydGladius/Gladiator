@@ -224,5 +224,6 @@ shape = SubResource("CircleShape2D_yrol7")
 [node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="." unique_id=3845973]
 stream = ExtResource("5_b405y")
 volume_db = -15.0
+bus = &"SFX"
 
 [connection signal="area_entered" from="CollectArea" to="." method="_on_collect_area_area_entered"]

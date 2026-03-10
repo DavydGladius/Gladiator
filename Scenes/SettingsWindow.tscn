@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://dwlbir8xdtjic"]
+
+[ext_resource type="Script" uid="uid://b2c5pbnbitap4" path="res://scripts/audio/audio_control.gd" id="1_uv8lj"]
+[ext_resource type="Script" uid="uid://ugaqursa4s76" path="res://scripts/settings/settings_window.gd" id="1_w8q4c"]
+[ext_resource type="Script" uid="uid://dom6dxollegn2" path="res://scripts/settings/fullscreen_control.gd" id="2_w8q4c"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_48xlc"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_1ehe0"]
+color = Color(1, 0, 0, 1)
+thickness = 6
+
+[node name="Settings" type="Panel" unique_id=1258985486]
+custom_minimum_size = Vector2(150, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -282.5
+offset_top = -184.0
+offset_right = 282.5
+offset_bottom = 184.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8q4c")
+
+[node name="Settings Label" type="Label" parent="." unique_id=1732027832]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.5
+offset_top = 18.5
+offset_right = 0.5
+offset_bottom = 81.5
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Music controls label" type="Label" parent="." unique_id=1067116225]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.5
+offset_top = 84.5
+offset_right = 0.5
+offset_bottom = 147.5
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Audio control" type="HSlider" parent="Music controls label" unique_id=1196352827]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = 15.5
+offset_right = 145.5
+offset_bottom = 33.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_48xlc")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_1ehe0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_1ehe0")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("1_uv8lj")
+audio_bus_name = "Music"
+
+[node name="SFX controls label2" type="Label" parent="." unique_id=735152743]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 0.5
+offset_top = 156.5
+offset_right = 0.5
+offset_bottom = 219.5
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "SFX
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Audio control2" type="HSlider" parent="SFX controls label2" unique_id=1452648667]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.5
+offset_top = -3.5
+offset_right = 145.5
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_48xlc")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_1ehe0")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_1ehe0")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("1_uv8lj")
+audio_bus_name = "SFX"
+
+[node name="FullscreenControl" type="CheckButton" parent="." unique_id=1672254392]
+layout_mode = 0
+offset_left = 142.5
+offset_top = 220.0
+offset_right = 436.5
+offset_bottom = 261.0
+text = "Fullscreen"
+script = ExtResource("2_w8q4c")
+
+[node name="Back" type="Button" parent="." unique_id=1085719670]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 0
+offset_left = 190.0
+offset_top = 293.0
+offset_right = 390.0
+offset_bottom = 353.0
+text = "Back"
+
+[connection signal="value_changed" from="Music controls label/Audio control" to="Music controls label/Audio control" method="_on_value_changed"]
+[connection signal="value_changed" from="SFX controls label2/Audio control2" to="SFX controls label2/Audio control2" method="_on_value_changed"]
+[connection signal="toggled" from="FullscreenControl" to="FullscreenControl" method="_on_toggled"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

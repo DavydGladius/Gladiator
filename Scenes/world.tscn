@@ -149,8 +149,9 @@ tile_set = SubResource("TileSet_fo5ed")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=296983276]
 stream = ExtResource("3_fo5ed")
-volume_db = -10.0
+volume_db = -5.0
 autoplay = true
+bus = &"Music"
 parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=368249502]

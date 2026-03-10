@@ -22,3 +22,4 @@ shape = SubResource("CircleShape2D_jgi06")
 stream = ExtResource("3_g537i")
 volume_db = -8.0
 max_distance = 1000.0
+bus = &"SFX"

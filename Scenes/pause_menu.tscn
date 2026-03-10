@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dok70flmri7c1" path="res://scripts/ui/pause_menu.gd" id="1_hdmo1"]
 [ext_resource type="AudioStream" uid="uid://cdafqidqipuu7" path="res://assets/music/Pause_menu_music.mp3" id="2_k0w1u"]
+[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://Scenes/SettingsWindow.tscn" id="3_1och7"]
 
 [node name="PauseMenu" type="Control" unique_id=1387866459]
 process_mode = 3
@@ -44,6 +45,12 @@ size_flags_horizontal = 4
 text = "Continue
 "
 
+[node name="Settings" type="Button" parent="Panel/VBoxContainer" unique_id=2097545268]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Settings"
+
 [node name="Main Menu" type="Button" parent="Panel/VBoxContainer" unique_id=302968112]
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
@@ -60,9 +67,13 @@ text = "Exit
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=921761919]
 stream = ExtResource("2_k0w1u")
-volume_db = -7.0
+bus = &"Music"
 parameters/looping = true
 
+[node name="Settings" parent="." unique_id=1258985486 instance=ExtResource("3_1och7")]
+layout_mode = 1
+
 [connection signal="pressed" from="Panel/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
