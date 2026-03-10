@@ -10,7 +10,7 @@ func play_click():
 	
 	player.volume_db = -10.0 
 	
-	player.bus = "Master"
+	player.bus = "SFX"
 	player.process_mode = Node.PROCESS_MODE_ALWAYS 
 	
 	player.pitch_scale = randf_range(0.95, 1.05)
