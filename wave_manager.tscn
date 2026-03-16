@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dvebj24gpudja"]
+
+[ext_resource type="Script" uid="uid://ddtddwfrxjo5v" path="res://wave_manager.gd" id="1_050wf"]
+[ext_resource type="PackedScene" uid="uid://8s0wms60fk2" path="res://characters/Enemy/enemy.tscn" id="2_244l3"]
+
+[node name="WaveManager" type="Node2D" unique_id=1708627554]
+script = ExtResource("1_050wf")
+enemy_scene = ExtResource("2_244l3")
+base_spawn_interval = 3.0
+grace_period = 15.0

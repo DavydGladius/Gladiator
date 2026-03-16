@@ -1,7 +1,6 @@
 extends Entity
 
-var coincount = 0
-
+var coincount:int = 0
 # 1. Ensure this points to an AudioStreamPlayer2D node
 @onready var footstep_audio = $FootstepPlayer
 
