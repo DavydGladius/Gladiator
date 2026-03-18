@@ -39,4 +39,5 @@ func _on_continue_button_pressed() -> void:
 
 func _on_end_button_pressed() -> void:
 	AudioManager.play_click()
+	await get_tree().create_timer(0.1).timeout 
 	get_tree().quit()
