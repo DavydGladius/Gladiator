@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bjqppn4mkfv0u"]
+
+[node name="DeathScreen" type="Control" unique_id=1401373248]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Background" type="ColorRect" parent="." unique_id=1264987969]
+layout_mode = 0
+offset_right = 254.0
+offset_bottom = 154.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="Label" type="Label" parent="Background" unique_id=692755769]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 21.0
+offset_right = 141.0
+offset_bottom = 44.0
+text = "YOU DIED"
+horizontal_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="Background" unique_id=2005362049]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 58.0
+offset_right = 202.0
+offset_bottom = 89.0
+text = "Continue The Battle?"
+
+[node name="EndButton" type="Button" parent="Background" unique_id=815436029]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 97.0
+offset_right = 156.0
+offset_bottom = 128.0
+text = "End Game"

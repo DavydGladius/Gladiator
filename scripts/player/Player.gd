@@ -1,7 +1,7 @@
 extends Entity
 
 var coincount:int = 0
-# 1. Ensure this points to an AudioStreamPlayer2D node
+
 @onready var footstep_audio = $FootstepPlayer
 
 @onready var total_coins = $CanvasLayer/TextureRect/Label
@@ -28,8 +28,24 @@ func _handle_footstep_sounds():
 			footstep_audio.play()
 
 func _on_player_died():
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
-
+	# 1. Pinigų praradimas (10%)
+	coincount = int(coincount * 0.9)
+	total_coins.text = str(coincount)
+	
+	# 2. Bangos lygio mažinimas
+	var wave_manager = get_parent().get_node("WaveManager")
+	if wave_manager:
+		# Sumažiname per 1, bet neleidžiame nukristi žemiau 0
+		wave_manager.current_wavelvl = max(0, wave_manager.current_wavelvl - 1)
+		wave_manager.stop_wave() # Sustabdome spawinimą kol esame mirties ekrane
+	
+	# 3. Mirties ekrano rodymas
+	var death_screen = get_parent().get_node("CanvasLayer/DeathScreen")
+	if death_screen:
+		death_screen.show_menu()
+	else:
+		print("Mirei. Pinigai: ", coincount)
+		
 func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("coin"):
 		coincount += area.collect()

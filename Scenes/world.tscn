@@ -4,7 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://csqkd7bq2a4ia" path="res://assets/sprites/Tile_set.png" id="2_8j60k"]
 [ext_resource type="AudioStream" uid="uid://sq4474mfi0rs" path="res://assets/music/Main_Game_music.mp3" id="3_fo5ed"]
 [ext_resource type="PackedScene" uid="uid://dwcdhfo5l11ky" path="res://Scenes/pause_menu.tscn" id="5_fo5ed"]
+[ext_resource type="Script" uid="uid://cam74bbktq4ba" path="res://scripts/ui/death_screen.gd" id="5_k7acu"]
 [ext_resource type="PackedScene" uid="uid://8o77tfy45one" path="res://Scenes/SpikeTrap.tscn" id="6_5ukr8"]
+[ext_resource type="PackedScene" uid="uid://bjqppn4mkfv0u" path="res://Scenes/DeathScreen.tscn" id="6_5v1tr"]
 [ext_resource type="Texture2D" uid="uid://daqab7s05efh1" path="res://assets/sprites/Objects.png" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://wave_manager.tscn" id="8_k7acu"]
 
@@ -230,6 +232,9 @@ parameters/looping = true
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=368249502]
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=1387866459 instance=ExtResource("5_fo5ed")]
+
+[node name="DeathScreen" parent="CanvasLayer" unique_id=1401373248 instance=ExtResource("6_5v1tr")]
+script = ExtResource("5_k7acu")
 
 [node name="SpikeNode" type="Node2D" parent="." unique_id=1912794135]
 
