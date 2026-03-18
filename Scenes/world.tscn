@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://8o77tfy45one" path="res://Scenes/SpikeTrap.tscn" id="6_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://bjqppn4mkfv0u" path="res://Scenes/DeathScreen.tscn" id="6_5v1tr"]
 [ext_resource type="Texture2D" uid="uid://daqab7s05efh1" path="res://assets/sprites/Objects.png" id="7_i7141"]
+[ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://Scenes/Pressure_plate.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://wave_manager.tscn" id="8_k7acu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8j60k"]
@@ -243,6 +244,14 @@ scale = Vector2(0.13, 0.13)
 [node name="Spikes??2" parent="SpikeNode" unique_id=1664756801 instance=ExtResource("6_5ukr8")]
 position = Vector2(757, 319)
 scale = Vector2(0.13, 0.13)
+
+[node name="Pressure_plateNode" type="Node2D" parent="." unique_id=932691927]
+
+[node name="Node2D" parent="Pressure_plateNode" unique_id=1589602750 instance=ExtResource("8_0fj1v")]
+
+[node name="Node2D" parent="Pressure_plateNode/Node2D" unique_id=1853654228 instance=ExtResource("8_0fj1v")]
+position = Vector2(686, 302)
+scale = Vector2(0.7, 1.3)
 
 [node name="Decorations" type="TileMapLayer" parent="." unique_id=528139250]
 tile_map_data = PackedByteArray("AAAoAA8AAAATAAQAAAAwABEAAAARAAEAAAArABgAAAAVAAMAAAAyABcAAAATAAEAAAAxAAwAAAATAAEAAAAsAA4AAAALAAUAAAA1ABQAAAAHAAUAAAAnABUAAAADAAUAAAAnABYAAAAFAAUAAAAxABIAAAAFAAUAAAAoAAwAAAADAAUAAAAjABIAAAAQAAUAAAApABYAAAAQAAUAAAAvABcAAAAOAAUAAAAsABAAAAAOAAUAAAA0AA8AAAAOAAUAAAA=")
