@@ -246,6 +246,7 @@ position = Vector2(757, 319)
 scale = Vector2(0.13, 0.13)
 
 [node name="Pressure_plateNode" type="Node2D" parent="." unique_id=932691927]
+visible = false
 
 [node name="Node2D" parent="Pressure_plateNode" unique_id=1589602750 instance=ExtResource("8_0fj1v")]
 
