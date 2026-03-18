@@ -1,7 +1,7 @@
 extends Control
 
 @onready var pause_panel = $Panel
-@onready var settings_panel = $Settings # Ensure this path matches your scene tree!
+@onready var settings_panel = $Settings
 
 func _ready():
 	visible = false
