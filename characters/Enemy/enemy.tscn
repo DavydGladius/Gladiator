@@ -120,6 +120,7 @@ radius = 13.0
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
+wall_min_slide_angle = 0.0
 script = ExtResource("1_px1sc")
 movement_speed = 25.0
 
@@ -176,3 +177,18 @@ stream = ExtResource("8_ig1xv")
 volume_db = -5.0
 max_distance = 500.0
 bus = &"SFX"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1421367594]
+path_desired_distance = 10.0
+path_postprocessing = 1
+simplify_path = true
+avoidance_enabled = true
+radius = 16.0
+neighbor_distance = 100.0
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=188849372]
+wait_time = 0.3
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

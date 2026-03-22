@@ -7,6 +7,7 @@ extends Entity
 
 @export var contact_damage: float = 10.0
 @export var attack_cooldown_time: float = 1.0
+@onready var nav_agent:NavigationAgent2D = $NavigationAgent2D
 
 var coin = preload("res://Scenes/coin.tscn")
 var player_ref: Node2D
@@ -44,13 +45,19 @@ func _physics_process(_delta):
 		velocity = Vector2.ZERO
 		update_animations(Vector2.ZERO)
 	else:
-		var direction = global_position.direction_to(player_ref.global_position)
+		var direction = to_local(nav_agent.get_next_path_position())
 		handle_movement(direction)
 	
 	_handle_footstep_sounds()
 	
 	if can_attack:
 		check_for_attacks()
+
+
+
+func path_to_player():
+	nav_agent.target_position=player_ref.global_position
+
 
 func _handle_footstep_sounds():
 	if velocity.length() > 5.0:
@@ -91,3 +98,7 @@ func coindrop():
 	var coindroped = coin.instantiate()
 	coindroped.global_position = global_position
 	get_tree().current_scene.add_child(coindroped)
+
+#recalculates path after timeout
+func _on_timer_timeout() -> void:
+	path_to_player()
