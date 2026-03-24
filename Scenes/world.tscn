@@ -147,6 +147,20 @@ physics_layer_0/collision_layer = 1
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_8j60k")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fj1v"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikia7"]
+bg_color = Color(0.8, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4mrxx"]
 texture = ExtResource("7_i7141")
 1:7/size_in_atlas = Vector2i(2, 2)
@@ -248,6 +262,31 @@ bus = &"Music"
 parameters/looping = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=368249502]
+
+[node name="WaveBar" type="ProgressBar" parent="CanvasLayer" unique_id=1671800950]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_top = 15.0
+offset_right = 500.0
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_0fj1v")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ikia7")
+show_percentage = false
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer" unique_id=2045913831]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 40.0
+offset_right = 20.0
+offset_bottom = 63.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
 
 [node name="PauseMenu" parent="CanvasLayer" unique_id=1387866459 instance=ExtResource("5_fo5ed")]
 
