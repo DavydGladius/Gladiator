@@ -18,7 +18,7 @@ func _physics_process(_delta):
 	handle_movement(direction)
 
 func _on_player_died():
-	coincount = int(coincount * 0.9)
+	coincount = round(float(coincount * 0.9))
 	if total_coins: total_coins.text = str(coincount)
 	
 	var wave_manager = get_tree().current_scene.find_child("WaveManager", true, false)
