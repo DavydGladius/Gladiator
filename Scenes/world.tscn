@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://daqab7s05efh1" path="res://assets/sprites/Objects.png" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://Scenes/Pressure_plate.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://wave_manager.tscn" id="8_k7acu"]
+[ext_resource type="Script" uid="uid://68xdisc1h2mi" path="res://scripts/object/safe_area.gd" id="11_ikia7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5v1tr"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -238,6 +239,9 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_4mrxx")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yui6"]
+size = Vector2(56.369812, 66.7738)
+
 [node name="World" type="Node2D" unique_id=1100636974]
 
 [node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_5a7ea")]
@@ -318,3 +322,23 @@ tile_set = SubResource("TileSet_7r4gi")
 
 [node name="EnemySpawn" type="Node2D" parent="." unique_id=293532922]
 position = Vector2(1262, 540)
+
+[node name="SafeArea" type="Area2D" parent="." unique_id=1733259222]
+collision_mask = 3
+collision_priority = 2.0
+priority = 2
+script = ExtResource("11_ikia7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeArea" unique_id=859973893]
+position = Vector2(887.9999, 520)
+scale = Vector2(1.42, 1.68)
+shape = SubResource("RectangleShape2D_7yui6")
+
+[node name="ColorRect" type="ColorRect" parent="SafeArea/CollisionShape2D" unique_id=94369880]
+offset_left = -28.168941
+offset_top = -33.928577
+offset_right = 11.8310585
+offset_bottom = 6.0714226
+scale = Vector2(1.42, 1.68)
+color = Color(0.98, 0, 0, 0)
+metadata/_edit_use_anchors_ = true

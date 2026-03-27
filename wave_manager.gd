@@ -49,6 +49,7 @@ func start_next_wave():
 	_run_spawning_logic()
 
 func restart_current_wave():
+	stop_wave()
 	clear_enemies()
 	_run_spawning_logic()
 
@@ -94,12 +95,14 @@ func _spawn_enemy():
 		wave_finished_spawning = true
 
 func _process(_delta):
+	# Progress bar atvaizdavimas bangos metu
 	if not wave_finished_spawning and progress_bar:
 		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 		var enemies_limit = base_enemies_per_wave + (current_wavelvl * 2)
 		var remaining = enemies_alive + (enemies_limit - total_spawned)
 		progress_bar.value = remaining
 
+	# Tikriname, ar visi nužudyti, kad pradėtume Grace Period
 	if wave_finished_spawning and grace_timer.is_stopped():
 		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 		if enemies_alive == 0:
@@ -114,5 +117,6 @@ func _process(_delta):
 			print("Visi priešai nužudyti! Grace period prasideda...")
 			grace_timer.start()
 
+	# Progress bar atvaizdavimas Grace Period metu
 	if not grace_timer.is_stopped() and progress_bar:
 		progress_bar.value = grace_timer.time_left
