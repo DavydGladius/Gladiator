@@ -3,6 +3,9 @@ extends Entity
 var coincount: int = 0
 @onready var footstep_audio = $FootstepPlayer
 @onready var total_coins = $CanvasLayer/TextureRect/Label
+var damage_multiplier: float = 1.0
+var speed_multiplier: float = 1.0
+var defense: float = 0.0
 
 func _ready():
 	super._ready()

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c3btd3fb5l5xy"]
+
+[ext_resource type="Script" uid="uid://qcgdfgenp83s" path="res://scripts/ui/shop_item.gd" id="1_wxfep"]
+[ext_resource type="Resource" uid="uid://c8uamujc7s2am" path="res://scripts/resources/SharpenedSword.tres" id="2_v846v"]
+
+[node name="ShopItem" type="Control" unique_id=1461231791 node_paths=PackedStringArray("item_texture")]
+custom_minimum_size = Vector2(69, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 79.0
+offset_bottom = 79.0
+script = ExtResource("1_wxfep")
+item_texture = NodePath("TextureRect")
+item_data = ExtResource("2_v846v")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1869115777]
+layout_mode = 0
+offset_right = 67.0
+offset_bottom = 72.0
+
+[node name="Price" type="Label" parent="." unique_id=1619227968]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 79.0
+offset_right = 60.0
+offset_bottom = 102.0
+text = "100"
