@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://Scenes/Pressure_plate.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://wave_manager.tscn" id="8_k7acu"]
 [ext_resource type="Texture2D" uid="uid://chjeq1l4abo5t" path="res://assets/Stick.png" id="11_ikia7"]
-[ext_resource type="PackedScene" uid="uid://dsf4jkb7yc4ng" path="res://Scenes/shop_scene.tscn" id="12_7yui6"]
+[ext_resource type="PackedScene" uid="uid://ch1lu6eamst2t" path="res://Scenes/shop_ui.tscn" id="12_7yui6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5v1tr"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -256,12 +256,8 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Entity) -> void:
 	if body.name == \"Player\":
-		$CanvasLayer.visible = true
-
-
-func _on_body_exited(body: Entity) -> void:
-	if body.name == \"Player\":
-		$CanvasLayer.visible = false
+		get_tree().paused = true
+		get_node($Shop)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7yui6"]
@@ -354,11 +350,6 @@ position = Vector2(1164, 349)
 collision_mask = 2
 script = SubResource("GDScript_ikia7")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Area2D" unique_id=1083513656]
-visible = false
-
-[node name="ShopScene" parent="Area2D/CanvasLayer" unique_id=701610180 instance=ExtResource("12_7yui6")]
-
 [node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1190555185]
 position = Vector2(-1, -8)
 scale = Vector2(0.67241377, 0.42045453)
@@ -368,5 +359,6 @@ texture = ExtResource("11_ikia7")
 position = Vector2(-1, -8)
 shape = SubResource("RectangleShape2D_7yui6")
 
+[node name="Shop" parent="Area2D" unique_id=1356965069 instance=ExtResource("12_7yui6")]
+
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

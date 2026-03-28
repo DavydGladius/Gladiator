@@ -59,7 +59,7 @@ func perform_attack():
 	var targets = attack_area.get_overlapping_bodies()
 	for target in targets:
 		if target.has_method("take_damage") and target != get_parent():
-			target.take_damage(damage)
+			target.take_damage(get_full_damage())
 	
 	var start_rot = rotation_degrees
 	var tween = create_tween()
@@ -72,3 +72,8 @@ func perform_attack():
 	await tween.finished
 	
 	is_attacking = false
+func get_full_damage():
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		return damage * player.damage_multiplier
+	return damage

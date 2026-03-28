@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c8uamujc7s2am"]
+
+[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="1_nupwp"]
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_xv1fv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6jim"]
+atlas = ExtResource("1_nupwp")
+region = Rect2(64, 64, 16, 16)
+
+[resource]
+script = ExtResource("1_xv1fv")
+item_name = "Sharpened Sword"
+icon = SubResource("AtlasTexture_e6jim")
+description = "+10% dmg"
+damage_multiplier = 1.1
