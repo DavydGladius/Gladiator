@@ -2,35 +2,42 @@
 
 [ext_resource type="Script" uid="uid://phhljkqhttyb" path="res://scripts/ui/shop_scene.gd" id="1_35huh"]
 [ext_resource type="PackedScene" uid="uid://c3btd3fb5l5xy" path="res://Scenes/shop_item.tscn" id="2_njw01"]
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="3_jwdga"]
+[ext_resource type="Resource" uid="uid://cbpmvdqq7hn0j" path="res://scripts/resources/HealthUpgrade.tres" id="4_uxpe5"]
+[ext_resource type="Resource" uid="uid://c8uamujc7s2am" path="res://scripts/resources/SharpenedSword.tres" id="5_5ycja"]
 
-[node name="ShopScene" type="Control" unique_id=701610180 node_paths=PackedStringArray("Item_Container")]
+[node name="ShopScene" type="Control" unique_id=701610180]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 294.0
 offset_top = 458.0
-offset_right = 961.0
-offset_bottom = 602.0
+offset_right = 837.0
+offset_bottom = 528.0
 script = ExtResource("1_35huh")
 ShopItem = ExtResource("2_njw01")
-Item_Container = NodePath("HBoxContainer")
+available_items = Array[ExtResource("3_jwdga")]([ExtResource("4_uxpe5"), ExtResource("5_5ycja")])
 
 [node name="Panel" type="Panel" parent="." unique_id=89362874]
 layout_mode = 0
+offset_top = -118.0
 offset_right = 543.0
 offset_bottom = 165.0
 
 [node name="Label" type="Label" parent="." unique_id=1603845425]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 123.0
-offset_right = 540.0
-offset_bottom = 162.0
+offset_left = 5.0
+offset_top = -16.0
+offset_right = 539.0
+offset_bottom = 23.0
 text = "Default description"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2053816815]
+[node name="Upgrade_Container" type="HBoxContainer" parent="." unique_id=2053816815]
 layout_mode = 0
-offset_right = 541.0
-offset_bottom = 109.0
+offset_left = 136.0
+offset_top = -115.0
+offset_right = 417.0
+offset_bottom = -34.0
+theme_override_constants/separation = 25

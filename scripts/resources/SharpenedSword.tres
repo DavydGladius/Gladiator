@@ -12,4 +12,5 @@ script = ExtResource("1_xv1fv")
 item_name = "Sharpened Sword"
 icon = SubResource("AtlasTexture_e6jim")
 description = "+10% dmg"
+price = 3
 damage_multiplier = 1.1

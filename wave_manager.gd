@@ -12,6 +12,8 @@ var spawn_timer: Timer
 var grace_timer: Timer
 var progress_bar: ProgressBar
 var wave_label: Label
+signal wave_started(wave_number: int)
+
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -46,6 +48,7 @@ func _set_bar_fill_color(color: Color) -> void:
 
 func start_next_wave():
 	current_wavelvl += 1
+	wave_started.emit(current_wavelvl) #for shop
 	_run_spawning_logic()
 
 func restart_current_wave():

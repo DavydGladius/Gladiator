@@ -11,6 +11,7 @@ func _ready():
 func _on_body_entered(body):
 	if body.is_in_group("player"):
 		print("Žaidėjas saugus!")
+		$CanvasLayer.visible = true
 		if wave_manager:
 			wave_manager.stop_wave()
 			wave_manager.clear_enemies() # Čia ištrinami priešai
@@ -19,6 +20,7 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	if body.is_in_group("player"):
 		print("Žaidėjas paliko saugią zoną!")
+		$CanvasLayer.visible = false
 		if wave_manager:
 			wave_manager.restart_current_wave() # Čia banga prasideda iš naujo
 		body.modulate.a = 1.0

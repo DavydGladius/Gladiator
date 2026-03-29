@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cbpmvdqq7hn0j"]
+
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_4cicv"]
+[ext_resource type="Texture2D" uid="uid://d11u63r18ncws" path="res://assets/sprites/heart_16x16.png" id="1_uskce"]
+
+[resource]
+script = ExtResource("1_4cicv")
+item_name = "Health+"
+icon = ExtResource("1_uskce")
+description = "+5 health"
+price = 5
+health_bonus = 5.0
