@@ -1,6 +1,6 @@
 extends TileMapLayer
 
-@onready var deco = $"../Decorations"
+@onready var deco = $"../decorations"
 
 
 func _tile_data_runtime_update(_coords: Vector2i, tile_data: TileData) -> void:
