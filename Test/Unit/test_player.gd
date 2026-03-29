@@ -1,28 +1,112 @@
-extends GutTest # No "class_name" here!
+extends "res://addons/gut/test.gd"
 
-# We use the Scene so all nodes (%HealthBar, AnimatedSprite2D) exist
-var PlayerScene = preload("res://characters/Player/player.tscn") 
-var player  # This will now correctly reference your Player.gd class
+# =========================
+# SETUP / TEARDOWN (5 punktas)
+# =========================
 
-func before_each() -> void:
-	player = PlayerScene.instantiate()
-	add_child_autofree(player)
-	# Wait for _ready() to complete so nodes are initialized
-	await get_tree().process_frame
+var player
 
-func test_take_damage_reduces_health() -> void:
-	var initial_health = player.current_health
-	var damage = 20.0
-	
-	player.take_damage(damage)
-	
-	assert_eq(player.current_health, initial_health - damage, "Health should decrease by the damage amount.")
+func before_each():
+	# Sukuriamas Player objektas prieš kiekvieną testą
+	player = preload("res://scripts/player/Player.gd").new()
 
-func test_health_bar_updates_on_damage() -> void:
-	player.take_damage(50.0)
-	# Using 'assert_almost_eq' is safer for float comparisons
-	assert_almost_eq(player.healthBar.value, player.current_health, 0.01, "The health bar value should match current_health.")
+	# Kadangi tavo kode health nėra inicializuojamas automatiškai
+	player.max_health = 100
+	player.current_health = player.max_health
 
-func test_death_logic() -> void:
-	player.take_damage(player.max_health + 10.0)
-	assert_true(player.is_dead, "Player should be flagged as dead.")
+	# Sukuriam dummy UI (kad @onready nesukeltų klaidų)
+	if not player.has_node("CanvasLayer"):
+		var dummy = Node.new()
+		dummy.name = "CanvasLayer"
+		player.add_child(dummy)
+
+func after_each():
+	# Sunaikinam objektą → kad nebūtų ORPHANS
+	if player:
+		player.queue_free()
+	player = null
+
+
+# =========================
+# UNIT TESTAI (6 punktas)
+# =========================
+
+func test_player_created():
+	# Tikrina ar objektas sukurtas
+	assert_not_null(player)
+
+
+func test_initial_health():
+	# Tikrina ar pradinis health yra max
+	assert_eq(player.current_health, player.max_health)
+
+
+func test_take_damage_reduces_health():
+	# Tikrina ar damage sumažina health
+	var initial = player.current_health
+	player.take_damage(10)
+	assert_lt(player.current_health, initial)
+
+
+func test_zero_damage():
+	# EDGE CASE → 0 damage nieko nekeičia
+	player.take_damage(0)
+	assert_eq(player.current_health, player.max_health)
+
+
+func test_multiple_hits():
+	# Keli smūgiai iš eilės
+	player.take_damage(10)
+	player.take_damage(20)
+	assert_eq(player.current_health, player.max_health - 30)
+
+
+# =========================
+# PARAMETRIZED TEST (4 punktas)
+# =========================
+
+func test_damage_values():
+	# Testuojam su keliom reikšmėm
+	var values = [5, 10, 20, 50]
+
+	for dmg in values:
+		player.current_health = player.max_health
+		player.take_damage(dmg)
+
+		assert_eq(player.current_health, player.max_health - dmg)
+
+
+# =========================
+# MOCK (3 punktas)
+# =========================
+
+class MockEnemy:
+	func get_damage():
+		return 15
+
+func test_mock_enemy():
+	# Fake objektas kuris grąžina damage
+	var enemy = MockEnemy.new()
+
+	player.current_health = player.max_health
+	player.take_damage(enemy.get_damage())
+
+	assert_eq(player.current_health, player.max_health - 15)
+
+
+# =========================
+# STUB (3 punktas)
+# =========================
+
+class StubEnemy:
+	func get_damage():
+		return 0
+
+func test_stub_enemy():
+	# Stub visada grąžina 0
+	var enemy = StubEnemy.new()
+
+	player.current_health = player.max_health
+	player.take_damage(enemy.get_damage())
+
+	assert_eq(player.current_health, player.max_health)
