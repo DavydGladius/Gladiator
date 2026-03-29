@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://bsap7cj843fnq"]
 
-[ext_resource type="Script" uid="uid://dnoblnvxuml85" path="res://Scenes/pressure_plate.gd" id="1_ifsnx"]
+[ext_resource type="Script" uid="uid://dnoblnvxuml85" path="res://scripts/pressure_plate.gd" id="1_ifsnx"]
 [ext_resource type="Texture2D" uid="uid://b1r84vitrtd3u" path="res://assets/sprites/Plate_sprite.png" id="1_y1b5r"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ifsnx"]
 atlas = ExtResource("1_y1b5r")

@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://l2cvnr2pxmkl" path="res://scripts/ui/main_menu.gd" id="1_06t4h"]
 [ext_resource type="AudioStream" uid="uid://brko6qo68wyl" path="res://assets/music/Main_menu_music.mp3" id="2_48xlc"]
-[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://Scenes/SettingsWindow.tscn" id="3_1ehe0"]
+[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://scenes/SettingsWindow.tscn" id="3_1ehe0"]
+
 
 [node name="MainMenu" type="Control" unique_id=1198453827]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dsf4jkb7yc4ng"]
 
 [ext_resource type="Script" uid="uid://phhljkqhttyb" path="res://scripts/ui/shop_scene.gd" id="1_35huh"]
-[ext_resource type="PackedScene" uid="uid://c3btd3fb5l5xy" path="res://Scenes/shop_item.tscn" id="2_njw01"]
+[ext_resource type="PackedScene" uid="uid://c3btd3fb5l5xy" path="res://scenes/shop_item.tscn" id="2_njw01"]
 [ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="3_jwdga"]
 [ext_resource type="Resource" uid="uid://cbpmvdqq7hn0j" path="res://scripts/resources/HealthUpgrade.tres" id="4_uxpe5"]
 [ext_resource type="Resource" uid="uid://c8uamujc7s2am" path="res://scripts/resources/SharpenedSword.tres" id="5_5ycja"]

@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dok70flmri7c1" path="res://scripts/ui/pause_menu.gd" id="1_hdmo1"]
 [ext_resource type="AudioStream" uid="uid://cdafqidqipuu7" path="res://assets/music/Pause_menu_music.mp3" id="2_k0w1u"]
-[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://Scenes/SettingsWindow.tscn" id="3_1och7"]
+[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://scenes/SettingsWindow.tscn" id="3_1och7"]
+
 
 [node name="PauseMenu" type="Control" unique_id=1387866459]
 process_mode = 3
