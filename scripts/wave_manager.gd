@@ -8,6 +8,8 @@ extends Node2D
 var current_wavelvl: int = 0
 var total_spawned: int = 0
 var wave_finished_spawning: bool = false
+var in_grace_period: bool = false
+var grace_time_remaining: float = 0.0
 var spawn_timer: Timer
 var grace_timer: Timer
 var progress_bar: ProgressBar
@@ -46,12 +48,24 @@ func _set_bar_fill_color(color: Color) -> void:
 	style.corner_radius_bottom_right = 6
 	progress_bar.add_theme_stylebox_override("fill", style)
 
+func resume_grace_period():
+	if in_grace_period:
+		if grace_time_remaining > 0.0:
+			grace_timer.wait_time = grace_time_remaining
+			grace_timer.start()
+		else:
+			start_next_wave()
+
 func start_next_wave():
+	in_grace_period = false
+	grace_time_remaining = 0.0
+	grace_timer.wait_time = grace_period
 	current_wavelvl += 1
 	wave_started.emit(current_wavelvl) #for shop
 	_run_spawning_logic()
 
 func restart_current_wave():
+	in_grace_period = false
 	stop_wave()
 	clear_enemies()
 	_run_spawning_logic()
@@ -81,6 +95,8 @@ func _run_spawning_logic():
 
 func stop_wave():
 	spawn_timer.stop()
+	if not grace_timer.is_stopped():
+		grace_time_remaining = grace_timer.time_left
 	grace_timer.stop()
 
 func _spawn_enemy():
@@ -99,7 +115,7 @@ func _spawn_enemy():
 
 func _process(_delta):
 	# Progress bar atvaizdavimas bangos metu
-	if not wave_finished_spawning and progress_bar:
+	if progress_bar and grace_timer.is_stopped():
 		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 		var enemies_limit = base_enemies_per_wave + (current_wavelvl * 2)
 		var remaining = enemies_alive + (enemies_limit - total_spawned)
@@ -110,6 +126,7 @@ func _process(_delta):
 		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 		if enemies_alive == 0:
 			wave_finished_spawning = false
+			in_grace_period = true
 			if progress_bar:
 				progress_bar.max_value = grace_period
 				progress_bar.value = grace_period

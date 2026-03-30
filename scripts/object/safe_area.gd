@@ -19,4 +19,7 @@ func _on_body_exited(body):
 		print("Žaidėjas paliko saugią zoną!")
 		$CanvasLayer.visible = false
 		if wave_manager:
-			wave_manager.restart_current_wave()
+			if wave_manager.in_grace_period:
+				wave_manager.resume_grace_period()
+			else:
+				wave_manager.restart_current_wave()
