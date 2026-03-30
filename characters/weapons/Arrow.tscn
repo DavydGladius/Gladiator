@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dvrkdwifwx3oo"]
+
+[ext_resource type="Script" uid="uid://dfvu3meufo5g4" path="res://scripts/weapons/arrow.gd" id="1_ptxk3"]
+[ext_resource type="Texture2D" uid="uid://bcycul0evh6mq" path="res://assets/sprites/weapons/Arrow.png" id="2_qy2gh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptxk3"]
+size = Vector2(60.000008, 20)
+
+[node name="Arrow" type="Node2D" unique_id=537596658]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_ptxk3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=865734177]
+rotation = 0.7853982
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("2_qy2gh")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=910491962]
+scale = Vector2(0.99999994, 0.99999994)
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=665078518]
+position = Vector2(1.192093e-06, -4.7683716e-07)
+shape = SubResource("RectangleShape2D_ptxk3")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2123832284]
+rect = Rect2(-70, -70, 140, 140)
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

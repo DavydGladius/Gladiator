@@ -12,7 +12,7 @@ func _ready() -> void:
 	if wave_manager:
 		wave_manager.wave_started.connect(_on_wave_started)
 
-func _on_wave_started(wave_number: int) -> void:
+func _on_wave_started(_wave_number: int) -> void:
 	_shuffel_shop()
 
 func _shuffel_shop():

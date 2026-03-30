@@ -14,6 +14,8 @@ extends Node2D
 var is_attacking: bool = false
 
 func _process(_delta: float) -> void:
+	if not is_visible_in_tree(): return
+
 	if not is_attacking:
 		handle_visuals()
 	
@@ -21,7 +23,6 @@ func _process(_delta: float) -> void:
 		perform_attack()
 
 func handle_visuals():
-
 	if player_sprite.flip_h:
 		position.x = -base_x
 		scale.x = -1
@@ -46,13 +47,11 @@ func handle_visuals():
 
 func perform_attack():
 	is_attacking = true
-	
 	if swing_sound:
 		swing_sound.pitch_scale = randf_range(0.9, 1.1)
 		swing_sound.play()
 	
 	scale.x = 1
-	
 	var attack_direction = get_global_mouse_position()
 	look_at(attack_direction)
 	
@@ -63,15 +62,14 @@ func perform_attack():
 	
 	var start_rot = rotation_degrees
 	var tween = create_tween()
-	
 	tween.set_trans(Tween.TRANS_QUART)
 	tween.set_ease(Tween.EASE_OUT)
 	
 	tween.tween_property(self, "rotation_degrees", start_rot + 110, 0.1)
 	tween.tween_property(self, "rotation_degrees", start_rot, 0.1)
 	await tween.finished
-	
 	is_attacking = false
+
 func get_full_damage():
 	var player = get_tree().get_first_node_in_group("player")
 	if player:

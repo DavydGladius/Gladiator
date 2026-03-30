@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ciosyy23nxiea"]
+
+[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="1_blajm"]
+[ext_resource type="Script" uid="uid://djfesp3hsvv2j" path="res://scripts/weapons/basic_bow.gd" id="1_vrboa"]
+[ext_resource type="AudioStream" uid="uid://dhxk2xetflxnk" path="res://assets/sound_effects/ShootBow.ogg" id="3_7xqra"]
+
+[node name="BasicBow" type="Node2D" unique_id=1350165084]
+script = ExtResource("1_vrboa")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1905457996]
+position = Vector2(2, 0)
+rotation = -0.7853982
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_blajm")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=744263457]
+position = Vector2(5, 0)
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="." unique_id=350097761]
+stream = ExtResource("3_7xqra")

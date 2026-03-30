@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://41kcurmr2854" path="res://scripts/player/Player.gd" id="1_yrol7"]
 [ext_resource type="Texture2D" uid="uid://d1ukout7sfdk4" path="res://assets/sprites/mc/mc_sprite_.png" id="2_b405y"]
 [ext_resource type="PackedScene" uid="uid://ceqtca5e8gumv" path="res://characters/weapons/BasicSword.tscn" id="3_pdv5a"]
+[ext_resource type="PackedScene" uid="uid://ciosyy23nxiea" path="res://characters/weapons/BasicBow.tscn" id="4_fg313"]
 [ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="4_kidiw"]
 [ext_resource type="Texture2D" uid="uid://g78nec7ipmen" path="res://assets/sprites/Coin.png" id="4_pdv5a"]
 [ext_resource type="AudioStream" uid="uid://d388giy3aj5s1" path="res://assets/sound_effects/walking_sound_stone.ogg" id="5_b405y"]
@@ -171,9 +172,14 @@ position = Vector2(0, 4)
 shape = SubResource("CapsuleShape2D_4ntmi")
 
 [node name="BasicSword" parent="." unique_id=1921500197 instance=ExtResource("3_pdv5a")]
+visible = false
 position = Vector2(6.0000005, 9.000001)
 rotation = -0.43633235
 scale = Vector2(0.99999994, 0.99999994)
+
+[node name="BasicBow" parent="." unique_id=1350165084 instance=ExtResource("4_fg313")]
+visible = false
+position = Vector2(1, 6)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1129702142]
 
