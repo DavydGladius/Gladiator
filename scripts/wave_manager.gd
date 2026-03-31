@@ -60,6 +60,7 @@ func start_next_wave():
 	in_grace_period = false
 	grace_time_remaining = 0.0
 	grace_timer.wait_time = grace_period
+	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
 	current_wavelvl += 1
 	wave_started.emit(current_wavelvl) #for shop
 	_run_spawning_logic()
@@ -68,6 +69,7 @@ func restart_current_wave():
 	in_grace_period = false
 	stop_wave()
 	clear_enemies()
+	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
 	_run_spawning_logic()
 
 func clear_enemies():
@@ -95,6 +97,7 @@ func _run_spawning_logic():
 
 func stop_wave():
 	spawn_timer.stop()
+	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
 	if not grace_timer.is_stopped():
 		grace_time_remaining = grace_timer.time_left
 	grace_timer.stop()
@@ -111,6 +114,7 @@ func _spawn_enemy():
 			total_spawned += 1
 	else:
 		spawn_timer.stop()
+		$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
 
 func _process(_delta):

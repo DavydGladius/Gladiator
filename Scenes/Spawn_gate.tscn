@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://crebakb7y7qcy"]
+
+[ext_resource type="Texture2D" uid="uid://cum1mpxcdt7tm" path="res://assets/sprites/spawnGate.png" id="1_ujaik"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8f0t"]
+atlas = ExtResource("1_ujaik")
+region = Rect2(792, 0, 396, 577)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w32qq"]
+atlas = ExtResource("1_ujaik")
+region = Rect2(396, 0, 396, 577)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cccw0"]
+atlas = ExtResource("1_ujaik")
+region = Rect2(0, 0, 396, 577)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ibjjh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8f0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w32qq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cccw0")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cccw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w32qq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8f0t")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1811483720]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=861627932]
+sprite_frames = SubResource("SpriteFrames_ibjjh")
+animation = &"open"

@@ -47,7 +47,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yq4pv"]
-size = Vector2(87, 158)
+size = Vector2(87, 87)
 
 [node name="Node2D" type="Node2D" unique_id=1718958111]
 script = ExtResource("1_yq4pv")
@@ -63,7 +63,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2008971575]
-position = Vector2(50.5, 122)
+position = Vector2(50.5, 157.5)
 shape = SubResource("RectangleShape2D_yq4pv")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
