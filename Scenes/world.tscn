@@ -2,17 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://b58nylm61ilk6" path="res://characters/Player/player.tscn" id="1_5a7ea"]
 [ext_resource type="Texture2D" uid="uid://csqkd7bq2a4ia" path="res://assets/sprites/Tile_set.png" id="2_8j60k"]
+[ext_resource type="PackedScene" uid="uid://cs442jdq73nug" path="res://scenes/bomb.tscn" id="2_o8fc1"]
 [ext_resource type="Script" uid="uid://dakhtqbsv4ew4" path="res://scripts/base/tile_map_layer.gd" id="3_0fj1v"]
 [ext_resource type="AudioStream" uid="uid://sq4474mfi0rs" path="res://assets/music/Main_Game_music.mp3" id="3_fo5ed"]
-[ext_resource type="PackedScene" uid="uid://dwcdhfo5l11ky" path="res://Scenes/pause_menu.tscn" id="5_fo5ed"]
-[ext_resource type="PackedScene" uid="uid://8o77tfy45one" path="res://Scenes/SpikeTrap.tscn" id="6_5ukr8"]
-[ext_resource type="PackedScene" uid="uid://bjqppn4mkfv0u" path="res://Scenes/DeathScreen.tscn" id="6_5v1tr"]
+[ext_resource type="PackedScene" uid="uid://dwcdhfo5l11ky" path="res://scenes/pause_menu.tscn" id="5_fo5ed"]
+[ext_resource type="PackedScene" uid="uid://8o77tfy45one" path="res://scenes/SpikeTrap.tscn" id="6_5ukr8"]
+[ext_resource type="PackedScene" uid="uid://bjqppn4mkfv0u" path="res://scenes/DeathScreen.tscn" id="6_5v1tr"]
 [ext_resource type="Texture2D" uid="uid://daqab7s05efh1" path="res://assets/sprites/Objects.png" id="7_i7141"]
-[ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://Scenes/Pressure_plate.tscn" id="8_0fj1v"]
-[ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://Scenes/wave_manager.tscn" id="8_k7acu"]
-[ext_resource type="PackedScene" uid="uid://dsf4jkb7yc4ng" path="res://Scenes/shop_scene.tscn" id="12_7yui6"]
+[ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://scenes/Pressure_plate.tscn" id="8_0fj1v"]
+[ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://scenes/wave_manager.tscn" id="8_k7acu"]
+[ext_resource type="PackedScene" uid="uid://dsf4jkb7yc4ng" path="res://scenes/shop_scene.tscn" id="12_7yui6"]
 [ext_resource type="Script" uid="uid://68xdisc1h2mi" path="res://scripts/object/safe_area.gd" id="13_c5t2i"]
-[ext_resource type="PackedScene" uid="uid://crebakb7y7qcy" path="res://Scenes/Spawn_gate.tscn" id="13_e0ngr"]
+[ext_resource type="PackedScene" uid="uid://crebakb7y7qcy" path="res://scenes/Spawn_gate.tscn" id="13_e0ngr"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5v1tr"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -249,6 +250,7 @@ sources/0 = SubResource("TileSetAtlasSource_q5onr")
 [node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_5a7ea")]
 z_index = 3
 position = Vector2(940, 510)
+bomb_scene = ExtResource("2_o8fc1")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1996184567]
 position = Vector2(0, 2)

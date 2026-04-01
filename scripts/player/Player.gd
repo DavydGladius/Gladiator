@@ -7,6 +7,9 @@ var coincount: int = 0
 @onready var sword = $BasicSword
 @onready var bow = $BasicBow
 
+@export var bomb_scene: PackedScene # Nepamiršk įtempti Bomb.tscn inspektoriuje!
+@export var throw_force: float = 600.0
+
 var damage_multiplier: float = 1.0
 var speed_multiplier: float = 1.0
 var health_bonus: float = 0.0
@@ -26,6 +29,8 @@ func _physics_process(_delta):
 	var direction = Input.get_vector("left", "right", "up", "down")
 	handle_movement(direction)
 	
+	if Input.is_action_just_pressed("bomb"):
+		throw_bomb()
 	#====================================================
 	#		CIA TIKTAIS TRUMPAM ATEITYJE ISTRINTI
 	#====================================================
@@ -51,7 +56,46 @@ func switch_weapon(weapon_type: String):
 		bow.process_mode = PROCESS_MODE_INHERIT
 		sword.hide()
 		sword.process_mode = PROCESS_MODE_DISABLED
+		
+func throw_bomb():
+	if not bomb_scene:
+		print("KLAIDA: Nepamiršk įtempti Bomb.tscn į inspektorių!")
+		return
 
+	# 1. Sukuriame bombos scenos instanciją
+	var b = bomb_scene.instantiate()
+	
+	# 2. PRIDEDAME į sceną (rekomenduojama į current_scene, kad nejudėtų su žaidėju)
+	get_tree().current_scene.add_child(b)
+	
+	# 3. POZICIJA: Nustatome pagrindinio mazgo poziciją į žaidėjo poziciją
+	b.global_position = global_position
+	
+	# 4. SURANDAME RigidBody2D:
+	# Tikriname patį b arba jo vaiką "Explosive"
+	var rb: RigidBody2D = null
+	if b is RigidBody2D:
+		rb = b
+	else:
+		# Ieškome vaiko pavadinimu "Explosive", kuris turi būti RigidBody2D
+		rb = b.get_node_or_null("Explosive")
+	
+	# 5. METIMAS:
+	if rb:
+		# Užtikriname, kad vaiko globali pozicija irgi būtų teisinga (jei b nėra RB)
+		if rb != b:
+			rb.global_position = global_position
+			
+		var dir = (get_global_mouse_position() - global_position).normalized()
+		
+		# Išvalome senus greičius (saugumo dėlei)
+		rb.linear_velocity = Vector2.ZERO
+		# Metame!
+		rb.apply_central_impulse(dir * throw_force)
+		print("Bomba sėkmingai išmesta!")
+	else:
+		print("KLAIDA: Bombos scenoje (arba vaike 'Explosive') nerastas RigidBody2D!")
+	
 func _on_player_died():
 	coincount = round(float(coincount * 0.9))
 	if total_coins: total_coins.text = str(coincount)

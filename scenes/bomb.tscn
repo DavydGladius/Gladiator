@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cs442jdq73nug"]
+
+[ext_resource type="Texture2D" uid="uid://tjdgtcplj3qp" path="res://assets/sprites/weapons/bomb.png" id="1_4kkau"]
+[ext_resource type="Script" uid="uid://1gjgiogtvkdb" path="res://scripts/weapons/bomb.gd" id="1_vpdcx"]
+[ext_resource type="AudioStream" uid="uid://cwqdlm77h341" path="res://assets/sound_effects/Bomb.mp3" id="3_j15uc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j15uc"]
+radius = 29.017237
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vpdcx"]
+radius = 4.0
+
+[sub_resource type="Curve" id="Curve_j15uc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_84slv"]
+curve = SubResource("Curve_j15uc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vpdcx"]
+particle_flag_disable_z = true
+inherit_velocity_ratio = 100.0
+spread = 180.0
+initial_velocity_min = -200.0
+initial_velocity_max = 400.0
+gravity = Vector3(0, 0, 0)
+damping_min = 40.0
+damping_max = 60.000004
+scale_curve = SubResource("CurveTexture_84slv")
+
+[node name="Bomb" type="Node2D" unique_id=1491856208]
+
+[node name="Explosive" type="RigidBody2D" parent="." unique_id=1529377107]
+script = ExtResource("1_vpdcx")
+
+[node name="boom" type="Area2D" parent="Explosive" unique_id=922619398]
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Explosive/boom" unique_id=71342409]
+shape = SubResource("CircleShape2D_j15uc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Explosive" unique_id=769650350]
+texture = ExtResource("1_4kkau")
+
+[node name="bomb_hitbox" type="CollisionShape2D" parent="Explosive" unique_id=100481067]
+shape = SubResource("CircleShape2D_vpdcx")
+
+[node name="Timer" type="Timer" parent="Explosive" unique_id=600442818]
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Explosive" unique_id=1246028186]
+rotation = 0.0028161295
+stream = ExtResource("3_j15uc")
+volume_db = -15.4
+
+[node name="ExplosionParticles" type="GPUParticles2D" parent="Explosive" unique_id=292611566]
+emitting = false
+amount = 40
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_vpdcx")
