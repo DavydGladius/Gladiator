@@ -52,7 +52,8 @@ one_shot = true
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Explosive" unique_id=1246028186]
 rotation = 0.0028161295
 stream = ExtResource("3_j15uc")
-volume_db = -15.4
+volume_db = -5.0
+bus = &"SFX"
 
 [node name="ExplosionParticles" type="GPUParticles2D" parent="Explosive" unique_id=292611566]
 emitting = false
