@@ -63,6 +63,7 @@ func start_next_wave():
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
 	current_wavelvl += 1
 	wave_started.emit(current_wavelvl) #for shop
+	_heal_players()
 	_run_spawning_logic()
 
 func restart_current_wave():
@@ -70,6 +71,7 @@ func restart_current_wave():
 	stop_wave()
 	clear_enemies()
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
+	_heal_players()
 	_run_spawning_logic()
 
 func clear_enemies():
@@ -116,6 +118,11 @@ func _spawn_enemy():
 		spawn_timer.stop()
 		$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
+
+func _heal_players():
+	var players = get_tree().get_nodes_in_group("player")
+	for player in players:
+		player.heal_full()
 
 func _process(_delta):
 	# Progress bar atvaizdavimas bangos metu

@@ -57,6 +57,12 @@ func switch_weapon(weapon_type: String):
 		sword.hide()
 		sword.process_mode = PROCESS_MODE_DISABLED
 		
+func heal_full():
+	current_health = max_health + health_bonus
+	if health_bar:
+		health_bar.max_value = current_health
+		health_bar.value = current_health
+
 func throw_bomb():
 	if not bomb_scene:
 		print("KLAIDA: Nepamiršk įtempti Bomb.tscn į inspektorių!")
