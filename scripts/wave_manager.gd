@@ -14,6 +14,8 @@ var spawn_timer: Timer
 var grace_timer: Timer
 var progress_bar: ProgressBar
 var wave_label: Label
+var save_path = "user://wavefile.save" #saved in Appdata/Roaming/Godot/...
+
 signal wave_started(wave_number: int)
 
 
@@ -151,3 +153,19 @@ func _process(_delta):
 	# Progress bar atvaizdavimas Grace Period metu
 	if not grace_timer.is_stopped() and progress_bar:
 		progress_bar.value = grace_timer.time_left
+
+
+func save_wave_data():
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(current_wavelvl)
+
+func load_wave_data():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		current_wavelvl = file.get_var(current_wavelvl)
+		restart_current_wave()
+
+func first_load_wave_data():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		current_wavelvl = file.get_var(current_wavelvl)-1

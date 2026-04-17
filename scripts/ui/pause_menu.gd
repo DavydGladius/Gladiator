@@ -2,6 +2,8 @@ extends Control
 
 @onready var pause_panel = $Panel
 @onready var settings_panel = $Settings
+@onready var player = $"../../Player"
+@onready var wavemanager = $"../../WaveManager"
 
 func _ready():
 	visible = false
@@ -63,3 +65,13 @@ func _on_exit_pressed() -> void:
 
 func _process(_delta):
 	testEsc()
+
+
+func _on_save_pressed() -> void:
+	player.save_player_data()
+	wavemanager.save_wave_data()
+
+
+func _on_load_pressed() -> void:
+	player.load_player_data()
+	wavemanager.load_wave_data()

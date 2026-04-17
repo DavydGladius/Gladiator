@@ -8,6 +8,7 @@ func _ready():
 	settings.visible = false
 
 func _on_start_pressed() -> void:
+	Global.load_save = false
 	AudioManager.play_click()
 	get_tree().change_scene_to_file("res://Scenes/world.tscn")
 
@@ -30,3 +31,9 @@ func _on_exit_pressed() -> void:
 func _on_back_settings_pressed() -> void:
 	AudioManager.play_click()
 	_ready()
+
+
+func _on_load_pressed() -> void:
+	Global.load_save = true
+	AudioManager.play_click()
+	get_tree().change_scene_to_file("res://Scenes/world.tscn")

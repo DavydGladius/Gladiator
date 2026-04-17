@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://l2cvnr2pxmkl" path="res://scripts/ui/main_menu.gd" id="1_06t4h"]
 [ext_resource type="AudioStream" uid="uid://brko6qo68wyl" path="res://assets/music/Main_menu_music.mp3" id="2_48xlc"]
-[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://scenes/SettingsWindow.tscn" id="3_1ehe0"]
-
+[ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://Scenes/SettingsWindow.tscn" id="3_1ehe0"]
 
 [node name="MainMenu" type="Control" unique_id=1198453827]
 layout_mode = 3
@@ -36,6 +35,12 @@ layout_mode = 2
 text = "Start
 "
 
+[node name="Load" type="Button" parent="MainButtons" unique_id=1634041313]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Load"
+
 [node name="Settings" type="Button" parent="MainButtons" unique_id=1129542298]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
@@ -57,5 +62,6 @@ bus = &"Music"
 layout_mode = 1
 
 [connection signal="pressed" from="MainButtons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MainButtons/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="MainButtons/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MainButtons/Exit" to="." method="_on_exit_pressed"]

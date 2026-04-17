@@ -4,6 +4,9 @@ var coincount: int = 0
 @onready var footstep_audio = $FootstepPlayer
 @onready var total_coins = $CanvasLayer/TextureRect/Label
 
+var save_path = "user://playerfile.save" #saved in Appdata/Roaming/Godot/...
+@onready var spawnpos = $".".global_position
+
 @onready var sword = $BasicSword
 @onready var bow = $BasicBow
 
@@ -120,3 +123,23 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 	if area.is_in_group("coin"):
 		coincount += area.collect()
 		total_coins.text = str(coincount)
+
+func save_player_data():
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	print(OS.get_data_dir())
+	file.store_var(damage_multiplier)
+	file.store_var(speed_multiplier)
+	file.store_var(health_bonus)
+	file.store_var(current_health)
+	file.store_var(coincount)
+
+func load_player_data():
+	if FileAccess.file_exists(save_path):
+		var file = FileAccess.open(save_path, FileAccess.READ)
+		damage_multiplier = file.get_var()
+		speed_multiplier = file.get_var()
+		health_bonus = file.get_var()
+		current_health = file.get_var()
+		coincount = file.get_var()
+		total_coins.text = str(coincount)
+		global_position = spawnpos

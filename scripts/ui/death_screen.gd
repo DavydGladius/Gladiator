@@ -1,5 +1,8 @@
 extends Control
 
+@onready var player = $"../../Player"
+@onready var wavemanager = $"../../WaveManager"
+
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
@@ -41,3 +44,15 @@ func _on_end_button_pressed() -> void:
 	AudioManager.play_click()
 	await get_tree().create_timer(0.1).timeout 
 	get_tree().quit()
+
+
+func _on_load_pressed() -> void:
+	AudioManager.play_click()
+	get_tree().paused = false
+	hide()
+	if player:
+		player.is_dead = false
+		player.set_physics_process(true)
+		player.load_player_data()
+	if $AudioStreamPlayer: $AudioStreamPlayer.stop()
+	wavemanager.load_wave_data()
