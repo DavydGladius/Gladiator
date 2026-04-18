@@ -45,7 +45,6 @@ func _on_end_button_pressed() -> void:
 	await get_tree().create_timer(0.1).timeout 
 	get_tree().quit()
 
-
 func _on_load_pressed() -> void:
 	AudioManager.play_click()
 	get_tree().paused = false

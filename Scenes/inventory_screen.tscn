@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c3pi5ioehb5n3"]
+
+[ext_resource type="Script" uid="uid://ba1xlj6fl4vqw" path="res://scripts/ui/inventory_screen.gd" id="1_strtq"]
+
+[node name="InventoryScreen" type="Control" unique_id=252959919]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_strtq")
+
+[node name="Panel" type="Panel" parent="." unique_id=1260273096]
+layout_mode = 0
+offset_right = 543.0
+offset_bottom = 283.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=398627822]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 533.0
+offset_bottom = 273.0
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Panel/VBoxContainer" unique_id=1546895443]
+layout_mode = 2
+text = "🎒 INVENTORY 🎒"
+horizontal_alignment = 1
+
+[node name="ItemContainer" type="VBoxContainer" parent="Panel/VBoxContainer" unique_id=773529645]
+layout_mode = 2
+size_flags_vertical = 3

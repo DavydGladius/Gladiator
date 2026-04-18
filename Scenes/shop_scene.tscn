@@ -1,27 +1,36 @@
 [gd_scene format=3 uid="uid://dsf4jkb7yc4ng"]
 
 [ext_resource type="Script" uid="uid://phhljkqhttyb" path="res://scripts/ui/shop_scene.gd" id="1_35huh"]
-[ext_resource type="PackedScene" uid="uid://c3btd3fb5l5xy" path="res://scenes/shop_item.tscn" id="2_njw01"]
+[ext_resource type="PackedScene" uid="uid://c3btd3fb5l5xy" path="res://Scenes/shop_item.tscn" id="2_njw01"]
 [ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="3_jwdga"]
 [ext_resource type="Resource" uid="uid://cbpmvdqq7hn0j" path="res://scripts/resources/HealthUpgrade.tres" id="4_uxpe5"]
 [ext_resource type="Resource" uid="uid://c8uamujc7s2am" path="res://scripts/resources/SharpenedSword.tres" id="5_5ycja"]
+[ext_resource type="PackedScene" uid="uid://c3pi5ioehb5n3" path="res://Scenes/inventory_screen.tscn" id="6_uxpe5"]
+[ext_resource type="Resource" uid="uid://bgmrsdbsqrd3i" path="res://scripts/resources/BasicBowItem.tres" id="7_bow01"]
+[ext_resource type="Resource" uid="uid://bc5o0fecadg46" path="res://scripts/resources/BasicSwordItem.tres" id="8_sword01"]
 
 [node name="ShopScene" type="Control" unique_id=701610180]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 294.0
-offset_top = 458.0
-offset_right = 837.0
-offset_bottom = 528.0
+offset_left = 60.0
+offset_top = 350.0
+offset_right = 603.0
+offset_bottom = 420.0
 script = ExtResource("1_35huh")
 ShopItem = ExtResource("2_njw01")
-available_items = Array[ExtResource("3_jwdga")]([ExtResource("4_uxpe5"), ExtResource("5_5ycja")])
+available_items = Array[ExtResource("3_jwdga")]([ExtResource("4_uxpe5"), ExtResource("5_5ycja"), ExtResource("7_bow01"), ExtResource("8_sword01")])
 
 [node name="Panel" type="Panel" parent="." unique_id=89362874]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.1290001
+anchor_right = 1.1290001
+offset_left = -613.04706
 offset_top = -118.0
-offset_right = 543.0
+offset_right = -70.04706
 offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="." unique_id=1603845425]
 layout_mode = 0
@@ -41,3 +50,10 @@ offset_top = -115.0
 offset_right = 417.0
 offset_bottom = -34.0
 theme_override_constants/separation = 25
+
+[node name="InventoryScreen" parent="." unique_id=252959919 instance=ExtResource("6_uxpe5")]
+layout_mode = 0
+offset_left = 619.0
+offset_top = -117.0
+offset_right = 1162.0
+offset_bottom = 166.0

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bc5o0fecadg46"]
+
+[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="1_nupwp"]
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_xv1fv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4a7f"]
+atlas = ExtResource("1_nupwp")
+region = Rect2(64, 0, 16, 16)
+
+[resource]
+script = ExtResource("1_xv1fv")
+item_name = "Basic Sword"
+icon = SubResource("AtlasTexture_h4a7f")
+description = "Trainee sword"
+weapon_type = "sword"
+metadata/_custom_type_script = "uid://con5lvyu3yahk"

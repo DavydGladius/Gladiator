@@ -14,10 +14,9 @@ var spawn_timer: Timer
 var grace_timer: Timer
 var progress_bar: ProgressBar
 var wave_label: Label
-var save_path = "user://wavefile.save" #saved in Appdata/Roaming/Godot/...
+
 
 signal wave_started(wave_number: int)
-
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -64,7 +63,6 @@ func start_next_wave():
 	grace_timer.wait_time = grace_period
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
 	current_wavelvl += 1
-	wave_started.emit(current_wavelvl) #for shop
 	_heal_players()
 	_run_spawning_logic()
 
@@ -97,7 +95,7 @@ func _run_spawning_logic():
 		wave_label.text = "Wave " + str(current_wavelvl)
 		wave_label.modulate = Color.RED
 
-	print("Prasideda banga: ", current_wavelvl, ". Priešų kiekis: ", enemies_this_wave)
+	print("Prasideda banga: ", current_wavelvl)
 
 func stop_wave():
 	spawn_timer.stop()
@@ -127,14 +125,13 @@ func _heal_players():
 		player.heal_full()
 
 func _process(_delta):
-	# Progress bar atvaizdavimas bangos metu
 	if progress_bar and grace_timer.is_stopped():
 		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 		var enemies_limit = base_enemies_per_wave + (current_wavelvl * 2)
 		var remaining = enemies_alive + (enemies_limit - total_spawned)
 		progress_bar.value = remaining
 
-	# Tikriname, ar visi nužudyti, kad pradėtume Grace Period
+	# Grace period pradžia — čia emituojame wave_started šopui atsinaujinti
 	if wave_finished_spawning and grace_timer.is_stopped():
 		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
 		if enemies_alive == 0:
@@ -147,25 +144,27 @@ func _process(_delta):
 			if wave_label:
 				wave_label.text = "Grace Period"
 				wave_label.modulate = Color.GREEN
-			print("Visi priešai nužudyti! Grace period prasideda...")
+			print("Grace period prasideda, shopas atsinaujina...")
+			wave_started.emit(current_wavelvl)  # Shopas atsinaujina grace period metu
 			grace_timer.start()
 
-	# Progress bar atvaizdavimas Grace Period metu
 	if not grace_timer.is_stopped() and progress_bar:
 		progress_bar.value = grace_timer.time_left
 
+func save_wave_data() -> void:
+	SaveManager.save_section("wave", {
+		"current_wavelvl": current_wavelvl
+	})
 
-func save_wave_data():
-	var file = FileAccess.open(save_path, FileAccess.WRITE)
-	file.store_var(current_wavelvl)
+func load_wave_data() -> void:
+	var d = SaveManager.load_section("wave")
+	if d.is_empty():
+		return
+	current_wavelvl = int(d.get("current_wavelvl", 0))
+	restart_current_wave()
 
-func load_wave_data():
-	if FileAccess.file_exists(save_path):
-		var file = FileAccess.open(save_path, FileAccess.READ)
-		current_wavelvl = file.get_var(current_wavelvl)
-		restart_current_wave()
-
-func first_load_wave_data():
-	if FileAccess.file_exists(save_path):
-		var file = FileAccess.open(save_path, FileAccess.READ)
-		current_wavelvl = file.get_var(current_wavelvl)-1
+func first_load_wave_data() -> void:
+	var d = SaveManager.load_section("wave")
+	if d.is_empty():
+		return
+	current_wavelvl = int(d.get("current_wavelvl", 1)) - 1

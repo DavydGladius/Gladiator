@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bgmrsdbsqrd3i"]
+
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_2ha8g"]
+[ext_resource type="Texture2D" uid="uid://dvhc3bqk3xlwv" path="res://assets/sprites/weapons/BasicBowIcon.png" id="1_6b4tt"]
+
+[resource]
+script = ExtResource("1_2ha8g")
+item_name = "Basic Bow"
+icon = ExtResource("1_6b4tt")
+description = "Ranged weapon. Shoots arrows."
+price = 20
+weapon_type = "bow"
+metadata/_custom_type_script = "uid://con5lvyu3yahk"
