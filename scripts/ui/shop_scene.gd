@@ -8,6 +8,7 @@ extends Control
 
 var current_item_indices: Array = []
 var purchased_indices: Array = []
+var _skip_next_shuffle: bool = false
 
 func _ready() -> void:
 	Description.text = ""
@@ -30,22 +31,32 @@ func _notification(what: int) -> void:
 				inventory_screen.hide_inventory()
 
 func _on_wave_started(_wave_number: int) -> void:
+	if _skip_next_shuffle:
+		_skip_next_shuffle = false
+		return
 	_shuffel_shop()
 
 func _shuffel_shop() -> void:
 	current_item_indices.clear()
 	purchased_indices.clear()
-	for i in range(3):
-		current_item_indices.append(randi() % available_items.size())
+	current_item_indices = _pick_unique_indices(3)
 	_save_shop()
 	_build_shop()
 
 func _shuffel_shop_no_save() -> void:
 	current_item_indices.clear()
 	purchased_indices.clear()
-	for i in range(3):
-		current_item_indices.append(randi() % available_items.size())
+	current_item_indices = _pick_unique_indices(3)
 	_build_shop()
+
+# FIX: visada parenkame skirtingus itemus (jei yra pakankamai)
+func _pick_unique_indices(count: int) -> Array:
+	var pool = range(available_items.size())
+	pool.shuffle()
+	var result = []
+	for i in range(min(count, pool.size())):
+		result.append(pool[i])
+	return result
 
 func _load_shop() -> void:
 	var d = SaveManager.load_section("shop")
@@ -68,6 +79,11 @@ func _load_shop() -> void:
 	current_item_indices = loaded_indices.map(func(x): return int(x))
 	purchased_indices = loaded_purchased.map(func(x): return int(x))
 	_build_shop()
+
+# FIX: viešas metodas, kurį kviečia pause_menu ir death_screen po load
+func load_shop_from_save() -> void:
+	_skip_next_shuffle = true  # Neleidžiame wave_started perrašyti ką tik įkeltų duomenų
+	_load_shop()
 
 func _save_shop() -> void:
 	SaveManager.save_section("shop", {

@@ -49,9 +49,19 @@ func _on_load_pressed() -> void:
 	AudioManager.play_click()
 	get_tree().paused = false
 	hide()
+	if $AudioStreamPlayer: $AudioStreamPlayer.stop()
 	if player:
 		player.is_dead = false
 		player.set_physics_process(true)
+		# FIX: atstatome collision, kad safe_area body_entered veiktų
+		var collision = player.get_node_or_null("CollisionShape2D")
+		if collision:
+			collision.disabled = false
+		if player.animations:
+			player.animations.play("idle")
 		player.load_player_data()
-	if $AudioStreamPlayer: $AudioStreamPlayer.stop()
+	# Neleidžiame wave_started perrašyti šopo duomenų
+	var shop = get_tree().current_scene.find_child("ShopScene", true, false)
+	if shop and shop.has_method("load_shop_from_save"):
+		shop.load_shop_from_save()
 	wavemanager.load_wave_data()
