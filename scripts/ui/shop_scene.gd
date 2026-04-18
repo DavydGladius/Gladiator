@@ -8,7 +8,6 @@ extends Control
 
 var current_item_indices: Array = []
 var purchased_indices: Array = []
-var _just_loaded: bool = false
 
 func _ready() -> void:
 	Description.text = ""
@@ -19,7 +18,6 @@ func _ready() -> void:
 		push_error("ShopScene: WaveManager nerastas!")
 	if Global.load_save:
 		_load_shop()
-		_just_loaded = true
 	else:
 		_shuffel_shop_no_save()
 
@@ -32,9 +30,6 @@ func _notification(what: int) -> void:
 				inventory_screen.hide_inventory()
 
 func _on_wave_started(_wave_number: int) -> void:
-	if _just_loaded:
-		_just_loaded = false
-		return
 	_shuffel_shop()
 
 func _shuffel_shop() -> void:
@@ -51,10 +46,6 @@ func _shuffel_shop_no_save() -> void:
 	for i in range(3):
 		current_item_indices.append(randi() % available_items.size())
 	_build_shop()
-
-func load_shop_from_save() -> void:
-	_load_shop()
-	_just_loaded = true
 
 func _load_shop() -> void:
 	var d = SaveManager.load_section("shop")
