@@ -3,6 +3,110 @@
 [ext_resource type="Script" uid="uid://dok70flmri7c1" path="res://scripts/ui/pause_menu.gd" id="1_hdmo1"]
 [ext_resource type="AudioStream" uid="uid://cdafqidqipuu7" path="res://assets/music/Pause_menu_music.mp3" id="2_k0w1u"]
 [ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://Scenes/SettingsWindow.tscn" id="3_1och7"]
+[ext_resource type="Texture2D" uid="uid://cynbk8m367hn" path="res://assets/Backgrounds/PauseBackground.png" id="4_pbg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel_bg"]
+bg_color = Color(0.0, 0.0, 0.0, 0.0)
+border_width_left = 0
+border_width_top = 0
+border_width_right = 0
+border_width_bottom = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_inner"]
+bg_color = Color(0.04, 0.02, 0.01, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.45, 0.12, 0.85)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+content_margin_left = 40.0
+content_margin_right = 40.0
+content_margin_top = 35.0
+content_margin_bottom = 35.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.06, 0.04, 0.02, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.45, 0.2, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_right = 18.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.45, 0.3, 0.05, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.78, 0.2, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_right = 18.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.28, 0.18, 0.02, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.88, 0.3, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_right = 18.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_continue"]
+bg_color = Color(0.1, 0.28, 0.08, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.75, 0.2, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_right = 18.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_continue_hover"]
+bg_color = Color(0.18, 0.5, 0.1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 1.0, 0.3, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_right = 18.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
 
 [node name="PauseMenu" type="Control" unique_id=1387866459]
 process_mode = 3
@@ -14,69 +118,141 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hdmo1")
 
-[node name="Panel" type="Panel" parent="." unique_id=538209608]
+[node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("4_pbg")
+stretch_mode = 6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1252837284]
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0, 0.0, 0.0, 0.48)
+
+[node name="Panel" type="Panel" parent="." unique_id=538209608]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -275.0
-offset_top = -200.0
-offset_right = 275.0
-offset_bottom = 200.0
+offset_left = -170.0
+offset_top = -290.0
+offset_right = 170.0
+offset_bottom = 290.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel_bg")
+
+[node name="InnerBox" type="PanelContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_inner")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/InnerBox" unique_id=1252837284]
+layout_mode = 2
+theme_override_constants/separation = 14
 alignment = 1
 
-[node name="Continue" type="Button" parent="Panel/VBoxContainer" unique_id=1554213541]
-custom_minimum_size = Vector2(250, 50)
+[node name="Title" type="Label" parent="Panel/InnerBox/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Continue
-"
+theme_override_font_sizes/font_size = 36
+theme_override_colors/font_color = Color(1.0, 0.82, 0.2, 1.0)
+theme_override_colors/font_shadow_color = Color(0.0, 0.0, 0.0, 0.9)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+text = "PAUSED"
+horizontal_alignment = 1
 
-[node name="Save" type="Button" parent="Panel/VBoxContainer" unique_id=400769106]
-custom_minimum_size = Vector2(250, 50)
+[node name="Separator" type="HSeparator" parent="Panel/InnerBox/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Save
-"
+theme_override_colors/separator_color = Color(0.65, 0.5, 0.12, 0.7)
+theme_override_constants/separation = 6
 
-[node name="Load" type="Button" parent="Panel/VBoxContainer" unique_id=1318362635]
-custom_minimum_size = Vector2(250, 50)
+[node name="Continue" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=1554213541]
+custom_minimum_size = Vector2(260, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Load"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_continue")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_continue_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_continue")
+theme_override_colors/font_color = Color(0.7, 1.0, 0.5, 1.0)
+theme_override_colors/font_hover_color = Color(0.85, 1.0, 0.65, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "▶  Continue"
 
-[node name="Settings" type="Button" parent="Panel/VBoxContainer" unique_id=2097545268]
-custom_minimum_size = Vector2(250, 50)
+[node name="Save" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=400769106]
+custom_minimum_size = Vector2(260, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Settings"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 0.8, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "💾  Save"
 
-[node name="Main Menu" type="Button" parent="Panel/VBoxContainer" unique_id=302968112]
-custom_minimum_size = Vector2(250, 50)
+[node name="Load" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=1318362635]
+custom_minimum_size = Vector2(260, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Main Menu
-"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 0.8, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "📂  Load"
 
-[node name="Exit" type="Button" parent="Panel/VBoxContainer" unique_id=1280246732]
-custom_minimum_size = Vector2(250, 50)
+[node name="Settings" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=2097545268]
+custom_minimum_size = Vector2(260, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Exit
-"
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 0.8, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "⚙  Settings"
+
+[node name="Main Menu" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=302968112]
+custom_minimum_size = Vector2(260, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 0.8, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "🏠  Main Menu"
+
+[node name="Exit" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=1280246732]
+custom_minimum_size = Vector2(260, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_colors/font_color = Color(0.9, 0.4, 0.3, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.5, 0.4, 1.0)
+theme_override_colors/font_pressed_color = Color(0.8, 0.3, 0.2, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "✕  Exit"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=921761919]
 stream = ExtResource("2_k0w1u")
@@ -87,9 +263,9 @@ parameters/looping = true
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="Panel/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Load" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

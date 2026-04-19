@@ -3,136 +3,234 @@
 [ext_resource type="Script" uid="uid://b2c5pbnbitap4" path="res://scripts/audio/audio_control.gd" id="1_uv8lj"]
 [ext_resource type="Script" uid="uid://ugaqursa4s76" path="res://scripts/settings/settings_window.gd" id="1_w8q4c"]
 [ext_resource type="Script" uid="uid://dom6dxollegn2" path="res://scripts/settings/fullscreen_control.gd" id="2_w8q4c"]
+[ext_resource type="Texture2D" path="res://assets/Backgrounds/SettingsBackground.png" id="3_setbg"]
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_48xlc"]
-color = Color(1, 1, 1, 1)
-thickness = 6
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_main"]
+bg_color = Color(0.06, 0.03, 0.01, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.5, 0.12, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_1ehe0"]
-color = Color(1, 0, 0, 1)
-thickness = 6
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_bg"]
+bg_color = Color(0.15, 0.1, 0.03, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.4, 0.1, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_fill"]
+bg_color = Color(0.8, 0.6, 0.1, 1.0)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+bg_color = Color(0.08, 0.05, 0.02, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.48, 0.12, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+bg_color = Color(0.5, 0.32, 0.05, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.78, 0.2, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.3, 0.18, 0.02, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.9, 0.3, 1.0)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
 
 [node name="Settings" type="Panel" unique_id=1258985486]
-custom_minimum_size = Vector2(150, 0)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -282.5
-offset_top = -184.0
-offset_right = 282.5
-offset_bottom = 184.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
 script = ExtResource("1_w8q4c")
 
-[node name="Settings Label" type="Label" parent="." unique_id=1732027832]
+[node name="BgTexture" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 0.5
-offset_top = 18.5
-offset_right = 0.5
-offset_bottom = 81.5
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Settings"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Music controls label" type="Label" parent="." unique_id=1067116225]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 0.5
-offset_top = 84.5
-offset_right = 0.5
-offset_bottom = 147.5
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 20
-text = "Music"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Audio control" type="HSlider" parent="Music controls label" unique_id=1196352827]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -140.5
-offset_top = 15.5
-offset_right = 145.5
-offset_bottom = 33.5
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/slider = SubResource("StyleBoxLine_48xlc")
-theme_override_styles/grabber_area = SubResource("StyleBoxLine_1ehe0")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_1ehe0")
+texture = ExtResource("3_setbg")
+stretch_mode = 6
+modulate = Color(1, 1, 1, 0.55)
+
+[node name="DarkTint" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0, 0.0, 0.0, 0.55)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InnerPanel" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+custom_minimum_size = Vector2(500, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_main")
+
+[node name="VBoxLayout" type="VBoxContainer" parent="CenterContainer/InnerPanel"]
+layout_mode = 2
+theme_override_constants/separation = 22
+offset_left = 30.0
+offset_top = 20.0
+offset_right = -30.0
+offset_bottom = -20.0
+
+[node name="Settings Label" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1732027832]
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+theme_override_colors/font_color = Color(1.0, 0.82, 0.2, 1.0)
+theme_override_colors/font_shadow_color = Color(0.0, 0.0, 0.0, 0.85)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="TitleSep" type="HSeparator" parent="CenterContainer/InnerPanel/VBoxLayout"]
+layout_mode = 2
+theme_override_colors/separator_color = Color(0.65, 0.5, 0.12, 0.7)
+
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/VBoxLayout"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Music controls label" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout/MusicRow" unique_id=1067116225]
+layout_mode = 2
+custom_minimum_size = Vector2(100, 0)
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.85, 0.55, 1.0)
+text = "Music"
+vertical_alignment = 1
+
+[node name="Audio control" type="HSlider" parent="CenterContainer/InnerPanel/VBoxLayout/MusicRow" unique_id=1196352827]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(300, 28)
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_fill")
 max_value = 1.0
 step = 0.05
 value = 1.0
 script = ExtResource("1_uv8lj")
 audio_bus_name = "Music"
 
-[node name="SFX controls label2" type="Label" parent="." unique_id=735152743]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 0.5
-offset_top = 156.5
-offset_right = 0.5
-offset_bottom = 219.5
-grow_horizontal = 2
+[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/VBoxLayout"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SFX controls label2" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout/SFXRow" unique_id=735152743]
+layout_mode = 2
+custom_minimum_size = Vector2(100, 0)
 theme_override_font_sizes/font_size = 20
-text = "SFX
-"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.95, 0.85, 0.55, 1.0)
+text = "SFX"
 vertical_alignment = 1
 
-[node name="Audio control2" type="HSlider" parent="SFX controls label2" unique_id=1452648667]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -140.5
-offset_top = -3.5
-offset_right = 145.5
-offset_bottom = 14.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/slider = SubResource("StyleBoxLine_48xlc")
-theme_override_styles/grabber_area = SubResource("StyleBoxLine_1ehe0")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_1ehe0")
+[node name="Audio control2" type="HSlider" parent="CenterContainer/InnerPanel/VBoxLayout/SFXRow" unique_id=1452648667]
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(300, 28)
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_fill")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_fill")
 max_value = 1.0
 step = 0.05
 value = 1.0
 script = ExtResource("1_uv8lj")
 audio_bus_name = "SFX"
 
-[node name="FullscreenControl" type="CheckButton" parent="." unique_id=1672254392]
-layout_mode = 0
-offset_left = 142.5
-offset_top = 220.0
-offset_right = 436.5
-offset_bottom = 261.0
+[node name="FullscreenRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/VBoxLayout"]
+layout_mode = 2
+
+[node name="FSLabel" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.85, 0.55, 1.0)
 text = "Fullscreen"
+vertical_alignment = 1
+
+[node name="FullscreenControl" type="CheckButton" parent="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow" unique_id=1672254392]
+layout_mode = 2
+text = ""
 script = ExtResource("2_w8q4c")
 
-[node name="Back" type="Button" parent="." unique_id=1085719670]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 0
-offset_left = 190.0
-offset_top = 293.0
-offset_right = 390.0
-offset_bottom = 353.0
-text = "Back"
+[node name="BottomSep" type="HSeparator" parent="CenterContainer/InnerPanel/VBoxLayout"]
+layout_mode = 2
+theme_override_colors/separator_color = Color(0.65, 0.5, 0.12, 0.7)
 
-[connection signal="value_changed" from="Music controls label/Audio control" to="Music controls label/Audio control" method="_on_value_changed"]
-[connection signal="value_changed" from="SFX controls label2/Audio control2" to="SFX controls label2/Audio control2" method="_on_value_changed"]
-[connection signal="toggled" from="FullscreenControl" to="FullscreenControl" method="_on_toggled"]
-[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[node name="Back" type="Button" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1085719670]
+custom_minimum_size = Vector2(200, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 1.0, 0.8, 1.0)
+theme_override_font_sizes/font_size = 20
+text = "◀  Back"
+
+[connection signal="value_changed" from="CenterContainer/InnerPanel/VBoxLayout/MusicRow/Audio control" to="CenterContainer/InnerPanel/VBoxLayout/MusicRow/Audio control" method="_on_value_changed"]
+[connection signal="value_changed" from="CenterContainer/InnerPanel/VBoxLayout/SFXRow/Audio control2" to="CenterContainer/InnerPanel/VBoxLayout/SFXRow/Audio control2" method="_on_value_changed"]
+[connection signal="toggled" from="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow/FullscreenControl" to="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow/FullscreenControl" method="_on_toggled"]
+[connection signal="pressed" from="CenterContainer/InnerPanel/VBoxLayout/Back" to="." method="_on_back_pressed"]

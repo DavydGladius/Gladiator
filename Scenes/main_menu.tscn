@@ -3,6 +3,71 @@
 [ext_resource type="Script" uid="uid://l2cvnr2pxmkl" path="res://scripts/ui/main_menu.gd" id="1_06t4h"]
 [ext_resource type="AudioStream" uid="uid://brko6qo68wyl" path="res://assets/music/Main_menu_music.mp3" id="2_48xlc"]
 [ext_resource type="PackedScene" uid="uid://dwlbir8xdtjic" path="res://Scenes/SettingsWindow.tscn" id="3_1ehe0"]
+[ext_resource type="Texture2D" uid="uid://du8nuf1od1gnf" path="res://assets/Backgrounds/MainMenu Background.png" id="4_bg01"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+content_margin_left = 40.0
+content_margin_top = 35.0
+content_margin_right = 40.0
+content_margin_bottom = 35.0
+bg_color = Color(0.04, 0.02, 0.01, 0.72)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.45, 0.1, 0.8)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_normal"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.08, 0.05, 0.02, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.55, 0.15, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.35, 0.2, 0.02, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hover"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.55, 0.35, 0.05, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.8, 0.2, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [node name="MainMenu" type="Control" unique_id=1198453827]
 layout_mode = 3
@@ -13,45 +78,109 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_06t4h")
 
-[node name="MainButtons" type="VBoxContainer" parent="." unique_id=2106817055]
+[node name="Background" type="TextureRect" parent="." unique_id=1886276212]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_bg01")
+stretch_mode = 6
+
+[node name="DarkOverlay" type="ColorRect" parent="." unique_id=707976663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.38)
+
+[node name="MenuPanel" type="PanelContainer" parent="." unique_id=1618111469]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -50.5
-offset_right = 35.0
-offset_bottom = 50.5
+offset_left = -170.0
+offset_top = -240.0
+offset_right = 170.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="MainButtons" type="VBoxContainer" parent="MenuPanel" unique_id=2106817055]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="MenuPanel/MainButtons" unique_id=1002659470]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_font_sizes/font_size = 42
+text = "GLADIATOR"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="MenuPanel/MainButtons" unique_id=858708689]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Start" type="Button" parent="MenuPanel/MainButtons" unique_id=553682856]
+custom_minimum_size = Vector2(260, 54)
+layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "▶  Start"
 
-[node name="Start" type="Button" parent="MainButtons" unique_id=553682856]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-text = "Start
-"
-
-[node name="Load" type="Button" parent="MainButtons" unique_id=1634041313]
-custom_minimum_size = Vector2(250, 50)
+[node name="Load" type="Button" parent="MenuPanel/MainButtons" unique_id=1634041313]
+custom_minimum_size = Vector2(260, 54)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Load"
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "📂  Load"
 
-[node name="Settings" type="Button" parent="MainButtons" unique_id=1129542298]
-custom_minimum_size = Vector2(200, 60)
+[node name="Settings" type="Button" parent="MenuPanel/MainButtons" unique_id=1129542298]
+custom_minimum_size = Vector2(260, 54)
 layout_mode = 2
-text = "Settings
-"
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.3, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 0.8, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "⚙  Settings"
 
-[node name="Exit" type="Button" parent="MainButtons" unique_id=1253212534]
-custom_minimum_size = Vector2(200, 60)
+[node name="Exit" type="Button" parent="MenuPanel/MainButtons" unique_id=1253212534]
+custom_minimum_size = Vector2(260, 54)
 layout_mode = 2
-text = "Exit
-"
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.9, 0.4, 0.3, 1)
+theme_override_colors/font_pressed_color = Color(0.8, 0.3, 0.2, 1)
+theme_override_colors/font_hover_color = Color(1, 0.5, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
+text = "✕  Exit"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2123454406]
 stream = ExtResource("2_48xlc")
@@ -59,9 +188,10 @@ autoplay = true
 bus = &"Music"
 
 [node name="Settings" parent="." unique_id=1258985486 instance=ExtResource("3_1ehe0")]
+visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="MainButtons/Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="MainButtons/Load" to="." method="_on_load_pressed"]
-[connection signal="pressed" from="MainButtons/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MainButtons/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="MenuPanel/MainButtons/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="MenuPanel/MainButtons/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="MenuPanel/MainButtons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MenuPanel/MainButtons/Exit" to="." method="_on_exit_pressed"]
