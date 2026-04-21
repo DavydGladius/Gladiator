@@ -48,10 +48,10 @@ func _ready() -> void:
 	if Global.load_save:
 		player.load_player_data()
 		wave_manager.first_load_wave_data()
+		
+		_on_wave_started(wave_manager.current_wavelvl)
 	
-	# Connect to your WaveManager's signal
 	wave_manager.wave_started.connect(_on_wave_started)
-
 
 func _on_wave_started(wave_number: int):
 	# WAVE 1-4: Use Arena 1
