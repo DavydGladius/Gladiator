@@ -1,7 +1,6 @@
 extends Control
 
 @onready var player = $"../../Player"
-@onready var wavemanager = $"../../WaveManager"
 
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -44,24 +43,3 @@ func _on_end_button_pressed() -> void:
 	AudioManager.play_click()
 	await get_tree().create_timer(0.1).timeout 
 	get_tree().quit()
-
-func _on_load_pressed() -> void:
-	AudioManager.play_click()
-	get_tree().paused = false
-	hide()
-	if $AudioStreamPlayer: $AudioStreamPlayer.stop()
-	if player:
-		player.is_dead = false
-		player.set_physics_process(true)
-		# FIX: atstatome collision, kad safe_area body_entered veiktų
-		var collision = player.get_node_or_null("CollisionShape2D")
-		if collision:
-			collision.disabled = false
-		if player.animations:
-			player.animations.play("idle")
-		player.load_player_data()
-	# Neleidžiame wave_started perrašyti šopo duomenų
-	var shop = get_tree().current_scene.find_child("ShopScene", true, false)
-	if shop and shop.has_method("load_shop_from_save"):
-		shop.load_shop_from_save()
-	wavemanager.load_wave_data()
