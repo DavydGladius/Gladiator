@@ -11,6 +11,7 @@ var coincount: int = 0
 
 @export var bomb_scene: PackedScene
 @export var throw_force: float = 600.0
+var bomb_cooldown = false
 
 # Inventoriaus sistema
 var inventory: Array = []
@@ -44,8 +45,12 @@ func _physics_process(_delta):
 	var direction = Input.get_vector("left", "right", "up", "down")
 	handle_movement(direction)
 	
-	if Input.is_action_just_pressed("bomb"):
+	
+	if Input.is_action_just_pressed("bomb") and not bomb_cooldown:
 		throw_bomb()
+		bomb_cooldown = true
+		await get_tree().create_timer(1.0).timeout
+		bomb_cooldown = false
 
 func switch_weapon(weapon_type: String):
 	if weapon_type == "sword":
