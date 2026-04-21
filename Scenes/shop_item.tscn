@@ -2,24 +2,125 @@
 
 [ext_resource type="Script" uid="uid://qcgdfgenp83s" path="res://scripts/ui/shop_item.gd" id="1_wxfep"]
 
+[sub_resource type="StyleBoxFlat" id="CardNormal"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.06, 0.13, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.7, 0.1, 0.65)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="CardPressed"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.18, 0.15, 0.08, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.88, 0.25, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="CardHover"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.11, 0.22, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.88, 0.25, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="PricePill"]
+content_margin_left = 6.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+bg_color = Color(0.03, 0.03, 0.08, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.7, 0.1, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="ShopItem" type="Control" unique_id=1461231791 node_paths=PackedStringArray("item_texture")]
-custom_minimum_size = Vector2(69, 0)
+custom_minimum_size = Vector2(90, 110)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 79.0
-offset_bottom = 79.0
+offset_right = 90.0
+offset_bottom = 110.0
 script = ExtResource("1_wxfep")
-item_texture = NodePath("TextureRect")
+item_texture = NodePath("Card/VBox/TextureRect")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1869115777]
+[node name="Card" type="Button" parent="." unique_id=-993732729]
 layout_mode = 0
-offset_right = 67.0
-offset_bottom = 72.0
+offset_right = 90.0
+offset_bottom = 110.0
+focus_mode = 0
+theme_override_styles/normal = SubResource("CardNormal")
+theme_override_styles/pressed = SubResource("CardPressed")
+theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/disabled = SubResource("CardNormal")
+theme_override_styles/focus = SubResource("CardNormal")
 
-[node name="Price" type="Label" parent="." unique_id=1619227968]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 79.0
-offset_right = 60.0
-offset_bottom = 102.0
+[node name="VBox" type="VBoxContainer" parent="Card" unique_id=-993732725]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="Card/VBox" unique_id=1869115777]
+custom_minimum_size = Vector2(56, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PriceBadge" type="PanelContainer" parent="Card/VBox" unique_id=-993732728]
+layout_mode = 2
+theme_override_styles/panel = SubResource("PricePill")
+
+[node name="PriceRow" type="HBoxContainer" parent="Card/VBox/PriceBadge" unique_id=-993732727]
+layout_mode = 2
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="CoinIcon" type="Label" parent="Card/VBox/PriceBadge/PriceRow" unique_id=-993732726]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.87, 0.2, 1)
+theme_override_font_sizes/font_size = 14
+text = "🪙"
+
+[node name="Price" type="Label" parent="Card/VBox/PriceBadge/PriceRow" unique_id=1619227968]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.87, 0.2, 1)
+theme_override_font_sizes/font_size = 14
 text = "100"
+vertical_alignment = 1

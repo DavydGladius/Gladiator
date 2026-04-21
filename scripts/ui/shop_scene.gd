@@ -2,8 +2,8 @@ extends Control
 
 @export var ShopItem: PackedScene
 @export var available_items: Array[ItemData] = []
-@onready var Upgrade_Container: HBoxContainer = $Upgrade_Container
-@onready var Description: Label = $Label
+@onready var Upgrade_Container: HBoxContainer = $Panel/ShopInner/Upgrade_Container
+@onready var Description: Label = $Panel/ShopInner/DescBox/Label
 @onready var inventory_screen = $InventoryScreen
 
 var current_item_indices: Array = []
@@ -12,6 +12,8 @@ var _skip_next_shuffle: bool = false
 
 func _ready() -> void:
 	Description.text = ""
+	_apply_scale()
+	get_viewport().size_changed.connect(_apply_scale)
 	var wave_manager = get_tree().current_scene.find_child("WaveManager", true, false)
 	if wave_manager:
 		wave_manager.wave_started.connect(_on_wave_started)
@@ -21,6 +23,33 @@ func _ready() -> void:
 		_load_shop()
 	else:
 		_shuffel_shop_no_save()
+
+
+func _apply_scale() -> void:
+	var vp = get_viewport().get_visible_rect().size
+	var s = clamp(min(vp.x / 1920.0, vp.y / 1080.0), 0.5, 1.0)
+	var shop_w = int(620 * s)
+	var shop_h = int(330 * s)
+	var inv_w  = int(560 * s)
+	var inv_h  = int(310 * s)
+	var margin_left = int(40 * s)
+	var margin_top  = int(130 * s)
+	var shop_panel = get_node_or_null("Panel")
+	if shop_panel:
+		shop_panel.set_anchors_preset(0)
+		shop_panel.offset_left  = margin_left
+		shop_panel.offset_top   = margin_top
+		shop_panel.offset_right  = margin_left + shop_w
+		shop_panel.offset_bottom = margin_top  + shop_h
+	var inv = get_node_or_null("InventoryScreen")
+	if inv:
+		var inv_left = margin_left + shop_w + int(16 * s)
+		inv.set_anchors_preset(0)
+		inv.offset_left  = inv_left
+		inv.offset_top   = margin_top
+		inv.offset_right  = inv_left + inv_w
+		inv.offset_bottom = margin_top + inv_h
+
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_VISIBILITY_CHANGED:

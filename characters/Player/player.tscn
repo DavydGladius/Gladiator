@@ -157,6 +157,22 @@ height = 16.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_yrol7"]
 radius = 12.0
 
+[sub_resource type="StyleBoxFlat" id="CoinPanelStyle"]
+bg_color = Color(0.05, 0.05, 0.1, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.7, 0.1, 0.7)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+
 [node name="Player" type="CharacterBody2D" unique_id=1217288821 groups=["player"]]
 collision_layer = 2
 collision_mask = 3
@@ -183,20 +199,33 @@ position = Vector2(1, 6)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1129702142]
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer" unique_id=638954148]
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 64.0
-offset_bottom = 64.0
+[node name="CoinHUD" type="PanelContainer" parent="CanvasLayer" unique_id=638954148]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 110.0
+offset_bottom = 42.0
+theme_override_styles/panel = SubResource("CoinPanelStyle")
+
+[node name="CoinRow" type="HBoxContainer" parent="CanvasLayer/CoinHUD" unique_id=3001234567]
+layout_mode = 2
+theme_override_constants/separation = 4
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 94.0
+offset_bottom = 28.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/CoinHUD/CoinRow" unique_id=3112345678]
+layout_mode = 2
+custom_minimum_size = Vector2(26, 26)
 texture = ExtResource("4_pdv5a")
 expand_mode = 1
+stretch_mode = 5
 
-[node name="Label" type="Label" parent="CanvasLayer/TextureRect" unique_id=2074564870]
-layout_mode = 0
-offset_left = 55.0
-offset_top = 15.0
-offset_right = 95.0
-offset_bottom = 38.0
+[node name="Label" type="Label" parent="CanvasLayer/CoinHUD/CoinRow" unique_id=2074564870]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.87, 0.2, 1)
+theme_override_font_sizes/font_size = 17
 text = "0"
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1101582476]
