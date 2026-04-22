@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var enemy_scene: PackedScene
+@export var sword_enemy_scene: PackedScene
 @export var base_enemies_per_wave: int = 5
 @export var base_spawn_interval: float = 1.5
 @export var grace_period: float = 5.0
@@ -107,8 +108,14 @@ func stop_wave():
 func _spawn_enemy():
 	var enemies_limit = base_enemies_per_wave + (current_wavelvl * 2)
 	if total_spawned < enemies_limit:
-		if enemy_scene:
-			var enemy = enemy_scene.instantiate()
+		var scene_to_spawn
+		if total_spawned % 2 == 1 and sword_enemy_scene:
+			scene_to_spawn = sword_enemy_scene
+		else:
+			scene_to_spawn = enemy_scene
+			
+		if scene_to_spawn:
+			var enemy = scene_to_spawn.instantiate()
 			enemy.add_to_group("enemies")
 			var spawn_pos = get_node_or_null("../EnemySpawn")
 			enemy.global_position = spawn_pos.global_position if spawn_pos else global_position

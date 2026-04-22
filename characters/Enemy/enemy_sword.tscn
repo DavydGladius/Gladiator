@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://boibehdwntqbg"]
+
+[ext_resource type="PackedScene" uid="uid://8s0wms60fk2" path="res://characters/Enemy/enemy.tscn" id="1_dugje"]
+[ext_resource type="Script" uid="uid://dyjmen7llmy7g" path="res://scripts/enemy/sword_enemy.gd" id="2_30xhg"]
+[ext_resource type="PackedScene" uid="uid://d33colsmwrq33" path="res://characters/weapons/enemy_sword_model.tscn" id="3_30xhg"]
+[ext_resource type="Script" uid="uid://tsl8fpex0jy" path="res://scripts/weapons/enemy_sword.gd" id="3_vs3ek"]
+
+[node name="Enemy" unique_id=559718794 instance=ExtResource("1_dugje")]
+script = ExtResource("2_30xhg")
+
+[node name="BasicSword" parent="." index="9" unique_id=1921500197 instance=ExtResource("3_30xhg")]
+position = Vector2(4, 5)
+script = ExtResource("3_vs3ek")
+damage = 20.0
