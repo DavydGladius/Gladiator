@@ -1,12 +1,14 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bgmrsdbsqrd3i"]
 
 [ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_2ha8g"]
-[ext_resource type="Texture2D" uid="uid://dvhc3bqk3xlwv" path="res://assets/sprites/weapons/BasicBowIcon.png" id="1_6b4tt"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2ha8g"]
+load_path = "res://.godot/imported/BasicBowIcon.png-d0b402fec39a7230189ba62392d54b3d.ctex"
 
 [resource]
 script = ExtResource("1_2ha8g")
 item_name = "Basic Bow"
-icon = ExtResource("1_6b4tt")
+icon = SubResource("CompressedTexture2D_2ha8g")
 description = "Ranged weapon. Shoots arrows."
 price = 20
 weapon_type = "bow"

@@ -12,8 +12,7 @@ var coincount: int = 0
 @export var bomb_scene: PackedScene
 @export var throw_force: float = 600.0
 var bomb_cooldown = false
-
-# Inventoriaus sistema
+var bomb_ammo: int = 0
 var inventory: Array = []
 var active_weapon: String = "sword"
 
@@ -41,40 +40,90 @@ func _ready():
 	switch_weapon("sword")
 
 func _physics_process(_delta):
-	if is_dead: return 
+	if is_dead: return
 	var direction = Input.get_vector("left", "right", "up", "down")
 	handle_movement(direction)
-	
-	
 	if Input.is_action_just_pressed("bomb") and not bomb_cooldown:
 		throw_bomb()
 		bomb_cooldown = true
 		await get_tree().create_timer(1.0).timeout
 		bomb_cooldown = false
 
+func has_weapon(weapon_name: String) -> bool:
+	for item in inventory:
+		# We check against "name" because that's what's stored in your inventory dict
+		if item["name"] == weapon_name:
+			return true
+	return false
+
 func switch_weapon(weapon_type: String):
+	# Jei netyčia bandoma perjungti į bombą - tiesiog nieko nedarom
+	if weapon_type == "bomb":
+		return 
+
 	if weapon_type == "sword":
 		sword.show()
 		sword.process_mode = PROCESS_MODE_INHERIT
 		bow.hide()
 		bow.process_mode = PROCESS_MODE_DISABLED
+		active_weapon = "sword"
 	elif weapon_type == "bow":
 		bow.show()
 		bow.process_mode = PROCESS_MODE_INHERIT
 		sword.hide()
 		sword.process_mode = PROCESS_MODE_DISABLED
-		
+		active_weapon = "bow"
+
 func heal_full():
 	current_health = max_health + health_bonus
 	if health_bar:
 		health_bar.max_value = current_health
 		health_bar.value = current_health
 
+func add_special_ammo(ammo_name: String, amount: int) -> void:
+	bomb_ammo += amount
+	
+	# Surandame bombą inventoriuje tik tam, kad atnaujintume skaičių UI
+	var found = false
+	for item in inventory:
+		if item.get("weapon_type") == "bomb":
+			item["quantity"] = bomb_ammo
+			found = true
+			break
+	
+	if not found:
+		inventory.append({
+			"weapon_type": "bomb",
+			"name": ammo_name,
+			"icon": _icon_for_weapon("bomb"),
+			"quantity": bomb_ammo
+		})
+	
+	emit_signal("inventory_changed")
+	print("Bombos pridėtos. Iš viso: ", bomb_ammo)
+
 func throw_bomb():
+	# 1. AMUNICIJOS TIKRINIMAS (Kad nemestum, jei turi 0)
+	if bomb_ammo <= 0:
+		print("!!! PLAYER: Neturi bombų!")
+		return
+
+	# 2. SCENOS TIKRINIMAS
 	if not bomb_scene:
 		print("KLAIDA: Nepamiršk įtempti Bomb.tscn į inspektorių!")
 		return
 
+	# 3. AMUNICIJOS ATĖMIMAS
+	bomb_ammo -= 1
+	
+	# Atnaujiname kiekį inventoriaus masyve vizualiam UI
+	for item in inventory:
+		if item["weapon_type"] == "bomb":
+			item["quantity"] = bomb_ammo
+			break
+	emit_signal("inventory_changed")
+
+	# 4. TAVO ORIGINALI METIMO LOGIKA (Kurią nukopijavau atgal)
 	var b = bomb_scene.instantiate()
 	get_tree().current_scene.add_child(b)
 	b.global_position = global_position
@@ -91,6 +140,7 @@ func throw_bomb():
 		var dir = (get_global_mouse_position() - global_position).normalized()
 		rb.linear_velocity = Vector2.ZERO
 		rb.apply_central_impulse(dir * throw_force)
+		print("!!! PLAYER: Bomba išmesta. Liko: ", bomb_ammo)
 	else:
 		print("KLAIDA: Bombos scenoje nerastas RigidBody2D!")
 
@@ -141,7 +191,11 @@ func _icon_for_weapon(wtype: String):
 		"bow":
 			var res = load("res://scripts/resources/BasicBowItem.tres")
 			return res.icon if res else null
+		"bomb": # PRIDĖK ŠITĄ
+			var res = load("res://scripts/resources/BasicBomb.tres") # Patikrink kelią iki savo bombos .tres
+			return res.icon if res else null
 	return null
+
 
 func save_player_data() -> void:
 	var inventory_data: Array = []

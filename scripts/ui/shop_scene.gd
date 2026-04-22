@@ -11,6 +11,7 @@ var purchased_indices: Array = []
 var _skip_next_shuffle: bool = false
 
 func _ready() -> void:
+	_shuffel_shop_no_save()
 	Description.text = ""
 	_apply_scale()
 	get_viewport().size_changed.connect(_apply_scale)
@@ -23,7 +24,6 @@ func _ready() -> void:
 		_load_shop()
 	else:
 		_shuffel_shop_no_save()
-
 
 func _apply_scale() -> void:
 	var vp = get_viewport().get_visible_rect().size
@@ -50,13 +50,14 @@ func _apply_scale() -> void:
 		inv.offset_right  = inv_left + inv_w
 		inv.offset_bottom = margin_top + inv_h
 
-
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_VISIBILITY_CHANGED:
-		if inventory_screen:
-			if visible:
+		if visible:
+			_shuffel_shop()
+			if inventory_screen:
 				inventory_screen.show_inventory()
-			else:
+		else:
+			if inventory_screen:
 				inventory_screen.hide_inventory()
 
 func _on_wave_started(_wave_number: int) -> void:
@@ -78,9 +79,29 @@ func _shuffel_shop_no_save() -> void:
 	current_item_indices = _pick_unique_indices(3)
 	_build_shop()
 
-# FIX: visada parenkame skirtingus itemus (jei yra pakankamai)
 func _pick_unique_indices(count: int) -> Array:
-	var pool = range(available_items.size())
+	var player = get_tree().get_first_node_in_group("player")
+	var pool = []
+	
+	# Tikriname, ar išvis yra įkeltų daiktų inspektoriuje
+	if available_items.size() == 0:
+		print("!!! KLAIDA: available_items sąrašas yra TUŠČIAS inspektoriuje!")
+		return []
+
+	for i in range(available_items.size()):
+		var item = available_items[i]
+		
+		# Tikriname ginklus
+		if item.weapon_type != "":
+			if player and player.has_method("has_weapon"):
+				if player.has_weapon(item.item_name):
+					print("--- Praleidžiam ginklą, kurį žaidėjas jau turi: ", item.item_name)
+					continue
+		
+		pool.append(i)
+
+	print("--- Galutinis Shop Pool Size: ", pool.size())
+	
 	pool.shuffle()
 	var result = []
 	for i in range(min(count, pool.size())):
@@ -121,16 +142,23 @@ func _save_shop() -> void:
 	})
 
 func _build_shop() -> void:
+	# Išvalom senas korteles
 	for child in Upgrade_Container.get_children():
 		child.queue_free()
+		
 	for i in range(current_item_indices.size()):
+		# Jei daiktas šiame wave jau nupirktas, jo nekuriam
 		if i in purchased_indices:
 			continue
+			
 		var idx = current_item_indices[i]
+		if idx >= available_items.size(): continue
+		
 		var shop_item = ShopItem.instantiate()
 		shop_item.item_data = available_items[idx]
-		shop_item.set_meta("slot_index", i)
+		shop_item.set_meta("slot_index", i) # Išsisaugom slot'ą pirkimui
 		Upgrade_Container.add_child(shop_item)
+		
 		shop_item.item_hovered.connect(_on_item_hovered)
 		shop_item.item_unhovered.connect(_on_item_unhovered)
 		shop_item.item_purchased.connect(_on_item_purchased.bind(shop_item))

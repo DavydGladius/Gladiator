@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://defaljwctssmi"]
+
+[ext_resource type="Texture2D" uid="uid://tjdgtcplj3qp" path="res://assets/sprites/weapons/bomb.png" id="1_wgmli"]
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_xnhoa"]
+
+[resource]
+script = ExtResource("1_xnhoa")
+icon = ExtResource("1_wgmli")
+description = "boob"
+price = 15
+amount = 5
+is_special = true
+metadata/_custom_type_script = "uid://con5lvyu3yahk"
