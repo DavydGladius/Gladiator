@@ -33,7 +33,8 @@ Pritaikytos taisyklės iš pateikto pavyzdinio checklist:
 | res://scripts/player/Player.gd | Player | add_special_ammo | 103 | Readability / Production logging | Produkciniame kode paliktas print() debug išvedimas. |
 | res://scripts/enemy/enemy.gd | Enemy | _physics_process | 36 | Defensive Programming (type safety) | player_ref tipas Node2D, bet naudojama player_ref.is_dead; savybė nepriklauso baziniam Node2D, galimas netikėtas lūžis keičiant objektą. |
 | res://scripts/enemy/enemy.gd | Enemy | (globalus laukas coin preload) | 12 | Structure (path consistency) | Kelias naudoja res://Scenes/... (didžioji raidė), kas gali sukelti problemas case-sensitive aplinkose. |
-| res://scripts/weapons/enemy_sword.gd | enemy_sword | swing | 45,47 | Readability / Production logging | Palikti debug print() iškvietimai produkciniame kovos kode. |
+| res://scripts/weapons/enemy_sword.gd | enemy_sword | swing | 45 | Readability / Production logging | Paliktas debug print() iškvietimas produkciniame kovos kode. |
+| res://scripts/weapons/enemy_sword.gd | enemy_sword | swing | 47 | Readability / Production logging | Paliktas debug print() iškvietimas produkciniame kovos kode. |
 | res://scripts/base/Entity.gd | Entity | take_damage | 41 | Defensive Programming (input validation) | Nėra validacijos neigiamai žalai; perduotas neigiamas amount didintų health. |
 
 ## 5. Static code analysis
@@ -74,16 +75,25 @@ Logika:
 
 | Source file | Class | Method | Line | Unsatisfied checklist rule | Comment |
 |---|---|---|---:|---|---|
+| res://scripts/enemy/sword_enemy.gd | sword_enemy | perform_attack | 6 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/enemy/sword_enemy.gd | sword_enemy | perform_attack | 12 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/object/safe_area.gd | safe_area | N/A (scanner output) | 11 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/object/safe_area.gd | safe_area | N/A (scanner output) | 19 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/player/Player.gd | Player | add_special_ammo | 103 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/player/Player.gd | Player | throw_bomb | 108 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/player/Player.gd | Player | throw_bomb | 113 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/player/Player.gd | Player | throw_bomb | 143 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/player/Player.gd | Player | throw_bomb | 145 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
-| res://scripts/enemy/sword_enemy.gd | sword_enemy | perform_attack | 6 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
-| res://scripts/enemy/sword_enemy.gd | sword_enemy | perform_attack | 12 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/ui/shop_scene.gd | shop_scene | N/A (scanner output) | 88 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/ui/shop_scene.gd | shop_scene | N/A (scanner output) | 98 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/ui/shop_scene.gd | shop_scene | N/A (scanner output) | 103 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/weapons/enemy_sword.gd | enemy_sword | swing | 45 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 | res://scripts/weapons/enemy_sword.gd | enemy_sword | swing | 47 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
-| res://scripts/wave_manager.gd | WaveManager | clear_enemies / start_wave / _start_grace_period | 82,99,154 | NoDebugPrintsInProductionScripts | Keli debug print iškvietimai. |
+| res://scripts/wave_manager.gd | WaveManager | clear_enemies | 82 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/wave_manager.gd | WaveManager | start_wave | 99 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/wave_manager.gd | WaveManager | _start_grace_period | 154 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/weapons/bomb.gd | bomb | N/A (scanner output) | 46 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
+| res://scripts/weapons/bomb.gd | bomb | N/A (scanner output) | 58 | NoDebugPrintsInProductionScripts | Debug print paliktas. |
 
 ## 7. Atnaujinti testai pagal projekto būseną
 

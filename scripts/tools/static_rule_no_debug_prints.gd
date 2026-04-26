@@ -44,7 +44,9 @@ func _scan_file(file_path: String, violations: Array) -> void:
 		line_number += 1
 		if _print_regex.search(line) != null:
 			violations.append({
+				"rule": "NoDebugPrintsInProductionScripts",
 				"path": file_path,
 				"line": line_number,
-				"code": line.strip_edges()
+				"code": line.strip_edges(),
+				"comment": "Debug print paliktas produkciniame kode. Rekomenduojama pasalinti arba pakeisti i valdomus logger lygius."
 			})
