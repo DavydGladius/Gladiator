@@ -9,7 +9,7 @@ var enemy
 
 func before_each():
 	player = preload("res://scripts/player/Player.gd").new()
-	enemy = preload("res://scripts/enemy/Enemy.gd").new()
+	enemy = preload("res://scripts/enemy/enemy.gd").new()
 
 	player.max_health = 100
 	player.current_health = 100
@@ -22,6 +22,8 @@ func after_each():
 		player.queue_free()
 	if enemy:
 		enemy.queue_free()
+	player = null
+	enemy = null
 
 
 func test_player_damages_enemy():
