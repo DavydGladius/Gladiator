@@ -99,10 +99,3 @@ func _process(_delta):
 func _on_save_pressed() -> void:
 	player.save_player_data()
 	wavemanager.save_wave_data()
-
-func _on_load_pressed() -> void:
-	player.load_player_data()
-	wavemanager.load_wave_data()
-	var shop = get_tree().current_scene.find_child("ShopScene", true, false)
-	if shop and shop.has_method("load_shop_from_save"):
-		shop.load_shop_from_save()
