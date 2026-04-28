@@ -191,7 +191,7 @@ script = ExtResource("1_yrol7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1796889657]
 sprite_frames = SubResource("SpriteFrames_n471f")
-animation = &"die"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1293680804]
 position = Vector2(0, 4)

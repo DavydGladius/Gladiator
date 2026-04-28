@@ -1,6 +1,6 @@
 extends Entity
 
-var coincount: int = 0
+var coincount: int = 999
 @onready var footstep_audio = $FootstepPlayer
 @onready var total_coins = $CanvasLayer/CoinHUD/CoinRow/Label
 
@@ -19,6 +19,8 @@ var active_weapon: String = "sword"
 signal inventory_changed
 
 var damage_multiplier: float = 1.0
+var sword_dmg_mult: float = 0.0
+var bow_dmg_mult: float = 0.0
 var speed_multiplier: float = 1.0
 var health_bonus: float = 0.0
 
@@ -67,18 +69,28 @@ func switch_weapon(weapon_type: String):
 		bow.hide()
 		bow.process_mode = PROCESS_MODE_DISABLED
 		active_weapon = "sword"
+		damage_multiplier = 1.0+sword_dmg_mult
 	elif weapon_type == "bow":
 		bow.show()
 		bow.process_mode = PROCESS_MODE_INHERIT
 		sword.hide()
 		sword.process_mode = PROCESS_MODE_DISABLED
 		active_weapon = "bow"
+		damage_multiplier = 1.0+bow_dmg_mult
 
 func heal_full():
 	current_health = max_health + health_bonus
 	if health_bar:
 		health_bar.max_value = current_health
 		health_bar.value = current_health
+
+func upgrade_current_weapon(dmg_mod: float):
+	if active_weapon == "sword":
+		sword_dmg_mult += dmg_mod
+		damage_multiplier = 1.0+sword_dmg_mult
+	if active_weapon == "bow":
+		bow_dmg_mult += dmg_mod
+		damage_multiplier = 1.0+bow_dmg_mult
 
 func add_special_ammo(ammo_name: String, amount: int) -> void:
 	bomb_ammo += amount
@@ -207,6 +219,8 @@ func save_player_data() -> void:
 		})
 	SaveManager.save_section("player", {
 		"damage_multiplier": damage_multiplier,
+		"sword_dmg_mult": sword_dmg_mult,
+		"bow_dmg_mult": bow_dmg_mult,
 		"speed_multiplier": speed_multiplier,
 		"health_bonus": health_bonus,
 		"current_health": current_health,
@@ -220,6 +234,8 @@ func load_player_data() -> void:
 	if d.is_empty():
 		return
 	damage_multiplier = float(d.get("damage_multiplier", 1.0))
+	sword_dmg_mult    = float(d.get("sword_dmg_mult", 0.0))
+	bow_dmg_mult    = float(d.get("bow_dmg_mult", 0.0))
 	speed_multiplier  = float(d.get("speed_multiplier",  1.0))
 	health_bonus      = float(d.get("health_bonus",      0.0))
 	current_health    = float(d.get("current_health",    max_health))

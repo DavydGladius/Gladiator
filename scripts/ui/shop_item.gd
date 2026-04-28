@@ -73,6 +73,7 @@ func apply_item_effect() -> void:
 			player.add_special_ammo(item_data.item_name, 5)
 	
 	elif is_upgrade_val:
+		print("pirktas upgrade")
 		if player.has_method("upgrade_current_weapon"):
 			player.upgrade_current_weapon(item_data.damage_multiplier)
 	
