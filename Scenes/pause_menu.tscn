@@ -187,18 +187,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "💾  Save"
 
-[node name="Load" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=1318362635]
-custom_minimum_size = Vector2(260, 52)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(1, 0.88, 0.5, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 0.8, 1)
-theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_btn_normal")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
-theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
-text = "📂  Load"
-
 [node name="Settings" type="Button" parent="Panel/InnerBox/VBoxContainer" unique_id=2097545268]
 custom_minimum_size = Vector2(260, 52)
 layout_mode = 2
@@ -247,7 +235,6 @@ layout_mode = 1
 
 [connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Save" to="." method="_on_save_pressed"]
-[connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Main Menu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="Panel/InnerBox/VBoxContainer/Exit" to="." method="_on_exit_pressed"]

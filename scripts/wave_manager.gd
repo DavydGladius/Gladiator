@@ -158,20 +158,28 @@ func _process(_delta):
 	if not grace_timer.is_stopped() and progress_bar:
 		progress_bar.value = grace_timer.time_left
 
+func _get_resume_wave_level() -> int:
+	# If saved during grace, that wave is already cleared, so resume at next one.
+	var resume_wave = current_wavelvl
+	if in_grace_period:
+		resume_wave += 1
+	return max(1, resume_wave)
+
 func save_wave_data() -> void:
 	SaveManager.save_section("wave", {
-		"current_wavelvl": current_wavelvl
+		"current_wavelvl": current_wavelvl,
+		"resume_wavelvl": _get_resume_wave_level()
 	})
 
 func load_wave_data() -> void:
 	var d = SaveManager.load_section("wave")
 	if d.is_empty():
 		return
-	current_wavelvl = int(d.get("current_wavelvl", 0))
+	current_wavelvl = max(1, int(d.get("resume_wavelvl", d.get("current_wavelvl", 1))))
 	restart_current_wave()
 
 func first_load_wave_data() -> void:
 	var d = SaveManager.load_section("wave")
 	if d.is_empty():
 		return
-	current_wavelvl = int(d.get("current_wavelvl", 1)) - 1
+	current_wavelvl = max(0, int(d.get("resume_wavelvl", d.get("current_wavelvl", 1))) - 1)
