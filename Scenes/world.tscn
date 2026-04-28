@@ -61,13 +61,13 @@ func _ready() -> void:
 
 func _on_wave_started(wave_number: int):
 	# WAVE 1-4: Use Arena 1
-	if wave_number < 25:
+	if wave_number < 24:
 		swap_textures(floor_png_1, deco_png_1)
-	elif wave_number >= 25 and wave_number < 35:
+	elif wave_number >= 24 and wave_number < 34:
 		swap_textures(floor_png_2, deco_png_2)
-	elif wave_number >= 35 and wave_number < 50:
+	elif wave_number >= 34 and wave_number < 49:
 			swap_textures(floor_png_3, deco_png_3)
-	elif wave_number >= 50:
+	elif wave_number >= 49:
 		swap_textures(floor_png_4, deco_png_4)
 
 
