@@ -31,6 +31,7 @@ script/source = "extends Node2D
 @onready var wave_manager = $WaveManager
 @onready var floor_layer = $TileMapLayer
 @onready var deco_layer = $decorations
+@onready var music_player = $AudioStreamPlayer
 
 # --- ARENA ASSET SLOTS ---
 @export_group(\"Arena 1 (Current)\")
@@ -49,8 +50,22 @@ script/source = "extends Node2D
 @export var floor_png_4: Texture2D
 @export var deco_png_4: Texture2D
 
+@export_group(\"Music\")
+@export var music_arena: AudioStream
+@export var music_winter: AudioStream = preload(\"res://assets/music/music_winter.mp3\")
+@export var music_jungle: AudioStream = preload(\"res://assets/music/music_jungle.mp3\")
+@export var music_hell: AudioStream = preload(\"res://assets/music/music_hell.mp3\")
+
 
 func _ready() -> void:
+	if music_arena == null and music_player:
+		music_arena = music_player.stream
+		_configure_music_loop(music_arena)
+	elif music_player:
+		_configure_music_loop(music_player.stream)
+		if music_player.stream and not music_player.playing:
+			music_player.play()
+
 	if Global.load_save:
 		player.load_player_data()
 		wave_manager.first_load_wave_data()
@@ -63,12 +78,33 @@ func _on_wave_started(wave_number: int):
 	# WAVE 1-4: Use Arena 1
 	if wave_number < 24:
 		swap_textures(floor_png_1, deco_png_1)
+		_set_music(music_arena)
 	elif wave_number >= 24 and wave_number < 34:
 		swap_textures(floor_png_2, deco_png_2)
+		_set_music(music_winter)
 	elif wave_number >= 34 and wave_number < 49:
 			swap_textures(floor_png_3, deco_png_3)
+			_set_music(music_jungle)
 	elif wave_number >= 49:
 		swap_textures(floor_png_4, deco_png_4)
+		_set_music(music_hell)
+
+
+func _set_music(stream: AudioStream) -> void:
+	if not music_player or stream == null:
+		return
+	_configure_music_loop(stream)
+	if music_player.stream != stream:
+		music_player.stream = stream
+	music_player.stop()
+	music_player.play(0.0)
+
+
+func _configure_music_loop(stream: AudioStream) -> void:
+	if stream.has_method(\"set_loop\"):
+		stream.set_loop(true)
+	if stream.has_method(\"set_loop_mode\"):
+		stream.set_loop_mode(AudioStreamWAV.LOOP_FORWARD)
 
 
 func swap_textures(new_floor: Texture2D, new_deco: Texture2D):

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://55kp3k0uw77e" path="res://assets/sprites/enemy/enemy_idle.png" id="2_am0pq"]
 [ext_resource type="Texture2D" uid="uid://bhh4ams2wjaj1" path="res://assets/sprites/enemy/enemy_die.png" id="2_eqilm"]
 [ext_resource type="Texture2D" uid="uid://d4ic4q6y450cl" path="res://assets/sprites/enemy/enemy_walk.png" id="3_eqilm"]
-[ext_resource type="Texture2D" uid="uid://ccbmqlkrv7inr" path="res://assets/sprites/mc/health.png" id="5_ncf7h"]
 [ext_resource type="AudioStream" uid="uid://d388giy3aj5s1" path="res://assets/sound_effects/walking_sound_stone.ogg" id="6_a7vb5"]
 [ext_resource type="AudioStream" uid="uid://cfcd5ac1l5uae" path="res://assets/sound_effects/enemy_attack_ogre.wav" id="7_3mt56"]
 [ext_resource type="AudioStream" uid="uid://cbvgiqi3nqexr" path="res://assets/sound_effects/enemy_die_ogre.wav" id="8_ig1xv"]
@@ -117,15 +116,15 @@ height = 22.0
 radius = 13.0
 
 [sub_resource type="StyleBoxFlat" id="EHBBackground"]
-bg_color = Color(0.12, 0.0, 0.0, 1.0)
+bg_color = Color(0.12, 0, 0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.0, 0.0, 0.0, 1.0)
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="EHBFill"]
-bg_color = Color(0.85, 0.1, 0.1, 1.0)
+bg_color = Color(0.85, 0.1, 0.1, 1)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=559718794 groups=["enemy"]]
 collision_layer = 2
