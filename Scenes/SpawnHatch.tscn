@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bfcaqjxghqg3k"]
+
+[ext_resource type="Texture2D" uid="uid://0xtq43bkb6qh" path="res://assets/sprites/Hatch_Sprite.png" id="1_nqscx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7aclv"]
+atlas = ExtResource("1_nqscx")
+region = Rect2(0, 0, 349, 357)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm40r"]
+atlas = ExtResource("1_nqscx")
+region = Rect2(349, 0, 349, 357)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xwa4d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7aclv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm40r")
+}],
+"loop": false,
+"name": &"close",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm40r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7aclv")
+}],
+"loop": false,
+"name": &"open",
+"speed": 3.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=2021383513]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1829245244]
+sprite_frames = SubResource("SpriteFrames_xwa4d")
+animation = &"close"

@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dsf4jkb7yc4ng" path="res://Scenes/shop_scene.tscn" id="12_7yui6"]
 [ext_resource type="Script" uid="uid://68xdisc1h2mi" path="res://scripts/object/safe_area.gd" id="13_c5t2i"]
 [ext_resource type="PackedScene" uid="uid://crebakb7y7qcy" path="res://Scenes/Spawn_gate.tscn" id="13_e0ngr"]
+[ext_resource type="PackedScene" uid="uid://bfcaqjxghqg3k" path="res://Scenes/SpawnHatch.tscn" id="14_pt3ps"]
 [ext_resource type="PackedScene" uid="uid://boibehdwntqbg" path="res://characters/Enemy/enemy_sword.tscn" id="16_0pcbe"]
 [ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="19_kpybi"]
 [ext_resource type="Resource" uid="uid://cbpmvdqq7hn0j" path="res://scripts/resources/HealthUpgrade.tres" id="20_ctatt"]
@@ -453,6 +454,10 @@ scale = Vector2(0.13, 0.13)
 position = Vector2(1160, 306)
 scale = Vector2(0.06, 0.06)
 
+[node name="SpawnHatch" parent="SpawnGate" unique_id=2021383513 instance=ExtResource("14_pt3ps")]
+position = Vector2(1255, 630)
+scale = Vector2(0.05, 0.05)
+
 [node name="Pressure_plateNode" type="Node2D" parent="." unique_id=932691927]
 
 [node name="Node2D" parent="Pressure_plateNode" unique_id=1589602750 instance=ExtResource("8_0fj1v")]
@@ -465,9 +470,6 @@ scale = Vector2(0.7, 1.3)
 visible = false
 sword_enemy_scene = ExtResource("16_0pcbe")
 grace_period = 10.0
-
-[node name="EnemySpawn" type="Node2D" parent="." unique_id=293532922]
-position = Vector2(1160, 321)
 
 [node name="SafeArea" type="Area2D" parent="." unique_id=1989225845]
 position = Vector2(894, 526)
@@ -492,5 +494,13 @@ visible = false
 available_items = Array[ExtResource("19_kpybi")]([ExtResource("20_ctatt"), ExtResource("21_xgqkh"), ExtResource("22_munwf"), ExtResource("23_ts3gi"), ExtResource("24_ctatt"), ExtResource("25_i4fjy")])
 
 [node name="decorations" type="TileMapLayer" parent="." unique_id=1046133306]
-tile_map_data = PackedByteArray("AAAcAA4AAAAMAAAAAAAbAA4AAAAGAAAAAAAaAA4AAAAFAAQAAAAaABEAAAAHAAUAAAAaABAAAAABAAYAAAAbABEAAAADAAQAAAAcABEAAAAIAAIAAAAaAA8AAAAEAAYAAAAfAAwAAAACAAYAAAAeAA0AAAAKAAAAAAAgAAsAAAABAAYAAAAnABUAAAAMAAAAAAAoABQAAAAHAAUAAAApAAwAAAAHAAUAAAAqAA0AAAADAAQAAAAmAAoAAAAKAAAAAAAnAAoAAAAMAAAAAAAiAAwAAAABAAYAAAAiAA0AAAAEAAIAAAAhAA0AAAAMAAAAAAAmAAwAAAACAAYAAAAlAAwAAAADAAAAAAAfABMAAAACAAYAAAAhABIAAAAAAAQAAAAiABIAAAAHAAUAAAAiABMAAAAEAAIAAAAlABMAAAACAAEAAAAnABIAAAAAAAUAAAAiABUAAAABAAQAAAAgABEAAAAAAAQAAAAdABEAAAADAAIAAAAhAA8AAAAFAAEAAAAlAA8AAAAFAAQAAAAkAA4AAAABAAQAAAAjABAAAAAAAAUAAAAqABIAAAAMAAAAAAApABAAAAAEAAEAAAAiAAoAAAAEAAEAAAAoAA0AAAACAAEAAAA=")
+tile_map_data = PackedByteArray("AAAcAA4AAAAMAAAAAAAbAA4AAAAGAAAAAAAaAA4AAAAFAAQAAAAaABEAAAAHAAUAAAAaABAAAAABAAYAAAAbABEAAAADAAQAAAAcABEAAAAIAAIAAAAaAA8AAAAEAAYAAAAfAAwAAAACAAYAAAAeAA0AAAAKAAAAAAAgAAsAAAABAAYAAAAnABUAAAAMAAAAAAAoABQAAAAHAAUAAAApAAwAAAAHAAUAAAAqAA0AAAADAAQAAAAmAAoAAAAKAAAAAAAnAAoAAAAMAAAAAAAiAAwAAAABAAYAAAAhAA0AAAAMAAAAAAAmAAwAAAACAAYAAAAlAAwAAAADAAAAAAAfABMAAAACAAYAAAAhABIAAAAAAAQAAAAiABIAAAAHAAUAAAAiABMAAAAEAAIAAAAlABMAAAACAAEAAAAnABIAAAAAAAUAAAAiABUAAAABAAQAAAAgABEAAAAAAAQAAAAdABEAAAADAAIAAAAhAA8AAAAFAAEAAAAlAA8AAAAFAAQAAAAkAA4AAAABAAQAAAAjABAAAAAAAAUAAAAqABIAAAAMAAAAAAApABAAAAAEAAEAAAAiAAoAAAAEAAEAAAAoAA0AAAACAAEAAAAiAA0AAAAEAAIAAAA=")
 tile_set = SubResource("TileSet_jhx03")
+
+[node name="EnemySpawn" type="Node2D" parent="." unique_id=946483717]
+
+[node name="EnemySpawnDoor" type="Node2D" parent="EnemySpawn" unique_id=293532922]
+position = Vector2(1160, 321)
+
+[node name="EnemySpawnHatch" type="Node2D" parent="EnemySpawn" unique_id=310847166]
+position = Vector2(1256, 631)

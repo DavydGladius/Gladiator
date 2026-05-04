@@ -63,6 +63,7 @@ func start_next_wave():
 	grace_time_remaining = 0.0
 	grace_timer.wait_time = grace_period
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("open")
 	current_wavelvl += 1
 	_heal_players()
 	_run_spawning_logic()
@@ -72,6 +73,7 @@ func restart_current_wave():
 	stop_wave()
 	clear_enemies()
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("open")
 	_heal_players()
 	_run_spawning_logic()
 
@@ -101,6 +103,7 @@ func _run_spawning_logic():
 func stop_wave():
 	spawn_timer.stop()
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
+	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("close")
 	if not grace_timer.is_stopped():
 		grace_time_remaining = grace_timer.time_left
 	grace_timer.stop()
@@ -117,13 +120,22 @@ func _spawn_enemy():
 		if scene_to_spawn:
 			var enemy = scene_to_spawn.instantiate()
 			enemy.add_to_group("enemies")
-			var spawn_pos = get_node_or_null("../EnemySpawn")
+
+			# Pick a random spawn point
+			var spawn_points = [
+				"../EnemySpawn/EnemySpawnDoor",
+				"../EnemySpawn/EnemySpawnHatch"
+			]
+			var chosen = spawn_points[randi() % spawn_points.size()]
+			var spawn_pos = get_node_or_null(chosen)
 			enemy.global_position = spawn_pos.global_position if spawn_pos else global_position
+
 			get_tree().current_scene.add_child(enemy)
 			total_spawned += 1
 	else:
 		spawn_timer.stop()
 		$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
+		$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
 
 func _heal_players():
