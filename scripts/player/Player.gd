@@ -114,6 +114,18 @@ func add_special_ammo(ammo_name: String, amount: int) -> void:
 	emit_signal("inventory_changed")
 	print("Bombos pridėtos. Iš viso: ", bomb_ammo)
 
+func handle_movement(direction: Vector2):
+	if is_dead: return
+	
+	# Naudojame movement_speed iš Entity ir dauginame iš mūsų speed_multiplier
+	var final_speed = movement_speed * speed_multiplier
+	
+	velocity = direction.normalized() * final_speed
+	move_and_slide()
+	
+	# Iškviečiame animacijas iš Entity skripto
+	update_animations(direction)
+
 func throw_bomb():
 	# 1. AMUNICIJOS TIKRINIMAS (Kad nemestum, jei turi 0)
 	if bomb_ammo <= 0:

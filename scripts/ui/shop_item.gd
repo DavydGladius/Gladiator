@@ -50,41 +50,27 @@ func _on_card_pressed() -> void:
 
 func apply_item_effect() -> void:
 	if not item_data or not player:
+		print("KLAIDA: Nėra duomenų arba žaidėjo!")
 		return
 	
-	# Kadangi dabar tavo ItemData skriptas TURI šiuos kintamuosius,
-	# galime juos pasiekti tiesiogiai arba saugiai per get() be default reikšmės.
+	print("--- PRADEDAM PIRKIMĄ: ", item_data.item_name, " ---")
 	
-	var weapon_type_val = item_data.get("weapon_type")
-	if weapon_type_val == null: weapon_type_val = "" # Jei nerasta, priskiriam tuščią tekstą
-	
-	var is_special_val = item_data.get("is_special")
-	if is_special_val == null: is_special_val = false
-	
-	var is_upgrade_val = item_data.get("is_upgrade")
-	if is_upgrade_val == null: is_upgrade_val = false
+	if item_data.weapon_type != "":
+		print("Kodas nuėjo į: GINKLAI")
+		player.add_weapon_to_inventory(item_data.weapon_type, item_data.item_name, item_data.icon)
+		return
 
-	# Logika išlieka tokia pati:
-	if weapon_type_val != "":
-		player.add_weapon_to_inventory(weapon_type_val, item_data.item_name, item_data.icon)
-	
-	elif is_special_val:
-		if player.has_method("add_special_ammo"):
-			player.add_special_ammo(item_data.item_name, 5)
-	
-	elif is_upgrade_val:
-		print("pirktas upgrade")
-		if player.has_method("upgrade_current_weapon"):
-			player.upgrade_current_weapon(item_data.damage_multiplier)
-	
-	else:
-		# Čia taip pat nuimam antrą argumentą
-		var h_bonus = item_data.get("health_bonus")
-		if h_bonus == null: h_bonus = 0.0
-		
-		var s_mult = item_data.get("speed_multiplier")
-		if s_mult == null: s_mult = 1.0
-		
-		player.max_health += h_bonus
-		player.current_health += h_bonus
-		player.speed_multiplier *= s_mult
+	if item_data.is_special:
+		print("Kodas nuėjo į: SPECIALŪS (Bombos)")
+		player.add_special_ammo(item_data.item_name, 5)
+		return
+
+	if item_data.is_upgrade:
+		print("Kodas nuėjo į: UPGRADE (Žala)")
+		player.upgrade_current_weapon(item_data.damage_multiplier)
+		return
+
+	# Jei kodas pasiekia šitą vietą, jis PRIVALO padidinti greitį
+	print("Kodas nuėjo į: STATISTIKA")
+	player.speed_multiplier *= item_data.speed_multiplier
+	print("Naujas greitis žaidėjo skripte: ", player.speed_multiplier)
