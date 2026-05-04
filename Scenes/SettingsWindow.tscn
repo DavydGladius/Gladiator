@@ -122,15 +122,24 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InnerPanel" type="PanelContainer" parent="CenterContainer" unique_id=819657597]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(600, 520)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_main")
 
-[node name="VBoxLayout" type="VBoxContainer" parent="CenterContainer/InnerPanel" unique_id=1970813029]
+[node name="Scroll" type="ScrollContainer" parent="CenterContainer/InnerPanel" unique_id=1104993080]
+custom_minimum_size = Vector2(560, 460)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="VBoxLayout" type="VBoxContainer" parent="CenterContainer/InnerPanel/Scroll" unique_id=1970813029]
 layout_mode = 2
 theme_override_constants/separation = 22
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Settings Label" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1732027832]
+[node name="Settings Label" type="Label" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=1732027832]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.82, 0.2, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.85)
@@ -140,11 +149,11 @@ theme_override_font_sizes/font_size = 15
 text = " "
 horizontal_alignment = 1
 
-[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1382308520]
+[node name="MusicRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=1382308520]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Music controls label" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout/MusicRow" unique_id=1067116225]
+[node name="Music controls label" type="Label" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout/MusicRow" unique_id=1067116225]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.85, 0.55, 1)
@@ -152,7 +161,7 @@ theme_override_font_sizes/font_size = 20
 text = "Music"
 vertical_alignment = 1
 
-[node name="Audio control" type="HSlider" parent="CenterContainer/InnerPanel/VBoxLayout/MusicRow" unique_id=1196352827]
+[node name="Audio control" type="HSlider" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout/MusicRow" unique_id=1196352827]
 custom_minimum_size = Vector2(300, 28)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -165,11 +174,11 @@ value = 1.0
 script = ExtResource("1_uv8lj")
 audio_bus_name = "Music"
 
-[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1637505449]
+[node name="SFXRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=1637505449]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="SFX controls label2" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout/SFXRow" unique_id=735152743]
+[node name="SFX controls label2" type="Label" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout/SFXRow" unique_id=735152743]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.85, 0.55, 1)
@@ -177,7 +186,7 @@ theme_override_font_sizes/font_size = 20
 text = "SFX"
 vertical_alignment = 1
 
-[node name="Audio control2" type="HSlider" parent="CenterContainer/InnerPanel/VBoxLayout/SFXRow" unique_id=1452648667]
+[node name="Audio control2" type="HSlider" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout/SFXRow" unique_id=1452648667]
 custom_minimum_size = Vector2(300, 28)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -190,10 +199,10 @@ value = 1.0
 script = ExtResource("1_uv8lj")
 audio_bus_name = "SFX"
 
-[node name="FullscreenRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1394383943]
+[node name="FullscreenRow" type="HBoxContainer" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=1394383943]
 layout_mode = 2
 
-[node name="FSLabel" type="Label" parent="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow" unique_id=1120026598]
+[node name="FSLabel" type="Label" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout/FullscreenRow" unique_id=1120026598]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.95, 0.85, 0.55, 1)
@@ -201,11 +210,29 @@ theme_override_font_sizes/font_size = 20
 text = "Fullscreen"
 vertical_alignment = 1
 
-[node name="FullscreenControl" type="CheckButton" parent="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow" unique_id=1672254392]
+[node name="FullscreenControl" type="CheckButton" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout/FullscreenRow" unique_id=1672254392]
 layout_mode = 2
 script = ExtResource("2_w8q4c")
 
-[node name="Back" type="Button" parent="CenterContainer/InnerPanel/VBoxLayout" unique_id=1085719670]
+[node name="ControlsLabel" type="Label" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=574873030]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.82, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+text = "Controls"
+vertical_alignment = 1
+
+[node name="KeybindsBox" type="VBoxContainer" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=322312244]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="KeybindWarning" type="Label" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=1000991320]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+visible = false
+
+[node name="Back" type="Button" parent="CenterContainer/InnerPanel/Scroll/VBoxLayout" unique_id=1085719670]
 custom_minimum_size = Vector2(200, 52)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -217,7 +244,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "◀  Back"
 
-[connection signal="value_changed" from="CenterContainer/InnerPanel/VBoxLayout/MusicRow/Audio control" to="CenterContainer/InnerPanel/VBoxLayout/MusicRow/Audio control" method="_on_value_changed"]
-[connection signal="value_changed" from="CenterContainer/InnerPanel/VBoxLayout/SFXRow/Audio control2" to="CenterContainer/InnerPanel/VBoxLayout/SFXRow/Audio control2" method="_on_value_changed"]
-[connection signal="toggled" from="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow/FullscreenControl" to="CenterContainer/InnerPanel/VBoxLayout/FullscreenRow/FullscreenControl" method="_on_toggled"]
-[connection signal="pressed" from="CenterContainer/InnerPanel/VBoxLayout/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="CenterContainer/InnerPanel/Scroll/VBoxLayout/MusicRow/Audio control" to="CenterContainer/InnerPanel/Scroll/VBoxLayout/MusicRow/Audio control" method="_on_value_changed"]
+[connection signal="value_changed" from="CenterContainer/InnerPanel/Scroll/VBoxLayout/SFXRow/Audio control2" to="CenterContainer/InnerPanel/Scroll/VBoxLayout/SFXRow/Audio control2" method="_on_value_changed"]
+[connection signal="toggled" from="CenterContainer/InnerPanel/Scroll/VBoxLayout/FullscreenRow/FullscreenControl" to="CenterContainer/InnerPanel/Scroll/VBoxLayout/FullscreenRow/FullscreenControl" method="_on_toggled"]
+[connection signal="pressed" from="CenterContainer/InnerPanel/Scroll/VBoxLayout/Back" to="." method="_on_back_pressed"]

@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 	else:
 		scale.y = 1
 		
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("attack"):
 		shoot_sound.play()
 		shoot()
 
