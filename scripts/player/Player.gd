@@ -7,7 +7,9 @@ var coincount: int = 999
 @onready var spawnpos = $".".global_position
 
 @onready var sword = $BasicSword
+@onready var sword_sprite = sword.get_node("Sprite2D")
 @onready var bow = $BasicBow
+@onready var bow_sprite = bow.get_node("Sprite2D")
 
 @export var bomb_scene: PackedScene
 @export var throw_force: float = 600.0
@@ -84,13 +86,33 @@ func heal_full():
 		health_bar.max_value = current_health
 		health_bar.value = current_health
 
-func upgrade_current_weapon(dmg_mod: float):
-	if active_weapon == "sword":
+func upgrade_current_weapon(dmg_mod: float, icon, wep_type):
+	if active_weapon == wep_type && active_weapon == "sword":
 		sword_dmg_mult += dmg_mod
 		damage_multiplier = 1.0+sword_dmg_mult
-	if active_weapon == "bow":
+		upgrade_sword_sprite(icon)
+	if active_weapon == wep_type && active_weapon == "bow":
 		bow_dmg_mult += dmg_mod
 		damage_multiplier = 1.0+bow_dmg_mult
+		upgrade_bow_sprite(icon)
+
+func upgrade_bow_sprite(new_icon):
+	if bow_dmg_mult >0.2:
+		bow_sprite.texture = load("res://assets/sprites/weapons/2TierSword.png")
+	for item in inventory:
+		if item["weapon_type"] == "bow":
+			item["icon"] = new_icon
+			break
+
+func upgrade_sword_sprite(new_icon):
+	if sword_dmg_mult >=0.1 && sword_dmg_mult<0.2:
+		sword_sprite.texture = load("res://assets/sprites/weapons/1TierSword.png")
+	if sword_dmg_mult >0.2:
+		sword_sprite.texture = load("res://assets/sprites/weapons/2TierSword.png")
+	for item in inventory:
+		if item["weapon_type"] == "sword":
+			item["icon"] = new_icon
+			break
 
 func add_special_ammo(ammo_name: String, amount: int) -> void:
 	bomb_ammo += amount
@@ -210,8 +232,18 @@ func _on_collect_area_area_entered(area: Area2D) -> void:
 func _icon_for_weapon(wtype: String):
 	match wtype:
 		"sword":
-			var res = load("res://scripts/resources/BasicSwordItem.tres")
-			return res.icon if res else null
+			var test = false
+			if test == true:
+				return
+			if sword_dmg_mult >= 0.1 && sword_dmg_mult <= 0.2:
+				var res = load("res://scripts/resources/DamageUpgrade.tres")
+				return res.icon if res else null
+			if sword_dmg_mult > 0.2:
+				var res = load("res://scripts/resources/Damage_Tier_II.tres")
+				return res.icon if res else null
+			else:
+				var res = load("res://scripts/resources/BasicSwordItem.tres")
+				return res.icon if res else null
 		"bow":
 			var res = load("res://scripts/resources/BasicBowItem.tres")
 			return res.icon if res else null
@@ -231,6 +263,7 @@ func save_player_data() -> void:
 		})
 	SaveManager.save_section("player", {
 		"damage_multiplier": damage_multiplier,
+		"sword_sprite": sword.get_node("Sprite2D").texture.resource_path if sword.get_node("Sprite2D").texture else "",
 		"sword_dmg_mult": sword_dmg_mult,
 		"bow_dmg_mult": bow_dmg_mult,
 		"speed_multiplier": speed_multiplier,
@@ -254,6 +287,10 @@ func load_player_data() -> void:
 	coincount         = int(d.get("coincount", 0))
 	total_coins.text  = str(coincount)
 	global_position   = spawnpos
+	
+	var sword_sprite_path = d.get("sword_sprite", "")
+	if sword_sprite_path != "":
+		sword.get_node("Sprite2D").texture = load(sword_sprite_path)
 
 	inventory.clear()
 	for item_data in d.get("inventory", []):

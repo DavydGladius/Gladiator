@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c8uamujc7s2am"]
+
+[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="1_drfvy"]
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="2_7wuys"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8xm1"]
+atlas = ExtResource("1_drfvy")
+region = Rect2(64, 64, 16, 16)
+
+[resource]
+script = ExtResource("2_7wuys")
+item_name = "Sword Damage Upgrade Tier I"
+icon = SubResource("AtlasTexture_l8xm1")
+description = "+10% sword dmg"
+price = 5
+is_upgrade = true
+weapon_type = "sword"
+damage_multiplier = 0.1

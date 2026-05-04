@@ -1,6 +1,7 @@
 extends Control
 
 @export var item_texture: TextureRect
+
 var item_data: ItemData:
 	set(value):
 		item_data = value
@@ -38,6 +39,7 @@ func _on_card_pressed() -> void:
 	if not player or not item_data:
 		return
 	if player.coincount >= item_data.price:
+	if player.coincount >= item_data.price && Check_weapon_upgrade():
 		player.coincount -= item_data.price
 		player.total_coins.text = str(player.coincount)
 		apply_item_effect()
@@ -48,6 +50,15 @@ func _on_card_pressed() -> void:
 		await get_tree().create_timer(0.18).timeout
 		card_button.modulate = Color(1, 1, 1, 1)
 
+func Check_weapon_upgrade():
+	var is_upgrade_val = item_data.get("is_upgrade")
+	if is_upgrade_val == false: return true
+	var weapon_type_val = item_data.get("weapon_type")
+	if player.active_weapon != weapon_type_val:
+		return false
+	else:
+		return true
+
 func apply_item_effect() -> void:
 	if not item_data or not player:
 		print("KLAIDA: Nėra duomenų arba žaidėjo!")
@@ -55,7 +66,7 @@ func apply_item_effect() -> void:
 	
 	print("--- PRADEDAM PIRKIMĄ: ", item_data.item_name, " ---")
 	
-	if item_data.weapon_type != "":
+	if item_data.weapon_type != ""&& item_data.is_upgrade==false:
 		print("Kodas nuėjo į: GINKLAI")
 		player.add_weapon_to_inventory(item_data.weapon_type, item_data.item_name, item_data.icon)
 		return
@@ -65,9 +76,13 @@ func apply_item_effect() -> void:
 		player.add_special_ammo(item_data.item_name, 5)
 		return
 
-	if item_data.is_upgrade:
+	if item_data.is_upgrade && item_data.weapon_type == "sword":
 		print("Kodas nuėjo į: UPGRADE (Žala)")
-		player.upgrade_current_weapon(item_data.damage_multiplier)
+		player.upgrade_current_weapon(item_data.damage_multiplier,item_data.icon,item_data.weapon_type)
+		return
+	if item_data.is_upgrade && item_data.weapon_type == "bow":
+		print("Kodas nuėjo į: UPGRADE (Žala)")
+		player.upgrade_current_weapon(item_data.damage_multiplier,item_data.icon,item_data.weapon_type)
 		return
 
 	# Jei kodas pasiekia šitą vietą, jis PRIVALO padidinti greitį

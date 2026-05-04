@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://c5cer4osfreg1"]
+
+[ext_resource type="Script" uid="uid://con5lvyu3yahk" path="res://scripts/resources/ItemData.gd" id="1_b8ses"]
+[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="1_w2tou"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hxobv"]
+atlas = ExtResource("1_w2tou")
+region = Rect2(0, 32, 16, 16)
+
+[resource]
+script = ExtResource("1_b8ses")
+item_name = "Bow Damage Upgrade Tier I"
+icon = SubResource("AtlasTexture_hxobv")
+description = "+10% bow dmg"
+price = 5
+is_upgrade = true
+weapon_type = "bow"
+damage_multiplier = 0.1
+metadata/_custom_type_script = "uid://con5lvyu3yahk"

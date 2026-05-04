@@ -6,11 +6,13 @@ extends Control
 @onready var Description: Label = $Panel/ShopInner/DescBox/Label
 @onready var inventory_screen = $InventoryScreen
 
+var player
 var current_item_indices: Array = []
 var purchased_indices: Array = []
 var _skip_next_shuffle: bool = false
 
 func _ready() -> void:
+	player = get_tree().get_first_node_in_group("player")
 	_shuffel_shop_no_save()
 	Description.text = ""
 	_apply_scale()
@@ -82,6 +84,7 @@ func _shuffel_shop_no_save() -> void:
 func _pick_unique_indices(count: int) -> Array:
 	var player = get_tree().get_first_node_in_group("player")
 	var pool = []
+
 	
 	# Tikriname, ar išvis yra įkeltų daiktų inspektoriuje
 	if available_items.size() == 0:
@@ -92,14 +95,13 @@ func _pick_unique_indices(count: int) -> Array:
 		var item = available_items[i]
 		
 		# Tikriname ginklus
-		if item.weapon_type != "":
+		if item.weapon_type != "" and not item.is_upgrade:
 			if player and player.has_method("has_weapon"):
 				if player.has_weapon(item.item_name):
 					print("--- Praleidžiam ginklą, kurį žaidėjas jau turi: ", item.item_name)
 					continue
 		
 		pool.append(i)
-
 	print("--- Galutinis Shop Pool Size: ", pool.size())
 	
 	pool.shuffle()
@@ -171,6 +173,12 @@ func _on_item_unhovered() -> void:
 
 func _on_item_purchased(shop_item: Control) -> void:
 	var slot = shop_item.get_meta("slot_index", -1)
+	if player.sword_dmg_mult >=0.2: #If it works it works
+		var new_tier = load("res://scripts/resources/Sword_Damage_Tier_II.tres")
+		available_items[1]=new_tier
+	#if player.bow_dmg_mult >=0.2:
+		#var bow_tier = load("res://scripts/resources/Bow_Damage_Tier_I.tres")
+		#available_items[4]=bow_tier
 	if slot != -1 and slot not in purchased_indices:
 		purchased_indices.append(slot)
 		_save_shop()

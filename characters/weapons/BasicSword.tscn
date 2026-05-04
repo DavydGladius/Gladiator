@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ceqtca5e8gumv"]
 
 [ext_resource type="Script" uid="uid://dhd0n0ojo18of" path="res://scripts/weapons/basic_sword.gd" id="1_5n2e2"]
-[ext_resource type="Texture2D" uid="uid://bqshhwkgpq4ix" path="res://assets/sprites/weapons/FullSpriteSheet.png" id="2_wrvdq"]
+[ext_resource type="Texture2D" uid="uid://byx8dmhq5h7nv" path="res://assets/sprites/weapons/0TierSword.png" id="2_g0gpi"]
 [ext_resource type="AudioStream" uid="uid://bi8vdw1sb720" path="res://assets/sound_effects/sword_swing.wav" id="3_g0gpi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7moh5"]
@@ -13,8 +13,7 @@ script = ExtResource("1_5n2e2")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1896137862]
 position = Vector2(4, -4)
 scale = Vector2(0.65, 0.65)
-texture = ExtResource("2_wrvdq")
-region_enabled = true
+texture = ExtResource("2_g0gpi")
 region_rect = Rect2(64, 0, 16, 16)
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=1408294184]
