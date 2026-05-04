@@ -24,6 +24,7 @@
 [ext_resource type="Resource" uid="uid://bgmrsdbsqrd3i" path="res://scripts/resources/BasicBowItem.tres" id="22_munwf"]
 [ext_resource type="Resource" uid="uid://defaljwctssmi" path="res://scripts/resources/BasicBomb.tres" id="23_ts3gi"]
 [ext_resource type="Resource" uid="uid://bh3ojepcpo8en" path="res://scripts/resources/SpeedUpgrade.tres" id="24_ctatt"]
+[ext_resource type="Resource" uid="uid://c5cer4osfreg1" path="res://scripts/resources/Bow_Damage_Tier_I.tres" id="25_i4fjy"]
 
 [sub_resource type="GDScript" id="GDScript_e0ngr"]
 script/source = "extends Node2D
@@ -488,7 +489,7 @@ color = Color(1, 0, 0, 0)
 visible = false
 
 [node name="ShopScene" parent="SafeArea/CanvasLayer" unique_id=701610180 instance=ExtResource("12_7yui6")]
-available_items = Array[ExtResource("19_kpybi")]([ExtResource("20_ctatt"), ExtResource("21_xgqkh"), ExtResource("22_munwf"), ExtResource("23_ts3gi"), ExtResource("24_ctatt")])
+available_items = Array[ExtResource("19_kpybi")]([ExtResource("20_ctatt"), ExtResource("21_xgqkh"), ExtResource("22_munwf"), ExtResource("23_ts3gi"), ExtResource("24_ctatt"), ExtResource("25_i4fjy")])
 
 [node name="decorations" type="TileMapLayer" parent="." unique_id=1046133306]
 tile_map_data = PackedByteArray("AAAcAA4AAAAMAAAAAAAbAA4AAAAGAAAAAAAaAA4AAAAFAAQAAAAaABEAAAAHAAUAAAAaABAAAAABAAYAAAAbABEAAAADAAQAAAAcABEAAAAIAAIAAAAaAA8AAAAEAAYAAAAfAAwAAAACAAYAAAAeAA0AAAAKAAAAAAAgAAsAAAABAAYAAAAnABUAAAAMAAAAAAAoABQAAAAHAAUAAAApAAwAAAAHAAUAAAAqAA0AAAADAAQAAAAmAAoAAAAKAAAAAAAnAAoAAAAMAAAAAAAiAAwAAAABAAYAAAAiAA0AAAAEAAIAAAAhAA0AAAAMAAAAAAAmAAwAAAACAAYAAAAlAAwAAAADAAAAAAAfABMAAAACAAYAAAAhABIAAAAAAAQAAAAiABIAAAAHAAUAAAAiABMAAAAEAAIAAAAlABMAAAACAAEAAAAnABIAAAAAAAUAAAAiABUAAAABAAQAAAAgABEAAAAAAAQAAAAdABEAAAADAAIAAAAhAA8AAAAFAAEAAAAlAA8AAAAFAAQAAAAkAA4AAAABAAQAAAAjABAAAAAAAAUAAAAqABIAAAAMAAAAAAApABAAAAAEAAEAAAAiAAoAAAAEAAEAAAAoAA0AAAACAAEAAAA=")

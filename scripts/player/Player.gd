@@ -97,8 +97,8 @@ func upgrade_current_weapon(dmg_mod: float, icon, wep_type):
 		upgrade_bow_sprite(icon)
 
 func upgrade_bow_sprite(new_icon):
-	if bow_dmg_mult >0.2:
-		bow_sprite.texture = load("res://assets/sprites/weapons/2TierSword.png")
+	if bow_dmg_mult >=0.1:
+		bow_sprite.texture = load("res://assets/sprites/weapons/1TierBow.png")
 	for item in inventory:
 		if item["weapon_type"] == "bow":
 			item["icon"] = new_icon
@@ -245,8 +245,12 @@ func _icon_for_weapon(wtype: String):
 				var res = load("res://scripts/resources/BasicSwordItem.tres")
 				return res.icon if res else null
 		"bow":
-			var res = load("res://scripts/resources/BasicBowItem.tres")
-			return res.icon if res else null
+			if bow_dmg_mult >= 0.1:
+				var res=load("res://scripts/resources/Bow_Damage_Tier_I.tres")
+				return res.icon if res else null
+			else:
+				var res = load("res://scripts/resources/BasicBowItem.tres")
+				return res.icon if res else null
 		"bomb": # PRIDĖK ŠITĄ
 			var res = load("res://scripts/resources/BasicBomb.tres") # Patikrink kelią iki savo bombos .tres
 			return res.icon if res else null
@@ -264,6 +268,7 @@ func save_player_data() -> void:
 	SaveManager.save_section("player", {
 		"damage_multiplier": damage_multiplier,
 		"sword_sprite": sword.get_node("Sprite2D").texture.resource_path if sword.get_node("Sprite2D").texture else "",
+		"bow_sprite": bow.get_node("Sprite2D").texture.resource_path if sword.get_node("Sprite2D").texture else "",
 		"sword_dmg_mult": sword_dmg_mult,
 		"bow_dmg_mult": bow_dmg_mult,
 		"speed_multiplier": speed_multiplier,
@@ -291,6 +296,10 @@ func load_player_data() -> void:
 	var sword_sprite_path = d.get("sword_sprite", "")
 	if sword_sprite_path != "":
 		sword.get_node("Sprite2D").texture = load(sword_sprite_path)
+	
+	var bow_sprite_path = d.get("bow_sprite", "")
+	if bow_sprite_path != "":
+		bow.get_node("Sprite2D").texture = load(bow_sprite_path)
 
 	inventory.clear()
 	for item_data in d.get("inventory", []):

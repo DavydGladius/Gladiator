@@ -38,7 +38,6 @@ func _on_mouse_exited() -> void:
 func _on_card_pressed() -> void:
 	if not player or not item_data:
 		return
-	if player.coincount >= item_data.price:
 	if player.coincount >= item_data.price && Check_weapon_upgrade():
 		player.coincount -= item_data.price
 		player.total_coins.text = str(player.coincount)
