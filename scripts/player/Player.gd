@@ -1,6 +1,6 @@
 extends Entity
 
-var coincount: int = 999
+var coincount: int = 0
 @onready var footstep_audio = $FootstepPlayer
 @onready var total_coins = $CanvasLayer/CoinHUD/CoinRow/Label
 
