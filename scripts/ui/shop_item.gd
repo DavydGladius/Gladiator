@@ -42,6 +42,7 @@ func _on_card_pressed() -> void:
 		player.coincount -= item_data.price
 		player.total_coins.text = str(player.coincount)
 		apply_item_effect()
+		item_data.price += 3
 		item_purchased.emit()
 		self.queue_free()
 	else:
