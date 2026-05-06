@@ -16,6 +16,9 @@ var grace_timer: Timer
 var progress_bar: ProgressBar
 var wave_label: Label
 
+var enemies_to_spawn_this_wave: int = 0 
+var mini_bosses_to_spawn: int = 0          
+var mini_bosses_spawned: int = 0
 
 signal wave_started(wave_number: int)
 
@@ -84,16 +87,24 @@ func clear_enemies():
 	print("Visi monstrai išvalyti.")
 
 func _run_spawning_logic():
-	var enemies_this_wave = base_enemies_per_wave + (current_wavelvl * 2)
+	var base_count = base_enemies_per_wave + (current_wavelvl * 2)
 	total_spawned = 0
+	mini_bosses_spawned = 0
 	wave_finished_spawning = false
+	
+	if current_wavelvl % 5 == 0:
+		enemies_to_spawn_this_wave = base_count / 2 # Pusė mažiau paprastų
+		mini_bosses_to_spawn = 1
+		if current_wavelvl >= 20: mini_bosses_to_spawn = 2 # Nuo 20 bangos - 2 bosai
+	else:
+		enemies_to_spawn_this_wave = base_count
+		mini_bosses_to_spawn = 0
 	spawn_timer.start()
-
 	if progress_bar:
-		progress_bar.max_value = enemies_this_wave
-		progress_bar.value = enemies_this_wave
+		var total_this_wave = enemies_to_spawn_this_wave + mini_bosses_to_spawn
+		progress_bar.max_value = total_this_wave # Nustatome naują baro "ilgį"
+		progress_bar.value = total_this_wave     # Iškart užpildome iki galo
 		_set_bar_fill_color(Color(0.8, 0.0, 0.0))
-
 	if wave_label:
 		wave_label.text = "Wave " + str(current_wavelvl)
 		wave_label.modulate = Color.RED
@@ -109,51 +120,71 @@ func stop_wave():
 	grace_timer.stop()
 
 func _spawn_enemy():
-	var enemies_limit = base_enemies_per_wave + (current_wavelvl * 2)
-	if total_spawned < enemies_limit:
-		var scene_to_spawn
-		if total_spawned % 2 == 1 and sword_enemy_scene:
-			scene_to_spawn = sword_enemy_scene
-		else:
-			scene_to_spawn = enemy_scene
-			
-		if scene_to_spawn:
-			var enemy = scene_to_spawn.instantiate()
-			enemy.add_to_group("enemies")
-
-			# Pick a random spawn point
-			var spawn_points = [
-				"../EnemySpawn/EnemySpawnDoor",
-				"../EnemySpawn/EnemySpawnHatch"
-			]
-			var chosen = spawn_points[randi() % spawn_points.size()]
-			var spawn_pos = get_node_or_null(chosen)
-			enemy.global_position = spawn_pos.global_position if spawn_pos else global_position
-
-			get_tree().current_scene.add_child(enemy)
-			total_spawned += 1
+	# 1. Pirmiausia spawniname paprastus priešus
+	if total_spawned < enemies_to_spawn_this_wave:
+		_instantiate_enemy(false)
+		total_spawned += 1
+	# 2. Kai paprasti baigiasi, spawniname bosus
+	elif mini_bosses_spawned < mini_bosses_to_spawn:
+		_instantiate_enemy(true)
+		mini_bosses_spawned += 1
+	# 3. Kai viskas baigta - uždarom vartus
 	else:
 		spawn_timer.stop()
 		$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
 		$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
 
+func _instantiate_enemy(is_mini_boss: bool):
+	var scene = sword_enemy_scene if (total_spawned % 2 == 1) else enemy_scene
+	var enemy = scene.instantiate()
+	enemy.add_to_group("enemies")
+
+	if is_mini_boss:
+		enemy.scale = Vector2(1.6, 1.6)
+		var health_vars = ["health", "hp", "max_health", "current_health"]
+		for v in health_vars:
+			if v in enemy:
+				enemy.set(v, enemy.get(v) * 3.0)
+		if "damage" in enemy:
+			enemy.damage *= 1.5
+		if "money_drop" in enemy:
+			enemy.money_drop = 5
+		enemy.modulate = Color(1.5, 0.5, 0.5)
+	var spawn_points = ["../EnemySpawn/EnemySpawnDoor", "../EnemySpawn/EnemySpawnHatch"]
+	var spawn_pos = get_node_or_null(spawn_points[randi() % spawn_points.size()])
+	enemy.global_position = spawn_pos.global_position if spawn_pos else global_position
+	
+	get_tree().current_scene.add_child(enemy)
+	
 func _heal_players():
 	var players = get_tree().get_nodes_in_group("player")
 	for player in players:
 		player.heal_full()
 
 func _process(_delta):
-	if progress_bar and grace_timer.is_stopped():
-		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
-		var enemies_limit = base_enemies_per_wave + (current_wavelvl * 2)
-		var remaining = enemies_alive + (enemies_limit - total_spawned)
-		progress_bar.value = remaining
+	# Skaičiuojame progresą tik kovos metu
+	if progress_bar and grace_timer.is_stopped() and not in_grace_period:
+		var enemies_alive = 0
+		# Skaičiuojame tik tuos, kurie dar gyvi ir neištrinti
+		for e in get_tree().get_nodes_in_group("enemies"):
+			if not e.is_queued_for_deletion():
+				enemies_alive += 1
+		
+		# Kiek dar liko sukurti šioje bangoje
+		var still_to_spawn = (enemies_to_spawn_this_wave - total_spawned) + (mini_bosses_to_spawn - mini_bosses_spawned)
+		
+		# Galutinė vertė: gyvi ekrane + tie, kurie dar atsiras
+		progress_bar.value = enemies_alive + still_to_spawn
 
-	# Grace period pradžia — čia emituojame wave_started šopui atsinaujinti
+	# Grace period (laikas tarp bangų)
 	if wave_finished_spawning and grace_timer.is_stopped():
-		var enemies_alive = get_tree().get_nodes_in_group("enemies").size()
-		if enemies_alive == 0:
+		var alive_now = 0
+		for e in get_tree().get_nodes_in_group("enemies"):
+			if not e.is_queued_for_deletion():
+				alive_now += 1
+				
+		if alive_now == 0:
 			wave_finished_spawning = false
 			in_grace_period = true
 			if progress_bar:
@@ -163,8 +194,7 @@ func _process(_delta):
 			if wave_label:
 				wave_label.text = "Grace Period"
 				wave_label.modulate = Color.GREEN
-			print("Grace period prasideda, shopas atsinaujina...")
-			wave_started.emit(current_wavelvl)  # Shopas atsinaujina grace period metu
+			wave_started.emit(current_wavelvl)
 			grace_timer.start()
 
 	if not grace_timer.is_stopped() and progress_bar:
