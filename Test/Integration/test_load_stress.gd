@@ -9,7 +9,7 @@ const SPAWN_POINTS = [
 	"EnemySpawn/EnemySpawnDoor",
 	"EnemySpawn/EnemySpawnHatch"
 ]
-const DURATION_SECONDS = 180.0
+const DURATION_SECONDS = 600.0
 const SPAWN_INTERVAL_SECONDS = 0.2
 const METRIC_SAMPLE_SECONDS = 1.0
 
