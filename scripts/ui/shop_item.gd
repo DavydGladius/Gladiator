@@ -28,6 +28,7 @@ func _setup() -> void:
 		item_texture.texture = item_data.icon
 	if item_data and price_label:
 		price_label.text = str(item_data.price)
+	_update_max_state()
 
 func _on_mouse_entered() -> void:
 	item_hovered.emit(item_data.description if item_data else "")
@@ -38,7 +39,7 @@ func _on_mouse_exited() -> void:
 func _on_card_pressed() -> void:
 	if not player or not item_data:
 		return
-	if player.coincount >= item_data.price && Check_weapon_upgrade():
+	if player.coincount >= item_data.price && Check_weapon_upgrade() && _can_apply_item():
 		player.coincount -= item_data.price
 		player.total_coins.text = str(player.coincount)
 		apply_item_effect()
@@ -49,6 +50,70 @@ func _on_card_pressed() -> void:
 		card_button.modulate = Color(1.2, 0.3, 0.3, 1.0)
 		await get_tree().create_timer(0.18).timeout
 		card_button.modulate = Color(1, 1, 1, 1)
+
+func _update_max_state() -> void:
+	if not item_data or not player:
+		return
+	if _is_maxed_item():
+		card_button.disabled = true
+		card_button.modulate = Color(0.6, 0.6, 0.6, 1.0)
+		if price_label:
+			price_label.text = "MAX"
+	else:
+		card_button.disabled = false
+		card_button.modulate = Color(1, 1, 1, 1)
+		if price_label:
+			price_label.text = str(item_data.price)
+
+func _is_maxed_item() -> bool:
+	if _is_speed_upgrade_item():
+		return player.speed_multiplier >= player.max_speed_multiplier
+	if _is_health_upgrade_item():
+		return player.health_bonus >= player.max_health_bonus
+	if _is_damage_upgrade_item("sword"):
+		return player.sword_dmg_mult >= player.max_sword_dmg_mult
+	if _is_damage_upgrade_item("bow"):
+		return player.bow_dmg_mult >= player.max_bow_dmg_mult
+	return false
+
+func _can_apply_item() -> bool:
+	return _can_apply_speed_upgrade() and _can_apply_health_upgrade() and _can_apply_damage_upgrade()
+
+func _can_apply_speed_upgrade() -> bool:
+	if not _is_speed_upgrade_item():
+		return true
+	if player.speed_multiplier >= player.max_speed_multiplier:
+		return false
+	return true
+
+func _can_apply_health_upgrade() -> bool:
+	if not _is_health_upgrade_item():
+		return true
+	if player.health_bonus >= player.max_health_bonus:
+		return false
+	return true
+
+func _can_apply_damage_upgrade() -> bool:
+	if _is_damage_upgrade_item("sword"):
+		return player.sword_dmg_mult < player.max_sword_dmg_mult
+	if _is_damage_upgrade_item("bow"):
+		return player.bow_dmg_mult < player.max_bow_dmg_mult
+	return true
+
+func _is_speed_upgrade_item() -> bool:
+	if not item_data:
+		return false
+	return item_data.speed_multiplier != 1.0 and not item_data.is_special and not item_data.is_upgrade and item_data.weapon_type == ""
+
+func _is_health_upgrade_item() -> bool:
+	if not item_data:
+		return false
+	return item_data.health_bonus > 0.0 and item_data.speed_multiplier == 1.0 and not item_data.is_special and not item_data.is_upgrade and item_data.weapon_type == ""
+
+func _is_damage_upgrade_item(weapon_type: String) -> bool:
+	if not item_data:
+		return false
+	return item_data.is_upgrade and item_data.weapon_type == weapon_type
 
 func Check_weapon_upgrade():
 	var is_upgrade_val = item_data.get("is_upgrade")
@@ -85,7 +150,12 @@ func apply_item_effect() -> void:
 		player.upgrade_current_weapon(item_data.damage_multiplier,item_data.icon,item_data.weapon_type)
 		return
 
+	if _is_health_upgrade_item():
+		print("Kodas nuėjo į: STATISTIKA (HP)")
+		player.apply_health_upgrade(item_data.health_bonus)
+		return
+
 	# Jei kodas pasiekia šitą vietą, jis PRIVALO padidinti greitį
 	print("Kodas nuėjo į: STATISTIKA")
-	player.speed_multiplier *= item_data.speed_multiplier
+	player.apply_speed_upgrade(item_data.speed_multiplier)
 	print("Naujas greitis žaidėjo skripte: ", player.speed_multiplier)

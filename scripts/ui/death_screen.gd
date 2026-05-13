@@ -19,20 +19,20 @@ func _on_continue_button_pressed() -> void:
 	if $AudioStreamPlayer: $AudioStreamPlayer.stop()
 	
 	# ŽAIDĖJO PRIKĖLIMAS
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.is_dead = false
-		player.set_physics_process(true)
-		player.current_health = player.max_health
-		if player.health_bar:
-			player.health_bar.value = player.current_health
+	var player_node = get_tree().get_first_node_in_group("player")
+	if player_node:
+		player_node.is_dead = false
+		player_node.set_physics_process(true)
+		player_node.current_health = player_node.max_health
+		if player_node.health_bar:
+			player_node.health_bar.value = player_node.current_health
 		
-		var collision = player.get_node_or_null("CollisionShape2D")
+		var collision = player_node.get_node_or_null("CollisionShape2D")
 		if collision:
 			collision.disabled = false
 		
-		if player.animations:
-			player.animations.play("idle")
+		if player_node.animations:
+			player_node.animations.play("idle")
 
 	# BANGOS RESTARTAS
 	var wave_manager = get_tree().current_scene.find_child("WaveManager", true, false)

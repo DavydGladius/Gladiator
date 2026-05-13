@@ -93,7 +93,7 @@ func _run_spawning_logic():
 	wave_finished_spawning = false
 	
 	if current_wavelvl % 5 == 0:
-		enemies_to_spawn_this_wave = base_count / 2 # Pusė mažiau paprastų
+		enemies_to_spawn_this_wave = int(base_count / 2.0) # Pusė mažiau paprastų
 		mini_bosses_to_spawn = 1
 		if current_wavelvl >= 20: mini_bosses_to_spawn = 2 # Nuo 20 bangos - 2 bosai
 	else:

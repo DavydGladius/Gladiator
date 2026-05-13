@@ -82,7 +82,7 @@ func _shuffel_shop_no_save() -> void:
 	_build_shop()
 
 func _pick_unique_indices(count: int) -> Array:
-	var player = get_tree().get_first_node_in_group("player")
+	var player_node = get_tree().get_first_node_in_group("player")
 	var pool = []
 
 	
@@ -96,8 +96,8 @@ func _pick_unique_indices(count: int) -> Array:
 		
 		# Tikriname ginklus
 		if item.weapon_type != "" and not item.is_upgrade:
-			if player and player.has_method("has_weapon"):
-				if player.has_weapon(item.item_name):
+			if player_node and player_node.has_method("has_weapon"):
+				if player_node.has_weapon(item.item_name):
 					print("--- Praleidžiam ginklą, kurį žaidėjas jau turi: ", item.item_name)
 					continue
 		
@@ -173,7 +173,7 @@ func _on_item_unhovered() -> void:
 
 func _on_item_purchased(shop_item: Control) -> void:
 	var slot = shop_item.get_meta("slot_index", -1)
-	if player.sword_dmg_mult >=0.2: #If it works it works
+	if player.sword_dmg_mult >= player.max_sword_dmg_mult: #If it works it works
 		var new_tier = load("res://scripts/resources/Sword_Damage_Tier_II.tres")
 		available_items[1]=new_tier
 	#if player.bow_dmg_mult >=0.2:
