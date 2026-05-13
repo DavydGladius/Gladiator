@@ -25,6 +25,15 @@ var sword_dmg_mult: float = 0.0
 var bow_dmg_mult: float = 0.0
 var speed_multiplier: float = 1.0
 var health_bonus: float = 0.0
+var sword_upgrade_count: int = 0
+var bow_upgrade_count: int = 0
+
+@export var max_speed_multiplier: float = 1.8
+@export var max_sword_dmg_mult: float = 2.5
+@export var max_bow_dmg_mult: float = 2.0
+@export var max_health_bonus: float = 100.0
+@export var sword_tier1_purchases: int = 5
+@export var bow_tier1_purchases: int = 5
 
 @export var sword_item: Resource  # BasicSwordItem.tres
 
@@ -88,16 +97,41 @@ func heal_full():
 
 func upgrade_current_weapon(dmg_mod: float, icon, wep_type):
 	if active_weapon == wep_type && active_weapon == "sword":
-		sword_dmg_mult += dmg_mod
+		var next_sword = min(sword_dmg_mult + dmg_mod, max_sword_dmg_mult)
+		if next_sword == sword_dmg_mult:
+			return
+		sword_dmg_mult = next_sword
+		sword_upgrade_count += 1
 		damage_multiplier = 1.0+sword_dmg_mult
 		upgrade_sword_sprite(icon)
 	if active_weapon == wep_type && active_weapon == "bow":
-		bow_dmg_mult += dmg_mod
+		var next_bow = min(bow_dmg_mult + dmg_mod, max_bow_dmg_mult)
+		if next_bow == bow_dmg_mult:
+			return
+		bow_dmg_mult = next_bow
+		bow_upgrade_count += 1
 		damage_multiplier = 1.0+bow_dmg_mult
 		upgrade_bow_sprite(icon)
 
+func apply_health_upgrade(amount: float) -> void:
+	if amount <= 0.0:
+		return
+	var next_bonus = min(health_bonus + amount, max_health_bonus)
+	if next_bonus == health_bonus:
+		return
+	var diff = next_bonus - health_bonus
+	health_bonus = next_bonus
+	current_health = min(current_health + diff, max_health + health_bonus)
+	if health_bar:
+		health_bar.max_value = max_health + health_bonus
+		health_bar.value = current_health
+
+func apply_speed_upgrade(mult: float) -> void:
+	var next_speed = speed_multiplier * mult
+	speed_multiplier = min(next_speed, max_speed_multiplier)
+
 func upgrade_bow_sprite(new_icon):
-	if bow_dmg_mult >=0.1:
+	if bow_upgrade_count >= bow_tier1_purchases or bow_dmg_mult >= max_bow_dmg_mult:
 		bow_sprite.texture = load("res://assets/sprites/weapons/1TierBow.png")
 	for item in inventory:
 		if item["weapon_type"] == "bow":
@@ -105,9 +139,9 @@ func upgrade_bow_sprite(new_icon):
 			break
 
 func upgrade_sword_sprite(new_icon):
-	if sword_dmg_mult >=0.1 && sword_dmg_mult<0.2:
+	if sword_upgrade_count >= sword_tier1_purchases and sword_dmg_mult < max_sword_dmg_mult:
 		sword_sprite.texture = load("res://assets/sprites/weapons/1TierSword.png")
-	if sword_dmg_mult >0.2:
+	if sword_dmg_mult >= max_sword_dmg_mult:
 		sword_sprite.texture = load("res://assets/sprites/weapons/2TierSword.png")
 	for item in inventory:
 		if item["weapon_type"] == "sword":
@@ -235,17 +269,17 @@ func _icon_for_weapon(wtype: String):
 			var test = false
 			if test == true:
 				return
-			if sword_dmg_mult >= 0.1 && sword_dmg_mult <= 0.2:
-				var res = load("res://scripts/resources/DamageUpgrade.tres")
+			if sword_dmg_mult >= max_sword_dmg_mult:
+				var res = load("res://scripts/resources/Sword_Damage_Tier_II.tres")
 				return res.icon if res else null
-			if sword_dmg_mult > 0.2:
-				var res = load("res://scripts/resources/Damage_Tier_II.tres")
+			if sword_upgrade_count >= sword_tier1_purchases:
+				var res = load("res://scripts/resources/Sword_Damage_Tier_I.tres")
 				return res.icon if res else null
 			else:
 				var res = load("res://scripts/resources/BasicSwordItem.tres")
 				return res.icon if res else null
 		"bow":
-			if bow_dmg_mult >= 0.1:
+			if bow_upgrade_count >= bow_tier1_purchases or bow_dmg_mult >= max_bow_dmg_mult:
 				var res=load("res://scripts/resources/Bow_Damage_Tier_I.tres")
 				return res.icon if res else null
 			else:
@@ -271,6 +305,8 @@ func save_player_data() -> void:
 		"bow_sprite": bow.get_node("Sprite2D").texture.resource_path if sword.get_node("Sprite2D").texture else "",
 		"sword_dmg_mult": sword_dmg_mult,
 		"bow_dmg_mult": bow_dmg_mult,
+		"sword_upgrade_count": sword_upgrade_count,
+		"bow_upgrade_count": bow_upgrade_count,
 		"speed_multiplier": speed_multiplier,
 		"health_bonus": health_bonus,
 		"current_health": current_health,
@@ -286,9 +322,11 @@ func load_player_data() -> void:
 	damage_multiplier = float(d.get("damage_multiplier", 1.0))
 	sword_dmg_mult    = float(d.get("sword_dmg_mult", 0.0))
 	bow_dmg_mult    = float(d.get("bow_dmg_mult", 0.0))
-	speed_multiplier  = float(d.get("speed_multiplier",  1.0))
-	health_bonus      = float(d.get("health_bonus",      0.0))
-	current_health    = float(d.get("current_health",    max_health))
+	sword_upgrade_count = int(d.get("sword_upgrade_count", 0))
+	bow_upgrade_count = int(d.get("bow_upgrade_count", 0))
+	speed_multiplier  = min(float(d.get("speed_multiplier",  1.0)), max_speed_multiplier)
+	health_bonus      = min(float(d.get("health_bonus",      0.0)), max_health_bonus)
+	current_health    = min(float(d.get("current_health",    max_health)), max_health + health_bonus)
 	coincount         = int(d.get("coincount", 0))
 	total_coins.text  = str(coincount)
 	global_position   = spawnpos

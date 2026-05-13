@@ -15,4 +15,5 @@ description = "+15% sword dmg"
 price = 10
 is_upgrade = true
 weapon_type = "sword"
+damage_multiplier = 0.15
 metadata/_custom_type_script = "uid://con5lvyu3yahk"
