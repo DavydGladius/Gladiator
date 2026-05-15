@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dwcdhfo5l11ky" path="res://Scenes/pause_menu.tscn" id="5_fo5ed"]
 [ext_resource type="PackedScene" uid="uid://8o77tfy45one" path="res://Scenes/SpikeTrap.tscn" id="6_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://bjqppn4mkfv0u" path="res://Scenes/DeathScreen.tscn" id="6_5v1tr"]
+[ext_resource type="Texture2D" uid="uid://diwh5d365mkfg" path="res://assets/sprites/Objects2.png" id="6_dt0r1"]
 [ext_resource type="Texture2D" uid="uid://daqab7s05efh1" path="res://assets/sprites/Objects.png" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://Scenes/Pressure_plate.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://Scenes/wave_manager.tscn" id="8_k7acu"]
@@ -366,7 +367,7 @@ deco_png_1 = ExtResource("7_i7141")
 floor_png_2 = ExtResource("2_7t5mc")
 deco_png_2 = ExtResource("4_ts3gi")
 floor_png_3 = ExtResource("3_lakw3")
-deco_png_3 = ExtResource("7_i7141")
+deco_png_3 = ExtResource("6_dt0r1")
 floor_png_4 = ExtResource("4_pm21f")
 deco_png_4 = ExtResource("7_i7141")
 
