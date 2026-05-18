@@ -39,6 +39,7 @@ func update_animations(direction: Vector2):
 func take_damage(amount: float):
 	if is_dead: return
 	current_health -= amount
+	#print(amount)
 	if health_bar: health_bar.value = current_health
 	
 	if current_health <= 0:
