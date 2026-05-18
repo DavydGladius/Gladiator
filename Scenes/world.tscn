@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://daqab7s05efh1" path="res://assets/sprites/Objects.png" id="7_i7141"]
 [ext_resource type="PackedScene" uid="uid://bsap7cj843fnq" path="res://Scenes/Pressure_plate.tscn" id="8_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://dvebj24gpudja" path="res://Scenes/wave_manager.tscn" id="8_k7acu"]
-[ext_resource type="PackedScene" uid="uid://dsf4jkb7yc4ng" path="res://Scenes/shop_scene.tscn" id="12_7yui6"]
+[ext_resource type="PackedScene" uid="uid://dsf4jkb7yc4ng" path="res://scripts/ui/shop_scene.tscn" id="12_7yui6"]
 [ext_resource type="Script" uid="uid://68xdisc1h2mi" path="res://scripts/object/safe_area.gd" id="13_c5t2i"]
 [ext_resource type="PackedScene" uid="uid://crebakb7y7qcy" path="res://Scenes/Spawn_gate.tscn" id="13_e0ngr"]
 [ext_resource type="PackedScene" uid="uid://bfcaqjxghqg3k" path="res://Scenes/SpawnHatch.tscn" id="14_pt3ps"]
@@ -65,111 +65,111 @@ var _last_arena: int = -1
 var _transitioning: bool = false
 
 func _ready() -> void:
-\t# TransitionLayer yra atskiras CanvasLayer su layer=128 (virš visko)
-\t# Jis jau pridedamas tscn faile kaip [node name=\"TransitionLayer\"]
-\tvar tl = get_node_or_null(\"TransitionLayer\")
-\tif tl:
-\t\t_flash_overlay = ColorRect.new()
-\t\t_flash_overlay.color = Color(0.0, 0.0, 0.0, 0.0)
-\t\t_flash_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-\t\t_flash_overlay.set_anchors_preset(15)
-\t\ttl.add_child(_flash_overlay)
+	# TransitionLayer yra atskiras CanvasLayer su layer=128 (virš visko)
+	# Jis jau pridedamas tscn faile kaip [node name=\"TransitionLayer\"]
+	var tl = get_node_or_null(\"TransitionLayer\")
+	if tl:
+		_flash_overlay = ColorRect.new()
+		_flash_overlay.color = Color(0.0, 0.0, 0.0, 0.0)
+		_flash_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		_flash_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+		tl.add_child(_flash_overlay)
 
-\tif music_arena == null and music_player:
-\t\tmusic_arena = music_player.stream
-\t\t_configure_music_loop(music_arena)
-\telif music_player:
-\t\t_configure_music_loop(music_player.stream)
-\t\tif music_player.stream and not music_player.playing:
-\t\t\tmusic_player.play()
+	if music_arena == null and music_player:
+		music_arena = music_player.stream
+		_configure_music_loop(music_arena)
+	elif music_player:
+		_configure_music_loop(music_player.stream)
+		if music_player.stream and not music_player.playing:
+			music_player.play()
 
-\tif Global.load_save:
-\t\tplayer.load_player_data()
-\t\twave_manager.first_load_wave_data()
-\t\t_on_wave_started(wave_manager.current_wavelvl)
+	if Global.load_save:
+		player.load_player_data()
+		wave_manager.first_load_wave_data()
+		_on_wave_started(wave_manager.current_wavelvl)
 
-\twave_manager.wave_started.connect(_on_wave_started)
+	wave_manager.wave_started.connect(_on_wave_started)
 
 func _get_arena_index(wave_number: int) -> int:
-\tif wave_number < 24:
-\t\treturn 1
-\telif wave_number < 34:
-\t\treturn 2
-\telif wave_number < 49:
-\t\treturn 3
-\telse:
-\t\treturn 4
+	if wave_number < 24:
+		return 1
+	elif wave_number < 34:
+		return 2
+	elif wave_number < 49:
+		return 3
+	else:
+		return 4
 
 func _on_wave_started(wave_number: int) -> void:
-\tvar arena_idx = _get_arena_index(wave_number)
-\tif arena_idx != _last_arena and _last_arena != -1 and not _transitioning:
-\t\t_do_arena_transition(wave_number, arena_idx)
-\telse:
-\t\t_swap_for_arena(wave_number, arena_idx)
-\t\t_last_arena = arena_idx
+	var arena_idx = _get_arena_index(wave_number)
+	if arena_idx != _last_arena and _last_arena != -1 and not _transitioning:
+		_do_arena_transition(wave_number, arena_idx)
+	else:
+		_swap_for_arena(wave_number, arena_idx)
+		_last_arena = arena_idx
 
 func _do_arena_transition(wave_number: int, arena_idx: int) -> void:
-\tif _flash_overlay == null:
-\t\t_swap_for_arena(wave_number, arena_idx)
-\t\t_last_arena = arena_idx
-\t\treturn
-\t_transitioning = true
-\t# Fade to black - lėtai
-\tvar tw_in = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
-\ttw_in.tween_property(_flash_overlay, \"color:a\", 1.0, 0.7)
-\tawait tw_in.finished
-\t# Swap tekstūras kol ekranas juodas
-\t_swap_for_arena(wave_number, arena_idx)
-\t_last_arena = arena_idx
-\t# Trumpa pauzė juodame ekrane
-\tawait get_tree().create_timer(0.25).timeout
-\t# Fade back - lėtai
-\tvar tw_out = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
-\ttw_out.tween_property(_flash_overlay, \"color:a\", 0.0, 0.9)
-\tawait tw_out.finished
-\t_transitioning = false
+	if _flash_overlay == null:
+		_swap_for_arena(wave_number, arena_idx)
+		_last_arena = arena_idx
+		return
+	_transitioning = true
+	# Fade to black - lėtai
+	var tw_in = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	tw_in.tween_property(_flash_overlay, \"color:a\", 1.0, 0.7)
+	await tw_in.finished
+	# Swap tekstūras kol ekranas juodas
+	_swap_for_arena(wave_number, arena_idx)
+	_last_arena = arena_idx
+	# Trumpa pauzė juodame ekrane
+	await get_tree().create_timer(0.25).timeout
+	# Fade back - lėtai
+	var tw_out = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	tw_out.tween_property(_flash_overlay, \"color:a\", 0.0, 0.9)
+	await tw_out.finished
+	_transitioning = false
 
-func _swap_for_arena(wave_number: int, arena_idx: int) -> void:
-\tmatch arena_idx:
-\t\t1:
-\t\t\tswap_textures(floor_png_1, deco_png_1)
-\t\t\t_set_music(music_arena)
-\t\t2:
-\t\t\tswap_textures(floor_png_2, deco_png_2)
-\t\t\t_set_music(music_winter)
-\t\t3:
-\t\t\tswap_textures(floor_png_3, deco_png_3)
-\t\t\t_set_music(music_jungle)
-\t\t4:
-\t\t\tswap_textures(floor_png_4, deco_png_4)
-\t\t\t_set_music(music_hell)
+func _swap_for_arena(_wave_number: int, arena_idx: int) -> void:
+	match arena_idx:
+		1:
+			swap_textures(floor_png_1, deco_png_1)
+			_set_music(music_arena)
+		2:
+			swap_textures(floor_png_2, deco_png_2)
+			_set_music(music_winter)
+		3:
+			swap_textures(floor_png_3, deco_png_3)
+			_set_music(music_jungle)
+		4:
+			swap_textures(floor_png_4, deco_png_4)
+			_set_music(music_hell)
 
 func _set_music(stream: AudioStream) -> void:
-\tif not music_player or stream == null:
-\t\treturn
-\t_configure_music_loop(stream)
-\tif music_player.stream != stream:
-\t\tmusic_player.stream = stream
-\tmusic_player.stop()
-\tmusic_player.play(0.0)
+	if not music_player or stream == null:
+		return
+	_configure_music_loop(stream)
+	if music_player.stream != stream:
+		music_player.stream = stream
+	music_player.stop()
+	music_player.play(0.0)
 
 func _configure_music_loop(stream: AudioStream) -> void:
-\tif stream.has_method(\"set_loop\"):
-\t\tstream.set_loop(true)
-\tif stream.has_method(\"set_loop_mode\"):
-\t\tstream.set_loop_mode(AudioStreamWAV.LOOP_FORWARD)
+	if stream.has_method(\"set_loop\"):
+		stream.set_loop(true)
+	if stream.has_method(\"set_loop_mode\"):
+		stream.set_loop_mode(AudioStreamWAV.LOOP_FORWARD)
 
 func swap_textures(new_floor: Texture2D, new_deco: Texture2D) -> void:
-\tif new_floor == null or new_deco == null:
-\t\treturn
-\tif floor_layer.tile_set:
-\t\tvar source = floor_layer.tile_set.get_source(0)
-\t\tif source is TileSetAtlasSource:
-\t\t\tsource.texture = new_floor
-\tif deco_layer.tile_set:
-\t\tvar source = deco_layer.tile_set.get_source(0)
-\t\tif source is TileSetAtlasSource:
-\t\t\tsource.texture = new_deco
+	if new_floor == null or new_deco == null:
+		return
+	if floor_layer.tile_set:
+		var source = floor_layer.tile_set.get_source(0)
+		if source is TileSetAtlasSource:
+			source.texture = new_floor
+	if deco_layer.tile_set:
+		var source = deco_layer.tile_set.get_source(0)
+		if source is TileSetAtlasSource:
+			source.texture = new_deco
 "
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5v1tr"]
@@ -413,9 +413,9 @@ deco_png_3 = ExtResource("6_dt0r1")
 floor_png_4 = ExtResource("4_pm21f")
 deco_png_4 = ExtResource("7_i7141")
 
-
-[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=9998877661]
+[node name="TransitionLayer" type="CanvasLayer" parent="." unique_id=1408943069]
 layer = 128
+
 [node name="Player" parent="." unique_id=1217288821 instance=ExtResource("1_5a7ea")]
 z_index = 3
 position = Vector2(940, 510)

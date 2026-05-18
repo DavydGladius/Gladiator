@@ -63,7 +63,7 @@ func _on_end_button_pressed() -> void:
 		var black = ColorRect.new()
 		black.color = Color(0, 0, 0, 0)
 		black.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		black.set_anchors_preset(15)
+		black.set_anchors_preset(Control.PRESET_FULL_RECT)
 		tl.add_child(black)
 		var tw = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
 		tw.tween_property(black, "color:a", 1.0, 0.45)
