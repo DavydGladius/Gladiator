@@ -1,12 +1,14 @@
 extends Panel
 
-signal closed 
+signal closed
 
 @onready var keybinds_box: VBoxContainer = $CenterContainer/InnerPanel/Scroll/VBoxLayout/KeybindsBox
 @onready var keybind_warning: Label = $CenterContainer/InnerPanel/Scroll/VBoxLayout/KeybindWarning
 
 var _listening_action: String = ""
 var _listening_button: Button = null
+
+const ANIM_DUR := 0.35
 
 const ACTION_LABELS = {
 	"up": "Move Up",
@@ -16,30 +18,26 @@ const ACTION_LABELS = {
 	"bomb": "Bomb"
 }
 
-const ACTION_ORDER = [
-	"up",
-	"down",
-	"left",
-	"right",
-	"bomb"
-]
+const ACTION_ORDER = ["up", "down", "left", "right", "bomb"]
 
-const MODIFIER_KEYS = [
-	KEY_SHIFT,
-	KEY_CTRL,
-	KEY_ALT,
-	KEY_META,
-	KEY_CAPSLOCK
-]
+const MODIFIER_KEYS = [KEY_SHIFT, KEY_CTRL, KEY_ALT, KEY_META, KEY_CAPSLOCK]
 
 func _ready() -> void:
+	modulate.a = 0.0
 	_build_keybind_rows()
+
+# Iškviečiama išorės (main_menu, pause_menu) kai nori animuotai uždaryti.
+# Grąžina Tween kad galėtum await, tada emit closed.
+func hide_animated() -> Tween:
+	var tw = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(self, "modulate:a", 0.0, ANIM_DUR)
+	tw.tween_callback(hide)
+	return tw
 
 func _on_back_pressed() -> void:
 	AudioManager.play_click()
-	
-	self.hide()
-	
+	var tw = hide_animated()
+	await tw.finished
 	closed.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
