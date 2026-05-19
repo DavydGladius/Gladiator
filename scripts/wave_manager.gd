@@ -16,6 +16,7 @@ var grace_timer: Timer
 var progress_bar: ProgressBar
 var wave_label: Label
 
+var bonus_spawn_per_timer: int = 1
 var enemies_to_spawn_this_wave: int = 0 
 var mini_bosses_to_spawn: int = 0          
 var mini_bosses_spawned: int = 0
@@ -68,6 +69,8 @@ func start_next_wave():
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
 	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("open")
 	current_wavelvl += 1
+	if current_wavelvl > 10:
+		bonus_spawn_per_timer = floor(current_wavelvl/10 + 1)
 	_heal_players()
 	_run_spawning_logic()
 
@@ -122,11 +125,11 @@ func stop_wave():
 func _spawn_enemy():
 	# 1. Pirmiausia spawniname paprastus priešus
 	if total_spawned < enemies_to_spawn_this_wave:
-		_instantiate_enemy(false,current_wavelvl)
-		total_spawned += 1
+		_instantiate_enemy(false,current_wavelvl, bonus_spawn_per_timer)
+		total_spawned += 1 + bonus_spawn_per_timer
 	# 2. Kai paprasti baigiasi, spawniname bosus
 	elif mini_bosses_spawned < mini_bosses_to_spawn:
-		_instantiate_enemy(true,current_wavelvl)
+		_instantiate_enemy(true,current_wavelvl, bonus_spawn_per_timer)
 		mini_bosses_spawned += 1
 	# 3. Kai viskas baigta - uždarom vartus
 	else:
@@ -135,14 +138,17 @@ func _spawn_enemy():
 		$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
 
-func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int):
+func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int,BatchSpawn:int):
 	var enemywaveBoost = WaveLvl*log(WaveLvl)
 	print(enemywaveBoost)
 	var scene = sword_enemy_scene if (total_spawned % 2 == 1) else enemy_scene
-	var enemy = scene.instantiate()
-	enemy.add_to_group("enemies")
+	var spawn_points = ["../EnemySpawn/EnemySpawnDoor", "../EnemySpawn/EnemySpawnHatch"]
+	var spawn_pos = get_node_or_null(spawn_points[randi() % spawn_points.size()])
+	
 
 	if is_mini_boss:
+		var enemy = scene.instantiate()
+		enemy.add_to_group("enemies")
 		enemy.scale = Vector2(1.6, 1.6)
 		var health_vars = ["health", "hp", "max_health", "current_health"]
 		for v in health_vars:
@@ -153,20 +159,21 @@ func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int):
 		if "money_drop" in enemy:
 			enemy.money_drop = 5
 		enemy.modulate = Color(1.5, 0.5, 0.5)
-	#print("Original dmg: "+enemy.contact_damage)
-	#print("Original health: "+enemy.max_health)
-	#print("Original MovSeed: "+enemy.movement_speed)
-	enemy.contact_damage += enemywaveBoost/2
-	enemy.max_health += enemywaveBoost
-	enemy.movement_speed += enemywaveBoost/4
-	#print("ChangedByWaveLvl dmg : "+enemy.contact_damage)
-	#print("ChangedByWaveLvl health: "+enemy.max_health)
-	#print("ChangedByWaveLvl enemy MovSeed: "+enemy.movement_speed)
-	var spawn_points = ["../EnemySpawn/EnemySpawnDoor", "../EnemySpawn/EnemySpawnHatch"]
-	var spawn_pos = get_node_or_null(spawn_points[randi() % spawn_points.size()])
-	enemy.global_position = spawn_pos.global_position if spawn_pos else global_position
-	
-	get_tree().current_scene.add_child(enemy)
+		enemy.global_position = spawn_pos.global_position if spawn_pos else global_position
+		get_tree().current_scene.add_child(enemy)
+		return
+	for i in range(BatchSpawn):
+		var enemy = scene.instantiate()
+		enemy.add_to_group("enemies")
+		enemy.contact_damage += enemywaveBoost/4
+		enemy.max_health += enemywaveBoost
+		enemy.movement_speed += enemywaveBoost/4
+		var random_offset = Vector2(
+			randf_range(-40, 40), # x
+			randf_range(40, 60) # y
+		)
+		enemy.global_position = spawn_pos.global_position+random_offset if spawn_pos else global_position+random_offset
+		get_tree().current_scene.add_child(enemy)
 	
 func _heal_players():
 	var players = get_tree().get_nodes_in_group("player")
