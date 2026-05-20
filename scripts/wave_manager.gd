@@ -67,7 +67,9 @@ func start_next_wave():
 	grace_time_remaining = 0.0
 	grace_timer.wait_time = grace_period
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
-	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch1/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch2/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch3/AnimatedSprite2D".play("open")
 	current_wavelvl += 1
 	if current_wavelvl > 10:
 		bonus_spawn_per_timer = floor(current_wavelvl/10 + 1)
@@ -79,7 +81,9 @@ func restart_current_wave():
 	stop_wave()
 	clear_enemies()
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("open")
-	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch1/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch2/AnimatedSprite2D".play("open")
+	$"../SpawnGate/SpawnHatch3/AnimatedSprite2D".play("open")
 	_heal_players()
 	_run_spawning_logic()
 
@@ -117,7 +121,9 @@ func _run_spawning_logic():
 func stop_wave():
 	spawn_timer.stop()
 	$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
-	$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("close")
+	$"../SpawnGate/SpawnHatch1/AnimatedSprite2D".play("close")
+	$"../SpawnGate/SpawnHatch2/AnimatedSprite2D".play("close")
+	$"../SpawnGate/SpawnHatch3/AnimatedSprite2D".play("close")
 	if not grace_timer.is_stopped():
 		grace_time_remaining = grace_timer.time_left
 	grace_timer.stop()
@@ -135,14 +141,21 @@ func _spawn_enemy():
 	else:
 		spawn_timer.stop()
 		$"../SpawnGate/SpawnGateTop/AnimatedSprite2D".play("close")
-		$"../SpawnGate/SpawnHatch/AnimatedSprite2D".play("close")
+		$"../SpawnGate/SpawnHatch1/AnimatedSprite2D".play("close")
+		$"../SpawnGate/SpawnHatch2/AnimatedSprite2D".play("close")
+		$"../SpawnGate/SpawnHatch3/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
 
 func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int,BatchSpawn:int):
 	var enemywaveBoost = WaveLvl*log(WaveLvl)
 	print(enemywaveBoost)
 	var scene = sword_enemy_scene if (total_spawned % 2 == 1) else enemy_scene
-	var spawn_points = ["../EnemySpawn/EnemySpawnDoor", "../EnemySpawn/EnemySpawnHatch"]
+	var spawn_points = [
+	"../EnemySpawn/EnemySpawnDoor",
+	"../EnemySpawn/EnemySpawnHatch1",
+	"../EnemySpawn/EnemySpawnHatch2",
+    "../EnemySpawn/EnemySpawnHatch3"
+]
 	var spawn_pos = get_node_or_null(spawn_points[randi() % spawn_points.size()])
 	
 
@@ -169,8 +182,8 @@ func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int,BatchSpawn:int):
 		enemy.max_health += enemywaveBoost
 		enemy.movement_speed += enemywaveBoost/4
 		var random_offset = Vector2(
-			randf_range(-40, 40), # x
-			randf_range(40, 60) # y
+			randf_range(-15, 15), # x
+			randf_range(-15, 15) # y
 		)
 		enemy.global_position = spawn_pos.global_position+random_offset if spawn_pos else global_position+random_offset
 		get_tree().current_scene.add_child(enemy)
