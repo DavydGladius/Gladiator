@@ -146,18 +146,19 @@ func _spawn_enemy():
 		$"../SpawnGate/SpawnHatch3/AnimatedSprite2D".play("close")
 		wave_finished_spawning = true
 
-func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int,BatchSpawn:int):
-	var enemywaveBoost = WaveLvl*log(WaveLvl)
-	print(enemywaveBoost)
+func _instantiate_enemy(is_mini_boss: bool, WaveLvl: int, BatchSpawn: int):
+	var enemywaveBoost = WaveLvl * log(WaveLvl)
+	var tier = floor(current_wavelvl / 5.0)
+	var tier_multiplier = 1.0 + (tier * 0.25)
+	
 	var scene = sword_enemy_scene if (total_spawned % 2 == 1) else enemy_scene
 	var spawn_points = [
-	"../EnemySpawn/EnemySpawnDoor",
-	"../EnemySpawn/EnemySpawnHatch1",
-	"../EnemySpawn/EnemySpawnHatch2",
-    "../EnemySpawn/EnemySpawnHatch3"
-]
+		"../EnemySpawn/EnemySpawnDoor",
+		"../EnemySpawn/EnemySpawnHatch1",
+		"../EnemySpawn/EnemySpawnHatch2",
+		"../EnemySpawn/EnemySpawnHatch3"
+	]
 	var spawn_pos = get_node_or_null(spawn_points[randi() % spawn_points.size()])
-	
 
 	if is_mini_boss:
 		var enemy = scene.instantiate()
@@ -166,26 +167,25 @@ func _instantiate_enemy(is_mini_boss: bool,WaveLvl:int,BatchSpawn:int):
 		var health_vars = ["health", "hp", "max_health", "current_health"]
 		for v in health_vars:
 			if v in enemy:
-				enemy.set(v, enemy.get(v) * 3.0)
+				enemy.set(v, enemy.get(v) * 3.0 * tier_multiplier)
 		if "damage" in enemy:
-			enemy.damage *= 1.5
+			enemy.damage *= 1.5 * tier_multiplier
 		if "money_drop" in enemy:
 			enemy.money_drop = 5
 		enemy.modulate = Color(1.5, 0.5, 0.5)
 		enemy.global_position = spawn_pos.global_position if spawn_pos else global_position
 		get_tree().current_scene.add_child(enemy)
 		return
-	for i in range(BatchSpawn):
+
+	for i in range(max(1, BatchSpawn)):
 		var enemy = scene.instantiate()
 		enemy.add_to_group("enemies")
-		enemy.contact_damage += enemywaveBoost/4
-		enemy.max_health += enemywaveBoost
-		enemy.movement_speed += enemywaveBoost/4
-		var random_offset = Vector2(
-			randf_range(-15, 15), # x
-			randf_range(-15, 15) # y
-		)
-		enemy.global_position = spawn_pos.global_position+random_offset if spawn_pos else global_position+random_offset
+		enemy.contact_damage += (enemywaveBoost / 4) * tier_multiplier
+		enemy.max_health += enemywaveBoost * tier_multiplier
+		enemy.movement_speed = min(enemy.movement_speed + (enemywaveBoost / 4) * tier_multiplier, 200.0)
+		
+		var random_offset = Vector2(randf_range(-15, 15), randf_range(-15, 15))
+		enemy.global_position = spawn_pos.global_position + random_offset if spawn_pos else global_position + random_offset
 		get_tree().current_scene.add_child(enemy)
 	
 func _heal_players():

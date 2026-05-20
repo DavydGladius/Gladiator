@@ -517,7 +517,7 @@ scale = Vector2(0.05, 0.05)
 position = Vector2(1167, 531)
 
 [node name="EnemySpawnDoor" type="Node2D" parent="EnemySpawn" unique_id=293532922]
-position = Vector2(-8, -210)
+position = Vector2(-9, -204)
 
 [node name="EnemySpawnHatch1" type="Node2D" parent="EnemySpawn" unique_id=310847166]
 position = Vector2(88, 100)
